@@ -1,5 +1,5 @@
 windows vm:https://nexus-np.his5.com/
-ssh -L 31998:10.4.135.41:31998 feiliu@20.247.114.171
+ssh  -L 31998:nexus-np.his5.com:80 feiliu@20.247.114.171
 Account:admin
 Password:789456
 ApiKey:808dbb2c-557a-30ba-ab2c-c78b2941f7f9
