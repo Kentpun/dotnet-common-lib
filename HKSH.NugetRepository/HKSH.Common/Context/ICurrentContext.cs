@@ -1,6 +1,6 @@
 ﻿using HKSH.Common.Repository.Database;
 
-namespace ABI.ArtWork.Common
+namespace HKSH.Common
 {
     /// <summary>
     /// ICurrentContext

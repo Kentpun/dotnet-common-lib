@@ -1,5 +1,4 @@
-﻿using ABI.ArtWork.Common;
-using DotNetCore.CAP;
+﻿using DotNetCore.CAP;
 using HKSH.Common.Constants;
 
 namespace HKSH.Common.Cap

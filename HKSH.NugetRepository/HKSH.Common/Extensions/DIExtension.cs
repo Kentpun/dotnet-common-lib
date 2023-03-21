@@ -1,7 +1,7 @@
 ﻿using HKSH.Common.Repository.Database;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ABI.ArtWork.Common
+namespace HKSH.Common
 {
     /// <summary>
     /// DIExtension
