@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -43,6 +43,22 @@
     <PackageReference Include="WebApiClient.JIT" Version="1.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="RawSql.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RawSql.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="RawSql.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RawSql.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
