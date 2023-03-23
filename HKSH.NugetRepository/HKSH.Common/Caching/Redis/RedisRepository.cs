@@ -39,7 +39,18 @@ namespace HKSH.Common.Caching.Redis
             {
                 lock (_locker)
                 {
-                    _lazyConnection ??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(options.Value.ConnectionString));
+                    ConfigurationOptions option = new ConfigurationOptions();
+
+                    option.Password = options.Value.Password;
+
+                    options.Value.EndPoints.ForEach(endPoint =>
+                    {
+                        option.EndPoints.Add(endPoint, options.Value.Port);
+                    });
+
+                    _lazyConnection ??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(option));
+
+                    //_lazyConnection ??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(options.Value.ConnectionString));
                 }
             }
             Db = _lazyConnection.Value.GetDatabase();
