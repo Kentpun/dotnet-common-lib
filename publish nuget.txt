@@ -2,6 +2,6 @@ windows vm:https://nexus-np.his5.com/
 ssh  -L 31998:nexus-np.his5.com:80 feiliu@20.247.114.171
 Account:admin
 Password:789456
-ApiKey:808dbb2c-557a-30ba-ab2c-c78b2941f7f9
+ApiKey:e38e6dfb-af1b-3e56-b0b6-6a923bdaf2ea
 cd ../bin/Release
-dotnet nuget push -k 808dbb2c-557a-30ba-ab2c-c78b2941f7f9 -s http://localhost:31998/repository/nuget-hosted HKSH.Common.1.0.0.nupkg
+dotnet nuget push -k e38e6dfb-af1b-3e56-b0b6-6a923bdaf2ea -s http://localhost:31998/repository/nuget-hosted HKSH.Common.1.0.3.nupkg

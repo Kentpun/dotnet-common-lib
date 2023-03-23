@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>1.0.2</Version>
-    <Description>HKSH.Common Test</Description>
+    <Version>1.0.3</Version>
+    <Description>Add NLog Support</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 
@@ -33,6 +33,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog.Database" Version="5.1.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.2.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.2" />
     <PackageReference Include="RestSharp" Version="109.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="109.0.1" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
