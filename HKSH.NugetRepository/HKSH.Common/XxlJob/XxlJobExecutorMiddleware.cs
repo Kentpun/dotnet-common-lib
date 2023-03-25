@@ -44,13 +44,13 @@ namespace HKSH.Common.XxlJob
         {
             string? contentType = context.Request.ContentType;
 
-            //if ("POST".Equals(context.Request.Method, StringComparison.OrdinalIgnoreCase)
-            //    && !string.IsNullOrEmpty(contentType)
-            //    && contentType.ToLower().StartsWith("application/json"))
-            //{
-            //    await _rpcService.HandlerAsync(context.Request, context.Response);
-            //    return;
-            //}
+            if ("POST".Equals(context.Request.Method, StringComparison.OrdinalIgnoreCase)
+                && !string.IsNullOrEmpty(contentType)
+                && contentType.ToLower().StartsWith("application/json"))
+            {
+                await _rpcService.HandlerAsync(context.Request, context.Response);
+                return;
+            }
 
             await _next.Invoke(context);
         }
