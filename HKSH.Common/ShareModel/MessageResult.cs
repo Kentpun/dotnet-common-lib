@@ -20,13 +20,14 @@
         /// <param name="data">The data.</param>
         /// <param name="messageModel">The message model.</param>
         /// <returns></returns>
-        public static MessageResult<T> SuccessResult(T? data = default, string? message = "")
+        public static MessageResult<T> SuccessResult(T? data = default, string? message = "", string? module = "")
         {
             return new MessageResult<T>
             {
                 Success = true,
                 Data = data,
-                Message = string.IsNullOrEmpty(message) ? "Operation successful" : message
+                Message = string.IsNullOrEmpty(message) ? "Operation successful" : message,
+                Module = string.IsNullOrEmpty(module) ? "System" : module
             };
         }
 
@@ -36,13 +37,14 @@
         /// <param name="messageModel">The message model.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public static MessageResult<T> FailureResult(T? data = default, string? message = "")
+        public static MessageResult<T> FailureResult(T? data = default, string? message = "", string? module = "")
         {
             return new MessageResult<T>
             {
                 Success = false,
                 Data = data,
-                Message = string.IsNullOrEmpty(message) ? "Operation failed" : message
+                Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
+                Module = string.IsNullOrEmpty(module) ? "System" : module
             };
         }
     }
@@ -77,19 +79,22 @@
         /// </value>
         public object? Data { get; set; }
 
+        public string? Module { get; set; }
+
         /// <summary>
         /// Successes the result.
         /// </summary>
         /// <param name="data">The data.</param>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        public static MessageResult SuccessResult(object? data = default, string? message = "")
+        public static MessageResult SuccessResult(object? data = default, string? message = "", string? module = "")
         {
             return new MessageResult
             {
                 Success = true,
                 Data = data,
-                Message = string.IsNullOrEmpty(message) ? "Operation successful" : message
+                Message = string.IsNullOrEmpty(message) ? "Operation successful" : message,
+                Module = string.IsNullOrEmpty(module) ? "System" : module
             };
         }
 
@@ -98,12 +103,13 @@
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        public static MessageResult FailureResult(string? message = "")
+        public static MessageResult FailureResult(string? message = "", string? module = "")
         {
             return new MessageResult
             {
                 Success = false,
-                Message = string.IsNullOrEmpty(message) ? "Operation failed" : message
+                Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
+                Module = string.IsNullOrEmpty(module) ? "System" : module
             };
         }
     }
