@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>1.1.5</Version>
+    <Version>1.1.6</Version>
     <Description>Upgrade MessageResult5</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
