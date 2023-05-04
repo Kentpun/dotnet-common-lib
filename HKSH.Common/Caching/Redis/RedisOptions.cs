@@ -32,6 +32,5 @@
         /// ConnectionString
         /// </summary>
         public string? ConnectionString { get; set; }
-
     }
 }

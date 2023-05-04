@@ -26,11 +26,14 @@ namespace HKSH.Common.ServiceInvoker
         /// <typeparam name="TInterface">The type of the interface.</typeparam>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
-        public TInterface CreateInvoker<TInterface>() where TInterface : class, IHttpApi
+        public TInterface CreateInvoker<TInterface>(string? hostPrefix = "") where TInterface : class, IHttpApi
         {
             var factory = new HttpApiFactory(typeof(TInterface));
             factory.ConfigureHttpApiConfig(options =>
             {
+                //重新拼接HttpHost
+                options.HttpHost = string.IsNullOrEmpty(hostPrefix) ? options.HttpHost : new Uri($"{hostPrefix}{options.HttpHost.Host}");
+
                 //Add token
                 var headers = _httpContextAccessor.HttpContext?.Request.Headers;
 
@@ -55,11 +58,14 @@ namespace HKSH.Common.ServiceInvoker
         /// <param name="header">The header.</param>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
-        public TInterface CreateInvoker<TInterface>(IHeaderDictionary header) where TInterface : class, IHttpApi
+        public TInterface CreateInvoker<TInterface>(IHeaderDictionary header, string? hostPrefix = "") where TInterface : class, IHttpApi
         {
             var factory = new HttpApiFactory(typeof(TInterface));
             factory.ConfigureHttpApiConfig(options =>
             {
+                //重新拼接HttpHost
+                options.HttpHost = string.IsNullOrEmpty(hostPrefix) ? options.HttpHost : new Uri($"{hostPrefix}{options.HttpHost.Host}");
+
                 //Add token
                 var headers = _httpContextAccessor.HttpContext?.Request.Headers;
 
