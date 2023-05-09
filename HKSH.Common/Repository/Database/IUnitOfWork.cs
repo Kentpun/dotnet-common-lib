@@ -18,7 +18,7 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(CancellationToken token = default(CancellationToken));
+        Task<int> SaveChangesAsync();
 
         /// <summary>
         /// do save

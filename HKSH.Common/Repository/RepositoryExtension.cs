@@ -22,19 +22,5 @@ namespace HKSH.Common.Repository
 
             return services;
         }
-
-        /// <summary>
-        /// Add db and inject repository and unitofwork
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddBasicDatabase(this IServiceCollection services)
-        {
-            services.AddTransient<IBasicUnitOfWork, BasicUnitOfWork>();
-            services.AddTransient(typeof(IBasicRepository<>), typeof(BasicRepository<>));
-
-            return services;
-        }
     }
 }

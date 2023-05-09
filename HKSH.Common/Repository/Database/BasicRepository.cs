@@ -1,9 +1,5 @@
-﻿using HKSH.Common.Auditing;
-using HKSH.Common.Auditing.Extensions;
-using HKSH.Common.Base;
+﻿using HKSH.Common.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -17,7 +13,6 @@ namespace HKSH.Common.Repository.Database
         private readonly DbContext _dbContext;
         private string? _currentUserId;
         private readonly IRepositoryCurrentContext _currentContext;
-        private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
         /// The database set
@@ -25,21 +20,18 @@ namespace HKSH.Common.Repository.Database
         private readonly DbSet<T> _dbSet;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Repository{T}"/> class.
+        /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
-        /// <param name="currentContext">The current user id.</param>
-        public BasicRepository(IBasicDbContext dbContext,
-            IRepositoryCurrentContext currentContext,
-            IServiceProvider serviceProvider)
+        /// <param name="currentContext">The current context.</param>
+        public BasicRepository(IBasicDbContext dbContext, IRepositoryCurrentContext currentContext)
         {
             _dbContext = dbContext as DbContext;
             _currentContext = currentContext;
             _dbSet = _dbContext.Set<T>();
-            _serviceProvider = serviceProvider;
         }
 
-        public string CurrentUserId
+        public string? CurrentUserId
         {
             get
             {
@@ -64,7 +56,7 @@ namespace HKSH.Common.Repository.Database
                 tracker.ModifiedAt = DateTime.UtcNow;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
-                    tracker.CreatedBy = CurrentUserId;
+                    tracker.CreatedBy = CurrentUserId ?? string.Empty;
                     tracker.ModifiedBy = CurrentUserId;
                 }
             }
@@ -180,29 +172,13 @@ namespace HKSH.Common.Repository.Database
         /// Saves the changes.
         /// </summary>
         /// <returns></returns>
-        public int SaveChanges()
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<AuditingOptions>>();
-            if (dbLogSettings?.Value?.EnableAuditing == true)
-            {
-                _dbContext.ApplyAuditingHistory();
-            }
-            return _dbContext.SaveChanges();
-        }
+        public int SaveChanges() => _dbContext.SaveChanges();
 
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync()
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<AuditingOptions>>();
-            if (dbLogSettings?.Value?.EnableAuditing == true)
-            {
-                _dbContext.ApplyAuditingHistory();
-            }
-            return _dbContext.SaveChangesAsync();
-        }
+        public Task<int> SaveChangesAsync() => _dbContext.SaveChangesAsync();
 
         /// <summary>
         /// Gets the entities.

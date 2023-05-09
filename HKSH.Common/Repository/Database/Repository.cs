@@ -1,6 +1,4 @@
-﻿using HKSH.Common.Auditing;
-using HKSH.Common.Auditing.Extensions;
-using HKSH.Common.Base;
+﻿using HKSH.Common.Base;
 using HKSH.Common.Extensions;
 using HKSH.Common.Resources;
 using Microsoft.Data.SqlClient;
@@ -8,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -223,29 +220,13 @@ namespace HKSH.Common.Repository.Database
         /// Saves the changes.
         /// </summary>
         /// <returns></returns>
-        public int SaveChanges()
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<AuditingOptions>>();
-            if (dbLogSettings?.Value?.EnableAuditing == true)
-            {
-                _dbContext.ApplyAuditingHistory();
-            }
-            return _dbContext.SaveChanges();
-        }
+        public int SaveChanges() => _dbContext.SaveChanges();
 
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync()
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<AuditingOptions>>();
-            if (dbLogSettings?.Value?.EnableAuditing == true)
-            {
-                _dbContext.ApplyAuditingHistory();
-            }
-            return _dbContext.SaveChangesAsync();
-        }
+        public Task<int> SaveChangesAsync() => _dbContext.SaveChangesAsync();
 
         /// <summary>
         /// Gets the entities.

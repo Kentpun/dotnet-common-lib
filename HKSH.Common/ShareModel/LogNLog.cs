@@ -1,5 +1,4 @@
 ﻿using HKSH.Common.Attributes;
-using HKSH.Common.Auditing.Attributes;
 using HKSH.Common.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +9,6 @@ namespace HKSH.Common.ShareModel
     /// NLog
     /// </summary>
     [NoneUnifiedPrefix]
-    [ExcludeAuditing]
     public class LogNLog : BaseEntity
     {
         /// <summary>

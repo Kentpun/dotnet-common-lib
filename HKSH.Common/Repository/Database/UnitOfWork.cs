@@ -1,8 +1,4 @@
-﻿using HKSH.Common.Auditing;
-using HKSH.Common.Auditing.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace HKSH.Common.Repository.Database
@@ -58,30 +54,9 @@ namespace HKSH.Common.Repository.Database
 
         public IRepository<T> GetStore<T>() where T : class => new Repository<T>(DbContext, _currentContext, _serviceProvider);
 
-        public int SaveChanges()
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<AuditingOptions>>();
-            if (dbLogSettings?.Value?.EnableAuditing == true)
-            {
-                DbContext.ApplyAuditingHistory();
-            }
-            return DbContext.SaveChanges();
-        }
+        public int SaveChanges() => DbContext.SaveChanges();
 
-        public Task<int> SaveChangesAsync(CancellationToken token = default)
-        {
-            if (token == default)
-            {
-                token = new CancellationTokenSource(30 * 1000).Token;
-            }
-            var dbLogSettings = _serviceProvider.GetService<IOptions<AuditingOptions>>();
-            if (dbLogSettings?.Value?.EnableAuditing == true)
-            {
-                DbContext.ApplyAuditingHistory();
-            }
-
-            return DbContext.SaveChangesAsync(token);
-        }
+        public Task<int> SaveChangesAsync() => DbContext.SaveChangesAsync();
 
         public void Dispose() => DbContext?.Dispose();
     }

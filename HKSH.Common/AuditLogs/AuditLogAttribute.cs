@@ -3,7 +3,7 @@
 /// <summary>
 /// AuditLog Attribute
 /// </summary>
-/// <seealso cref="System.Attribute" />
+/// <seealso cref="Attribute" />
 [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
 public class AuditLogAttribute : Attribute
 {

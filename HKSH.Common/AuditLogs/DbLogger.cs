@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace HKSH.Common.AuditLogs;
 
@@ -11,6 +12,11 @@ public class DbLogger
     /// The database context
     /// </summary>
     private readonly DbContext _dbContext;
+
+    /// <summary>
+    /// The audit logs
+    /// </summary>
+    private readonly List<AuditLog> auditLogs = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DbLogger"/> class.
@@ -45,6 +51,21 @@ public class DbLogger
     /// <returns></returns>
     private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
     {
+        EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
+        foreach (EntityEntry item in entityEntries)
+        {
+            if (item.Entity is not IAuditLog)
+            {
+                continue;
+            }
+
+            //当前批次保存的实体的当前循环的实体
+            AuditLog? auditLog = ConstructAuditLog(item);
+            if (auditLog != null)
+            {
+                auditLogs.Add(auditLog);
+            }
+        }
     }
 
     /// <summary>
@@ -65,5 +86,29 @@ public class DbLogger
     /// <returns></returns>
     private void DbContext_SaveChangesFailed(object sender, SaveChangesFailedEventArgs e)
     {
+    }
+
+    /// <summary>
+    /// Constructs the audit log.
+    /// </summary>
+    /// <param name="entityEntry">The entity entry.</param>
+    /// <returns></returns>
+    private static AuditLog? ConstructAuditLog(EntityEntry entityEntry)
+    {
+        switch (entityEntry.State)
+        {
+            case EntityState.Added:
+                break;
+
+            case EntityState.Modified:
+                break;
+
+            case EntityState.Deleted:
+                break;
+        }
+
+        return new AuditLog
+        {
+        };
     }
 }
