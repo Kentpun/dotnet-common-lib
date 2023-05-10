@@ -1,6 +1,7 @@
 using HKSH.Common.AuditLogs;
 using HKSH.Common.AutoMapper;
 using HKSH.Common.Base;
+using HKSH.Common.Caching.Redis;
 using HKSH.Common.File;
 using HKSH.Common.RabbitMQ;
 using HKSH.Common.Repository;
@@ -254,6 +255,30 @@ public static class ServiceCollectionExtension
     }
 
     /// <summary>
+    /// Registers the redis.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration">The configuration.</param>
+    /// <returns></returns>
+    public static IServiceCollection RegisterRedis(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        services.AddRedis(options =>
+        {
+            var section = configuration.GetSection("Redis");
+            if (section != null)
+            {
+                options.UserName = section["UserName"];
+                options.Password = section["Password"];
+                options.ConnectionString = section["ConnectionString"];
+                options.Port = int.Parse(section["Port"] ?? string.Empty);
+                options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
+            }
+        });
+
+        return services;
+    }
+
+    /// <summary>
     /// Adds the service collection.
     /// </summary>
     /// <param name="builder">The builder.</param>
@@ -312,6 +337,12 @@ public static class ServiceCollectionExtension
         if (programConfigure.EnableRabbitMQ)
         {
             services.RegisterRabbitMQ(configuration);
+        }
+
+        //Redis
+        if (programConfigure.EnableRedis)
+        {
+            services.RegisterRedis(configuration);
         }
 
         //Kafka
@@ -417,6 +448,12 @@ public static class ServiceCollectionExtension
         if (programConfigure.EnableRabbitMQ)
         {
             services.RegisterRabbitMQ(configuration);
+        }
+
+        //Redis
+        if (programConfigure.EnableRedis)
+        {
+            services.RegisterRedis(configuration);
         }
 
         //Kafka

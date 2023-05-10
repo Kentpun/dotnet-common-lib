@@ -100,5 +100,13 @@
         ///   <c>true</c> if [enable XXL job]; otherwise, <c>false</c>.
         /// </value>
         public bool EnableXxlJob { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [enable redis].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable redis]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnableRedis { get; set; } = false;
     }
 }
