@@ -117,6 +117,11 @@ public static class ServiceCollectionExtension
         {
             foreach (var type in types)
             {
+                if (type.IsAbstract || type.IsInterface)
+                {
+                    continue;
+                }
+
                 services.AddTransient(type);
             }
         }
