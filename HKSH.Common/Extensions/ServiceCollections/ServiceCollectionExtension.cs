@@ -292,6 +292,9 @@ public static class ServiceCollectionExtension
         //Environment Name
         string env = builder.Environment.EnvironmentName;
 
+        //Json File
+        configuration.AddAllJsonFiles(env);
+
         //Swagger
         services.AddEndpointsApiExplorer().AddSwagger();
 
@@ -361,9 +364,6 @@ public static class ServiceCollectionExtension
             services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
             services.AddTransient<FileUploadOptions>();
         }
-
-        //Json File
-        configuration.AddAllJsonFiles(env);
 
         //Enable Cors
         if (programConfigure.EnableCors)
@@ -403,6 +403,9 @@ public static class ServiceCollectionExtension
         //Environment Name
         string env = builder.Environment.EnvironmentName;
 
+        //Json File
+        configuration.AddAllJsonFiles(env);
+
         //Swagger
         services.AddEndpointsApiExplorer().AddSwagger();
 
@@ -472,9 +475,6 @@ public static class ServiceCollectionExtension
             services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
             services.AddTransient<FileUploadOptions>();
         }
-
-        //Json File
-        configuration.AddAllJsonFiles(env);
 
         //Enable Cors
         if (programConfigure.EnableCors)

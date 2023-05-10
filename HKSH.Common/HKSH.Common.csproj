@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
     <Version>2.0.4</Version>
-    <Description>add Confluent.Kafka</Description>
+    <Description>Json File</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 
