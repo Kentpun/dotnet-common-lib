@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>2.0.3</Version>
-    <Description>Service Collection and WebApplication Support 3</Description>
+    <Version>2.0.4</Version>
+    <Description>add Confluent.Kafka</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 
@@ -20,6 +20,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Confluent.Kafka" Version="2.1.1" />
     <PackageReference Include="DotNetCore.CAP" Version="7.1.2" />
     <PackageReference Include="DotNetCore.CAP.Kafka" Version="7.1.2" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.2" />
