@@ -253,6 +253,7 @@ public static class ServiceCollectionExtension
                 options.Port = int.Parse(section["Port"] ?? string.Empty);
                 options.HostName = section["HostName"];
                 options.Enable = bool.Parse(section["Enable"] ?? "0");
+                options.EndPoints = section["EndPoints"];
             }
         });
 
