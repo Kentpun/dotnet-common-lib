@@ -204,6 +204,7 @@ public static class ServiceCollectionExtension
     {
         services.Configure<EnableAuditLogOptions>(configuration.GetSection(EnableAuditLogOptions.Section));
         services.AddTransient<EnableAuditLogOptions>();
+
         return services;
     }
 
@@ -216,7 +217,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddAuditLogStoreMongoDbSettings(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.Configure<AuditLogStoreDatabaseSettings>(configuration.GetSection(AuditLogStoreDatabaseSettings.Section));
-        services.AddSingleton<AuditLogsService>();
+       
         return services;
     }
 

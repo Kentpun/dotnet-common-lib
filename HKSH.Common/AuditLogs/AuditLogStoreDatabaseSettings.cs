@@ -25,12 +25,4 @@ public class AuditLogStoreDatabaseSettings
     /// The name of the database.
     /// </value>
     public string DatabaseName { get; set; } = null!;
-
-    /// <summary>
-    /// Gets or sets the name of the audit logs collection.
-    /// </summary>
-    /// <value>
-    /// The name of the audit logs collection.
-    /// </value>
-    public string AuditLogsCollectionName { get; set; } = null!;
 }

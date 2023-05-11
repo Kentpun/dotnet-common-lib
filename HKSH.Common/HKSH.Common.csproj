@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>2.1.0</Version>
-    <Description>Skip Abstract</Description>
+    <Version>2.1.1</Version>
+    <Description>Upgrade Audit Log</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 
