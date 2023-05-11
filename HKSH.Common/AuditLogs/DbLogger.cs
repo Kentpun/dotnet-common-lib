@@ -26,19 +26,25 @@ public class DbLogger
     private readonly List<RowAuditLog> auditLogs = new();
 
     /// <summary>
+    /// The business type
+    /// </summary>
+    private readonly string? businessType = string.Empty;
+
+    /// <summary>
     /// The cap bus
     /// </summary>
-    private readonly ICapPublisher _capBus;
+    private readonly ICapPublisher? _capBus;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DbLogger"/> class.
     /// </summary>
     /// <param name="dbContext">The database context.</param>
     /// <param name="capBus">The cap bus.</param>
-    public DbLogger(DbContext dbContext, ICapPublisher capBus)
+    public DbLogger(DbContext dbContext, ICapPublisher? capBus, string? businessType)
     {
         _dbContext = dbContext;
         _capBus = capBus;
+        this.businessType = businessType;
     }
 
     /// <summary>
@@ -96,7 +102,7 @@ public class DbLogger
         //Kafka推送消息队列
         if (auditLogs != null && auditLogs.Any())
         {
-            _capBus.Publish(CapTopic.AuditLogs, auditLogs);
+            _capBus?.Publish(CapTopic.AuditLogs, auditLogs);
         }
     }
 
@@ -116,7 +122,7 @@ public class DbLogger
     /// </summary>
     /// <param name="entityEntry">The entity entry.</param>
     /// <returns></returns>
-    private static RowAuditLog? ConstructAuditLog(EntityEntry entityEntry)
+    private RowAuditLog? ConstructAuditLog(EntityEntry entityEntry)
     {
         Type type = entityEntry.Entity.GetType();
         var entityTracker = entityEntry.Entity as IEntityTracker;
@@ -152,7 +158,7 @@ public class DbLogger
             TableId = long.Parse(currentValues["Id"]?.ToString() ?? "0"),
             Action = entityEntry.State.ToString(),
             UpdateBy = updateBy,
-            BusinessCode = "ALC.434.001",
+            BusinessCode = businessType ?? "",
             Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
             Row = JsonConvert.SerializeObject(entityEntry.Entity, serializeSettings)
         };

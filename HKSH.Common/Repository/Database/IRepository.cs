@@ -6,7 +6,7 @@ namespace HKSH.Common.Repository.Database
     /// IRepository
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="IDisposable" />
     public interface IRepository<T> : IDisposable where T : class
     {
         /// <summary>
@@ -19,6 +19,7 @@ namespace HKSH.Common.Repository.Database
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
+        /// <returns></returns>
         T AddSaveChange(T entity);
 
         /// <summary>
@@ -27,8 +28,18 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entities">The entities.</param>
         void AddRange(IEnumerable<T> entities);
 
+        /// <summary>
+        /// Adds the range save change.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <returns></returns>
         IEnumerable<T> AddRangeSaveChange(IEnumerable<T> entities);
 
+        /// <summary>
+        /// Attaches the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns></returns>
         EntityEntry<T> Attach(T entity);
 
         /// <summary>
@@ -80,10 +91,24 @@ namespace HKSH.Common.Repository.Database
         int SaveChanges();
 
         /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <returns></returns>
+        int SaveChanges(string businessType);
+
+        /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
         Task<int> SaveChangesAsync();
+
+        /// <summary>
+        /// Saves the changes asynchronous.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <returns></returns>
+        Task<int> SaveChangesAsync(string businessType);
 
         /// <summary>
         /// Gets the entities.

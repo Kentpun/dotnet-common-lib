@@ -1,4 +1,6 @@
-﻿using HKSH.Common.Base;
+﻿using DotNetCore.CAP;
+using HKSH.Common.AuditLogs;
+using HKSH.Common.Base;
 using HKSH.Common.Extensions;
 using HKSH.Common.Resources;
 using Microsoft.Data.SqlClient;
@@ -6,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -13,12 +16,27 @@ namespace HKSH.Common.Repository.Database
     /// Repository
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <seealso cref="MicroService.Repository.IRepository{T}" />
+    /// <seealso cref="IRepository&lt;T&gt;" />
     internal class Repository<T> : IRepository<T> where T : class
     {
+        /// <summary>
+        /// The database context
+        /// </summary>
         private readonly DbContext _dbContext;
+
+        /// <summary>
+        /// The current user identifier
+        /// </summary>
         private string? _currentUserId;
+
+        /// <summary>
+        /// The current context
+        /// </summary>
         private readonly IRepositoryCurrentContext _currentContext;
+
+        /// <summary>
+        /// The service provider
+        /// </summary>
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
@@ -27,10 +45,11 @@ namespace HKSH.Common.Repository.Database
         private readonly DbSet<T> _dbSet;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Repository{T}"/> class.
+        /// Initializes a new instance of the <see cref="Repository{T}" /> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
         /// <param name="currentContext">The current user id.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         public Repository(DbContext dbContext,
             IRepositoryCurrentContext currentContext,
             IServiceProvider serviceProvider)
@@ -41,6 +60,12 @@ namespace HKSH.Common.Repository.Database
             _serviceProvider = serviceProvider;
         }
 
+        /// <summary>
+        /// Gets the current user identifier.
+        /// </summary>
+        /// <value>
+        /// The current user identifier.
+        /// </value>
         public string CurrentUserId
         {
             get
@@ -75,6 +100,7 @@ namespace HKSH.Common.Repository.Database
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
+        /// <returns></returns>
         public T AddSaveChange(T entity)
         {
             var tracker = entity as IEntityTracker;
@@ -107,6 +133,7 @@ namespace HKSH.Common.Repository.Database
         /// Adds the range.
         /// </summary>
         /// <param name="entities">The entities.</param>
+        /// <returns></returns>
         public IEnumerable<T> AddRangeSaveChange(IEnumerable<T> entities)
         {
             var newItemList = new List<T>();
@@ -118,6 +145,11 @@ namespace HKSH.Common.Repository.Database
             return newItemList;
         }
 
+        /// <summary>
+        /// Attaches the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns></returns>
         public EntityEntry<T> Attach(T entity)
         {
             return _dbSet.Attach(entity);
@@ -223,10 +255,44 @@ namespace HKSH.Common.Repository.Database
         public int SaveChanges() => _dbContext.SaveChanges();
 
         /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <returns></returns>
+        public int SaveChanges(string businessType)
+        {
+            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            if (dbLogSettings?.Value?.IsEnabled == true)
+            {
+                var dbLogger = new DbLogger(_dbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
+                dbLogger.EnableDbLog();
+            }
+
+            return _dbContext.SaveChanges();
+        }
+
+        /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
         public Task<int> SaveChangesAsync() => _dbContext.SaveChangesAsync();
+
+        /// <summary>
+        /// Saves the changes asynchronous.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <returns></returns>
+        public Task<int> SaveChangesAsync(string businessType)
+        {
+            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            if (dbLogSettings?.Value?.IsEnabled == true)
+            {
+                var dbLogger = new DbLogger(_dbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
+                dbLogger.EnableDbLog();
+            }
+
+            return _dbContext.SaveChangesAsync();
+        }
 
         /// <summary>
         /// Gets the entities.
@@ -276,6 +342,13 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public IQueryable<T> FromSqlRawTrack(string sql, params object[] @params) => _dbSet.FromSqlRaw(sql, @params);
 
+        /// <summary>
+        /// Gets the next sequence number.
+        /// </summary>
+        /// <param name="dependentSymbol">The dependent symbol.</param>
+        /// <param name="startingNumber">The starting number.</param>
+        /// <param name="paddingCount">The padding count.</param>
+        /// <returns></returns>
         public virtual string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount)
         {
             var query = _dbContext.Database.SqlQuery<NextNumber>(RawSql.GetNextSequenceNumber,
@@ -284,13 +357,13 @@ namespace HKSH.Common.Repository.Database
                 new SqlParameter("@StartingNumber", startingNumber),
                 new SqlParameter("@PaddingCount", paddingCount));
 
-            var lastNumber = query.FirstOrDefault().NextSymbol;
+            var lastNumber = query?.FirstOrDefault()?.NextSymbol;
 
             #region Temp log to watch project number
 
             var logger = _serviceProvider.GetService<ILogger<Repository<T>>>();
-            logger.LogInformation("GetNextSequenceNumber-NextSymbol:{0}", lastNumber);
-            logger.LogInformation("GetNextSequenceNumber-Database:{0}", _dbContext.Database.GetConnectionString());
+            logger?.LogInformation("GetNextSequenceNumber-NextSymbol:{0}", lastNumber);
+            logger?.LogInformation("GetNextSequenceNumber-Database:{0}", _dbContext.Database.GetConnectionString());
 
             #endregion Temp log to watch project number
 
@@ -302,10 +375,7 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         public void Dispose()
         {
-            if (_dbContext != null)
-            {
-                _dbContext.Dispose();
-            }
+            _dbContext?.Dispose();
         }
     }
 }
