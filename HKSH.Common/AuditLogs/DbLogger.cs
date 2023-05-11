@@ -1,5 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DotNetCore.CAP;
+using HKSH.Common.AuditLogs.Models;
+using HKSH.Common.Base;
+using HKSH.Common.Constants;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 
 namespace HKSH.Common.AuditLogs;
 
@@ -16,15 +23,22 @@ public class DbLogger
     /// <summary>
     /// The audit logs
     /// </summary>
-    private readonly List<AuditLog> auditLogs = new();
+    private readonly List<RowAuditLog> auditLogs = new();
+
+    /// <summary>
+    /// The cap bus
+    /// </summary>
+    private readonly ICapPublisher _capBus;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DbLogger"/> class.
     /// </summary>
     /// <param name="dbContext">The database context.</param>
-    public DbLogger(DbContext dbContext)
+    /// <param name="capBus">The cap bus.</param>
+    public DbLogger(DbContext dbContext, ICapPublisher capBus)
     {
         _dbContext = dbContext;
+        _capBus = capBus;
     }
 
     /// <summary>
@@ -51,21 +65,7 @@ public class DbLogger
     /// <returns></returns>
     private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
     {
-        EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
-        foreach (EntityEntry item in entityEntries)
-        {
-            if (item.Entity is not IAuditLog)
-            {
-                continue;
-            }
-
-            //当前批次保存的实体的当前循环的实体
-            AuditLog? auditLog = ConstructAuditLog(item);
-            if (auditLog != null)
-            {
-                auditLogs.Add(auditLog);
-            }
-        }
+      
     }
 
     /// <summary>
@@ -76,6 +76,28 @@ public class DbLogger
     /// <returns></returns>
     private void DbContext_SavedChanges(object sender, SavedChangesEventArgs e)
     {
+        EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
+        foreach (EntityEntry item in entityEntries)
+        {
+            //有标记的才会记录审计日志
+            if (item.Entity is not IAuditLog)
+            {
+                continue;
+            }
+
+            //构造审计日志
+            RowAuditLog? auditLog = ConstructAuditLog(item);
+            if (auditLog != null)
+            {
+                auditLogs.Add(auditLog);
+            }
+        }
+
+        //Kafka推送消息队列
+        if (auditLogs != null && auditLogs.Any())
+        {
+            _capBus.Publish(CapTopic.AuditLogs, auditLogs);
+        }
     }
 
     /// <summary>
@@ -86,6 +108,7 @@ public class DbLogger
     /// <returns></returns>
     private void DbContext_SaveChangesFailed(object sender, SaveChangesFailedEventArgs e)
     {
+
     }
 
     /// <summary>
@@ -93,22 +116,49 @@ public class DbLogger
     /// </summary>
     /// <param name="entityEntry">The entity entry.</param>
     /// <returns></returns>
-    private static AuditLog? ConstructAuditLog(EntityEntry entityEntry)
+    private static RowAuditLog? ConstructAuditLog(EntityEntry entityEntry)
     {
+        Type type = entityEntry.Entity.GetType();
+        var entityTracker = entityEntry.Entity as IEntityTracker;
+        IEnumerable<PropertyInfo> properties = type.GetProperties().Where(a => !a.CustomAttributes.Any(b => b.AttributeType == typeof(NotMappedAttribute)));
+
+        var serializeSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+        PropertyValues currentValues = entityEntry.CurrentValues;
+
+        string? updateBy = string.Empty;
         switch (entityEntry.State)
         {
-            case EntityState.Added:
+            case EntityState.Detached:
                 break;
-
-            case EntityState.Modified:
+            case EntityState.Unchanged:
                 break;
-
             case EntityState.Deleted:
+                var entityDelTracker = entityEntry.Entity as IEntityDelTracker;
+                updateBy = entityDelTracker?.DeletedBy;
+                break;
+            case EntityState.Modified:
+                updateBy = entityTracker?.ModifiedBy;
+                break;
+            case EntityState.Added:
+                updateBy = entityTracker?.CreatedBy;
+                break;
+            default:
                 break;
         }
 
-        return new AuditLog
+        var row = new RowAuditLog
         {
+            TableName = type.Name,
+            TableId = long.Parse(currentValues["Id"]?.ToString() ?? "0"),
+            Action = entityEntry.State.ToString(),
+            UpdateBy = updateBy,
+            BusinessCode = "ALC.434.001",
+            Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
+            Row = JsonConvert.SerializeObject(entityEntry.Entity, serializeSettings)
         };
+
+        Console.WriteLine("保存事件：" + JsonConvert.SerializeObject(row));
+
+        return row;
     }
 }
