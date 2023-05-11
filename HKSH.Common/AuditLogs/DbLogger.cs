@@ -127,9 +127,9 @@ public class DbLogger
         Type type = entityEntry.Entity.GetType();
         var entityTracker = entityEntry.Entity as IEntityTracker;
         IEnumerable<PropertyInfo> properties = type.GetProperties().Where(a => !a.CustomAttributes.Any(b => b.AttributeType == typeof(NotMappedAttribute)));
+        var entityIdTracker = entityEntry.Entity as IEntityIdentify<long>;
 
         var serializeSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-        PropertyValues currentValues = entityEntry.CurrentValues;
 
         string? updateBy = string.Empty;
         switch (entityEntry.State)
@@ -155,7 +155,7 @@ public class DbLogger
         var row = new RowAuditLog
         {
             TableName = type.Name,
-            TableId = long.Parse(currentValues["Id"]?.ToString() ?? "0"),
+            TableId = entityIdTracker?.Id ?? 0,
             Action = entityEntry.State.ToString(),
             UpdateBy = updateBy,
             BusinessCode = businessType ?? "",
