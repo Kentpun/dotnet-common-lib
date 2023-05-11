@@ -58,7 +58,7 @@ namespace HKSH.Common.RabbitMQ
             var options = scope.ServiceProvider.GetService<IOptionsSnapshot<RabbitMQOptions>>()?.Value;
             var factory = new ConnectionFactory()
             {
-                HostName = options?.HostName,
+                //HostName = options?.HostName,
                 UserName = options?.UserName,
                 Password = options?.Password
             };
@@ -66,7 +66,7 @@ namespace HKSH.Common.RabbitMQ
             {
                 factory.Port = options.Port;
             }
-            var connection = factory.CreateConnection();
+            var connection = factory.CreateConnection(options.EndPoints);
             IModel _channel = connection.CreateModel();
 
             _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Direct);

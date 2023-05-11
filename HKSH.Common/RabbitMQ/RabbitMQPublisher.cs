@@ -22,12 +22,12 @@ namespace HKSH.Common.RabbitMQ
         {
             var factory = new ConnectionFactory()
             {
-                HostName = options.Value.HostName,
+                //HostName = options.Value.HostName,
                 UserName = options.Value.UserName,
                 Password = options.Value.Password,
                 Port = options.Value.Port,
             };
-            var connection = factory.CreateConnection();
+            var connection = factory.CreateConnection(options.Value.EndPoints);
             Channel = connection.CreateModel();
         }
 
