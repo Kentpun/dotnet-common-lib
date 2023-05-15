@@ -85,11 +85,15 @@ public class DbLogger
         EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
         foreach (EntityEntry item in entityEntries)
         {
+            Console.WriteLine("进入循环");
+
             //有标记的才会记录审计日志
             if (item.Entity is not IAuditLog)
             {
                 continue;
             }
+
+            Console.WriteLine("当前模型可以记录日志");
 
             //构造审计日志
             RowAuditLog? auditLog = ConstructAuditLog(item);
