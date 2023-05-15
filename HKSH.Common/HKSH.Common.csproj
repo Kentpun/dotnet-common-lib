@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>2.1.6</Version>
-    <Description>Update Configure</Description>
+    <Version>2.1.7</Version>
+    <Description>Update DBLogger</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 

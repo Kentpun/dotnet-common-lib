@@ -1,6 +1,7 @@
 ﻿using DotNetCore.CAP;
 using HKSH.Common.AuditLogs;
 using HKSH.Common.Base;
+using HKSH.Common.Constants;
 using HKSH.Common.Extensions;
 using HKSH.Common.Resources;
 using Microsoft.Data.SqlClient;
@@ -45,11 +46,11 @@ namespace HKSH.Common.Repository.Database
         private readonly DbSet<T> _dbSet;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Repository{T}" /> class.
+        /// Repository
         /// </summary>
-        /// <param name="dbContext">The database context.</param>
-        /// <param name="currentContext">The current user id.</param>
-        /// <param name="serviceProvider">The service provider.</param>
+        /// <param name="dbContext"></param>
+        /// <param name="currentContext"></param>
+        /// <param name="serviceProvider"></param>
         public Repository(DbContext dbContext,
             IRepositoryCurrentContext currentContext,
             IServiceProvider serviceProvider)
@@ -265,8 +266,13 @@ namespace HKSH.Common.Repository.Database
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 Console.WriteLine("允许记录日志");
-                var dbLogger = new DbLogger(_dbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
-                dbLogger.EnableDbLog();
+                var logs = _dbContext.ApplyAuditLog(businessType);
+                if (logs.Any())
+                {
+                    var publisher = _serviceProvider.GetService<ICapPublisher>();
+                    Console.WriteLine("成功发送消息");
+                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                }
             }
 
             return _dbContext.SaveChanges();
@@ -289,8 +295,13 @@ namespace HKSH.Common.Repository.Database
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 Console.WriteLine("允许记录日志");
-                var dbLogger = new DbLogger(_dbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
-                dbLogger.EnableDbLog();
+                var logs = _dbContext.ApplyAuditLog(businessType);
+                if (logs.Any())
+                {
+                    var publisher = _serviceProvider.GetService<ICapPublisher>();
+                    Console.WriteLine("成功发送消息");
+                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                }
             }
 
             return _dbContext.SaveChangesAsync();

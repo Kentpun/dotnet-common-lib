@@ -13,76 +13,18 @@ namespace HKSH.Common.AuditLogs;
 /// <summary>
 /// DbLogger
 /// </summary>
-public class DbLogger
+public static class DbLogger
 {
     /// <summary>
-    /// The database context
+    /// Applies the audit log.
     /// </summary>
-    private readonly DbContext _dbContext;
-
-    /// <summary>
-    /// The audit logs
-    /// </summary>
-    private readonly List<RowAuditLog> auditLogs = new();
-
-    /// <summary>
-    /// The business type
-    /// </summary>
-    private readonly string? businessType = string.Empty;
-
-    /// <summary>
-    /// The cap bus
-    /// </summary>
-    private readonly ICapPublisher? _capBus;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DbLogger"/> class.
-    /// </summary>
-    /// <param name="dbContext">The database context.</param>
-    /// <param name="capBus">The cap bus.</param>
-    public DbLogger(DbContext dbContext, ICapPublisher? capBus, string? businessType)
-    {
-        _dbContext = dbContext;
-        _capBus = capBus;
-        this.businessType = businessType;
-    }
-
-    /// <summary>
-    /// Enables the database log.
-    /// </summary>
-    public void EnableDbLog()
-    {
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
-        _dbContext.SavingChanges += DbContext_SavingChanges;
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
-        _dbContext.SavedChanges += DbContext_SavedChanges;
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
-        _dbContext.SaveChangesFailed += DbContext_SaveChangesFailed;
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
-    }
-
-    /// <summary>
-    /// Handles the SavingChanges event of the DbContext control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="SavingChangesEventArgs"/> instance containing the event data.</param>
+    /// <param name="context">The context.</param>
+    /// <param name="businessType">Type of the business.</param>
     /// <returns></returns>
-    private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
+    public static List<RowAuditLog> ApplyAuditLog(this DbContext context, string? businessType = "")
     {
-      
-    }
-
-    /// <summary>
-    /// Handles the SavedChanges event of the DbContext control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="SavedChangesEventArgs"/> instance containing the event data.</param>
-    /// <returns></returns>
-    private void DbContext_SavedChanges(object sender, SavedChangesEventArgs e)
-    {
-        EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
+        var auditLogs = new List<RowAuditLog>();
+        EntityEntry[] entityEntries = context.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
         foreach (EntityEntry item in entityEntries)
         {
             Console.WriteLine("进入循环");
@@ -96,29 +38,14 @@ public class DbLogger
             Console.WriteLine("当前模型可以记录日志");
 
             //构造审计日志
-            RowAuditLog? auditLog = ConstructAuditLog(item);
+            RowAuditLog? auditLog = ConstructAuditLog(item, businessType);
             if (auditLog != null)
             {
                 auditLogs.Add(auditLog);
             }
         }
 
-        //Kafka推送消息队列
-        if (auditLogs != null && auditLogs.Any())
-        {
-            _capBus?.Publish(CapTopic.AuditLogs, auditLogs);
-        }
-    }
-
-    /// <summary>
-    /// Handles the SaveChangesFailed event of the DbContext control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="SaveChangesFailedEventArgs"/> instance containing the event data.</param>
-    /// <returns></returns>
-    private void DbContext_SaveChangesFailed(object sender, SaveChangesFailedEventArgs e)
-    {
-
+        return auditLogs;
     }
 
     /// <summary>
@@ -126,7 +53,7 @@ public class DbLogger
     /// </summary>
     /// <param name="entityEntry">The entity entry.</param>
     /// <returns></returns>
-    private RowAuditLog? ConstructAuditLog(EntityEntry entityEntry)
+    private static RowAuditLog? ConstructAuditLog(EntityEntry entityEntry, string? businessType)
     {
         Type type = entityEntry.Entity.GetType();
         var entityTracker = entityEntry.Entity as IEntityTracker;

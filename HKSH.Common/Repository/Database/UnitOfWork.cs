@@ -1,9 +1,11 @@
 ﻿using DotNetCore.CAP;
 using HKSH.Common.AuditLogs;
+using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Data;
+using System.Security.Policy;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -110,8 +112,14 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var dbLogger = new DbLogger(DbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
-                dbLogger.EnableDbLog();
+                Console.WriteLine("允许记录日志");
+                var logs = DbContext.ApplyAuditLog(businessType);
+                if (logs.Any())
+                {
+                    var publisher = _serviceProvider.GetService<ICapPublisher>();
+                    Console.WriteLine("成功发送消息");
+                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                }
             }
 
             return DbContext.SaveChanges();
@@ -133,8 +141,14 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var dbLogger = new DbLogger(DbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
-                dbLogger.EnableDbLog();
+                Console.WriteLine("允许记录日志");
+                var logs = DbContext.ApplyAuditLog(businessType);
+                if (logs.Any())
+                {
+                    var publisher = _serviceProvider.GetService<ICapPublisher>();
+                    Console.WriteLine("成功发送消息");
+                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                }
             }
 
             return DbContext.SaveChangesAsync();
