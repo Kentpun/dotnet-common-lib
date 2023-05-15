@@ -332,10 +332,7 @@ public static class ServiceCollectionExtension
         services.AddVariableOptions(configuration);
 
         //Enable AuditLog Options
-        if (programConfigure.EnableEnableAuditLog)
-        {
-            services.AddEnableAuditLogOptions(configuration);
-        }
+        services.AddEnableAuditLogOptions(configuration);
 
         //Mongo DB
         if (programConfigure.EnableMongoDB)
@@ -443,10 +440,7 @@ public static class ServiceCollectionExtension
         services.AddVariableOptions(configuration);
 
         //Enable AuditLog Options
-        if (programConfigure.EnableEnableAuditLog)
-        {
-            services.AddEnableAuditLogOptions(configuration);
-        }
+        services.AddEnableAuditLogOptions(configuration);
 
         //Mongo DB
         if (programConfigure.EnableMongoDB)

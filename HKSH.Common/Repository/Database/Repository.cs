@@ -288,6 +288,7 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
+                Console.WriteLine("允许记录日志");
                 var dbLogger = new DbLogger(_dbContext, _serviceProvider.GetService<ICapPublisher>(), businessType);
                 dbLogger.EnableDbLog();
             }

@@ -78,14 +78,6 @@
         public bool EnableElasticApm { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable enable audit log].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable enable audit log]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableEnableAuditLog { get; set; } = false;
-
-        /// <summary>
         /// Gets or sets a value indicating whether [enable rabbit mq].
         /// </summary>
         /// <value>

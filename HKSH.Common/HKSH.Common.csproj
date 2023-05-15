@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>2.1.5</Version>
-    <Description>Add Log</Description>
+    <Version>2.1.6</Version>
+    <Description>Update Configure</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 
