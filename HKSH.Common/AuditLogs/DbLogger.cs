@@ -4,6 +4,7 @@ using HKSH.Common.Base;
 using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
@@ -27,15 +28,11 @@ public static class DbLogger
         EntityEntry[] entityEntries = context.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
         foreach (EntityEntry item in entityEntries)
         {
-            Console.WriteLine("进入循环");
-
             //有标记的才会记录审计日志
             if (item.Entity is not IAuditLog)
             {
                 continue;
             }
-
-            Console.WriteLine("当前模型可以记录日志");
 
             //构造审计日志
             RowAuditLog? auditLog = ConstructAuditLog(item, businessType);
@@ -86,7 +83,7 @@ public static class DbLogger
         var row = new RowAuditLog
         {
             TableName = type.Name,
-            TableId = entityIdTracker?.Id ?? 0,
+            TableId = entityEntry.PrimaryKey(),
             Action = entityEntry.State.ToString(),
             UpdateBy = updateBy,
             BusinessCode = businessType ?? "",
@@ -94,8 +91,28 @@ public static class DbLogger
             Row = JsonConvert.SerializeObject(entityEntry.Entity, serializeSettings)
         };
 
-        Console.WriteLine("保存事件：" + JsonConvert.SerializeObject(row));
-
         return row;
+    }
+
+    /// <summary>
+    /// Primaries the key.
+    /// </summary>
+    /// <param name="entry">The entry.</param>
+    /// <returns></returns>
+    public static string PrimaryKey(this EntityEntry entry)
+    {
+        var key = entry.Metadata.FindPrimaryKey();
+
+        var values = new List<object>();
+        foreach (var property in key?.Properties ?? new List<Property>())
+        {
+            var value = entry.Property(property.Name).CurrentValue;
+            if (value != null)
+            {
+                values.Add(value);
+            }
+        }
+
+        return string.Join(",", values);
     }
 }
