@@ -3,6 +3,9 @@ using MongoDB.Bson;
 
 namespace HKSH.Common.AuditLogs.Models
 {
+    /// <summary>
+    /// ActionLog
+    /// </summary>
     public class ActionLog
     {
         /// <summary>
@@ -15,68 +18,90 @@ namespace HKSH.Common.AuditLogs.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
+
         /// <summary>
-        /// 类似于组装后的FormId(ALC.434.001).
+        /// Gets or sets the action date.
         /// </summary>
         /// <value>
-        /// The section.
+        /// The action date.
         /// </value>
         [BsonElement("ActionDate")]
-        [BsonRepresentation(BsonType.DateTime)]
-        public DateTime ActionDate { get; set; } 
+        public DateTime ActionDate { get; set; }
+
 
         /// <summary>
-        /// 修改字段.
+        /// Gets or sets the user.
         /// </summary>
         /// <value>
-        /// The field.
+        /// The user.
         /// </value>
-        [BsonElement("Field")]
-        public string Field { get; set; } = null!;
+        [BsonElement("User")]
+        public string User { get; set; } = null!;
+
 
         /// <summary>
-        /// 原始值.
+        /// Gets or sets the device.
         /// </summary>
         /// <value>
-        /// The update from.
+        /// The device.
         /// </value>
-        [BsonElement("UpdateFrom")]
-        public string UpdateFrom { get; set; } = null!;
+        [BsonElement("Device")]
+        public string Device { get; set; } = null!;
+
 
         /// <summary>
-        /// 修改值.
+        /// Gets or sets the function.
         /// </summary>
         /// <value>
-        /// The update to.
+        /// The function.
         /// </value>
-        [BsonElement("UpdateTo")]
-        public string UpdateTo { get; set; } = null!;
+        [BsonElement("Function")]
+        public string Function { get; set; } = null!;
+
 
         /// <summary>
-        /// 修改的时间.
+        /// Gets or sets the sub function.
         /// </summary>
         /// <value>
-        /// The update time.
+        /// The sub function.
         /// </value>
-        [BsonElement("UpdateTime")]
-        public DateTime UpdateTime { get; set; }
+        [BsonElement("SubFunction")]
+        public string SubFunction { get; set; } = null!;
 
         /// <summary>
-        /// 修改的操作人.
+        /// Gets or sets the patient identifier.
         /// </summary>
         /// <value>
-        /// The update by.
+        /// The patient identifier.
         /// </value>
-        [BsonElement("UpdateBy")]
-        public string UpdateBy { get; set; } = null!;
+        [BsonElement("PatientID")]
+        public string PatientID { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the operator.
+        /// Gets or sets the visti file no.
         /// </summary>
         /// <value>
-        /// The operator.
+        /// The visti file no.
+        /// </value>
+        [BsonElement("VistiFileNo")]
+        public string VistiFileNo { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the action.
+        /// </summary>
+        /// <value>
+        /// The action.
         /// </value>
         [BsonElement("Action")]
         public string Action { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the content.
+        /// </summary>
+        /// <value>
+        /// The content.
+        /// </value>
+        [BsonElement("Content")]
+        public string Content { get; set; } = null!;
     }
 }
