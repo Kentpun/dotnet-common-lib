@@ -41,6 +41,18 @@ namespace HKSH.Common.AuditLogs
         private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
         {
             Console.WriteLine("NewDbLogger DbContext_SavingChanges");
+
+            EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
+            var serializeSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            foreach (EntityEntry item in entityEntries)
+            {
+                if (item.Entity is not IAuditLog)
+                {
+                    continue;
+                }
+
+                Console.WriteLine("NewDbLogger DbContext_SavingChanges 当前保存后的模型：" + JsonConvert.SerializeObject(item.Entity, serializeSettings));
+            }
         }
 
         /// <summary>
@@ -61,7 +73,7 @@ namespace HKSH.Common.AuditLogs
                     continue;
                 }
 
-                Console.WriteLine("NewDbLogger 当前保存后的模型：" + JsonConvert.SerializeObject(item.Entity, serializeSettings));
+                Console.WriteLine("NewDbLogger DbContext_SavedChanges 当前保存后的模型：" + JsonConvert.SerializeObject(item.Entity, serializeSettings));
             }
         }
     }
