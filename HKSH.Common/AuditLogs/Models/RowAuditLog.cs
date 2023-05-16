@@ -49,7 +49,7 @@ namespace HKSH.Common.AuditLogs.Models
         /// The type of the business.
         /// </value>
         [BsonElement("BusinessCode")]
-        public string BusinessCode { get; set; } = null!;
+        public string? BusinessCode { get; set; } = null!;
 
         /// <summary>
         /// 版本 时间戳.

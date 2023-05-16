@@ -1,10 +1,7 @@
-﻿using DotNetCore.CAP;
-using HKSH.Common.AuditLogs.Models;
+﻿using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
-using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
@@ -22,7 +19,7 @@ public static class DbLogger
     /// <param name="context">The context.</param>
     /// <param name="businessType">Type of the business.</param>
     /// <returns></returns>
-    public static List<RowAuditLog> ApplyAuditLog(this DbContext context, string? businessType = "")
+    public static List<RowAuditLog> ApplyAuditLog(this DbContext context, AuditLogRequest? auditLogRequest)
     {
         var auditLogs = new List<RowAuditLog>();
         EntityEntry[] entityEntries = context.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
@@ -35,7 +32,7 @@ public static class DbLogger
             }
 
             //构造审计日志
-            RowAuditLog? auditLog = ConstructAuditLog(item, businessType);
+            RowAuditLog? auditLog = ConstructAuditLog(item, auditLogRequest);
             if (auditLog != null)
             {
                 auditLogs.Add(auditLog);
@@ -50,7 +47,7 @@ public static class DbLogger
     /// </summary>
     /// <param name="entityEntry">The entity entry.</param>
     /// <returns></returns>
-    private static RowAuditLog? ConstructAuditLog(EntityEntry entityEntry, string? businessType)
+    private static RowAuditLog? ConstructAuditLog(EntityEntry entityEntry, AuditLogRequest? auditLogRequest)
     {
         Type type = entityEntry.Entity.GetType();
         var entityTracker = entityEntry.Entity as IEntityTracker;
@@ -62,10 +59,6 @@ public static class DbLogger
         string? updateBy = string.Empty;
         switch (entityEntry.State)
         {
-            case EntityState.Detached:
-                break;
-            case EntityState.Unchanged:
-                break;
             case EntityState.Deleted:
                 var entityDelTracker = entityEntry.Entity as IEntityDelTracker;
                 updateBy = entityDelTracker?.DeletedBy;
@@ -83,36 +76,14 @@ public static class DbLogger
         var row = new RowAuditLog
         {
             TableName = type.Name,
-            TableId = entityEntry.PrimaryKey(),
+            TableId = auditLogRequest?.Uuid,
             Action = entityEntry.State.ToString(),
             UpdateBy = updateBy,
-            BusinessCode = businessType ?? "",
+            BusinessCode = auditLogRequest?.BusinessCode,
             Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
             Row = JsonConvert.SerializeObject(entityEntry.Entity, serializeSettings)
         };
 
         return row;
-    }
-
-    /// <summary>
-    /// Primaries the key.
-    /// </summary>
-    /// <param name="entry">The entry.</param>
-    /// <returns></returns>
-    public static string PrimaryKey(this EntityEntry entry)
-    {
-        var key = entry.Metadata.FindPrimaryKey();
-
-        var values = new List<object>();
-        foreach (var property in key?.Properties ?? new List<Property>())
-        {
-            var value = entry.Property(property.Name).CurrentValue;
-            if (value != null)
-            {
-                values.Add(value);
-            }
-        }
-
-        return string.Join(",", values);
     }
 }

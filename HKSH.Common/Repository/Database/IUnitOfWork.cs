@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HKSH.Common.AuditLogs;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace HKSH.Common.Repository.Database
@@ -43,9 +44,9 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
+        /// <param name="auditLogRequest">The audit log request.</param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(string businessType);
+        Task<int> SaveChangesAsync(AuditLogRequest? auditLogRequest);
 
         /// <summary>
         /// do save
@@ -56,9 +57,9 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
+        /// <param name="auditLogRequest">The audit log request.</param>
         /// <returns></returns>
-        int SaveChanges(string businessType);
+        int SaveChanges(AuditLogRequest? auditLogRequest);
 
         /// <summary>
         /// Gets the store.

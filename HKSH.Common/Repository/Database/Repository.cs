@@ -258,14 +258,14 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
+        /// <param name="auditLogRequest">The audit log request.</param>
         /// <returns></returns>
-        public int SaveChanges(string businessType)
+        public int SaveChanges(AuditLogRequest? auditLogRequest)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var logs = _dbContext.ApplyAuditLog(businessType);
+                var logs = _dbContext.ApplyAuditLog(auditLogRequest);
                 if (logs.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
@@ -285,14 +285,14 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
+        /// <param name="auditLogRequest">The audit log request.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(string businessType)
+        public Task<int> SaveChangesAsync(AuditLogRequest? auditLogRequest)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var logs = _dbContext.ApplyAuditLog(businessType);
+                var logs = _dbContext.ApplyAuditLog(auditLogRequest);
                 if (logs.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
