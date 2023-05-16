@@ -64,6 +64,8 @@ namespace HKSH.Common.AuditLogs
         {
             Console.WriteLine("NewDbLogger DbContext_SavedChanges");
 
+            Console.WriteLine("序列化：" + JsonConvert.SerializeObject(_dbContext.ChangeTracker.Entries()));
+
             EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
             var serializeSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
             foreach (EntityEntry item in entityEntries)
