@@ -28,7 +28,19 @@ namespace HKSH.Common.AuditLogs
         /// </summary>
         public void EnableDbLog()
         {
+            _dbContext.SavingChanges += DbContext_SavingChanges;
             _dbContext.SavedChanges += DbContext_SavedChanges;
+            Console.WriteLine("NewDbLogger 追加事件成功");
+        }
+
+        /// <summary>
+        /// Handles the SavingChanges event of the DbContext control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SavingChangesEventArgs"/> instance containing the event data.</param>
+        private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
+        {
+            Console.WriteLine("NewDbLogger DbContext_SavingChanges");
         }
 
         /// <summary>
@@ -36,8 +48,10 @@ namespace HKSH.Common.AuditLogs
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="SavedChangesEventArgs"/> instance containing the event data.</param>
-        public void DbContext_SavedChanges(object sender, SavedChangesEventArgs e)
+        private void DbContext_SavedChanges(object sender, SavedChangesEventArgs e)
         {
+            Console.WriteLine("NewDbLogger DbContext_SavedChanges");
+
             EntityEntry[] entityEntries = _dbContext.ChangeTracker.Entries().Where(a => a.State == EntityState.Modified || a.State == EntityState.Deleted || a.State == EntityState.Added).ToArray();
             var serializeSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
             foreach (EntityEntry item in entityEntries)
