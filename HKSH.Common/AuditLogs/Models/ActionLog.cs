@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace HKSH.Common.AuditLogs.Models
 {
@@ -18,7 +18,6 @@ namespace HKSH.Common.AuditLogs.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
-
         /// <summary>
         /// Gets or sets the action date.
         /// </summary>
@@ -27,7 +26,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// </value>
         [BsonElement("ActionDate")]
         public DateTime ActionDate { get; set; }
-
 
         /// <summary>
         /// Gets or sets the user.
@@ -38,7 +36,6 @@ namespace HKSH.Common.AuditLogs.Models
         [BsonElement("User")]
         public string User { get; set; } = null!;
 
-
         /// <summary>
         /// Gets or sets the device.
         /// </summary>
@@ -48,7 +45,6 @@ namespace HKSH.Common.AuditLogs.Models
         [BsonElement("Device")]
         public string Device { get; set; } = null!;
 
-
         /// <summary>
         /// Gets or sets the function.
         /// </summary>
@@ -57,7 +53,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// </value>
         [BsonElement("Function")]
         public string Function { get; set; } = null!;
-
 
         /// <summary>
         /// Gets or sets the sub function.

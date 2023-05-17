@@ -294,20 +294,19 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                Console.WriteLine("Before");
                 var auditEntries = OnBeforeSaveChanges(auditLogRequest?.BusinessCode);
-                Console.WriteLine("Save");
                 var result = _dbContext.SaveChangesAsync();
-                Console.WriteLine("After");
-                OnAfterSaveChanges(auditEntries);
+                if (result.IsCompleted)
+                {
+                    OnAfterSaveChanges(auditEntries);
+                }
 
-                var rows = auditEntries.Select(s => s.ToAudit());
-                Console.WriteLine("构造好的Json数据：" + JsonConvert.SerializeObject(rows));
+                var rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                Console.WriteLine("Contruct Json Result：" + JsonConvert.SerializeObject(rows));
                 if (result.Result > 0)
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
                     publisher?.Publish(CapTopic.AuditLogs, rows);
-                    Console.WriteLine("发送Kafka成功");
                 }
                 return result;
             }
@@ -422,7 +421,8 @@ namespace HKSH.Common.Repository.Database
                 var auditEntry = new AuditEntry(entry)
                 {
                     TableName = entry.Metadata.GetTableName() ?? "",
-                    BusinessCode = businessCode
+                    BusinessCode = businessCode,
+                    Action = entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);
 
@@ -485,7 +485,6 @@ namespace HKSH.Common.Repository.Database
         {
             if (auditEntries == null || auditEntries.Count == 0)
                 return Task.CompletedTask;
-
 
             foreach (var auditEntry in auditEntries)
             {

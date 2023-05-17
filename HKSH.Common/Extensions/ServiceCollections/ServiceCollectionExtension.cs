@@ -217,7 +217,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddAuditLogStoreMongoDbSettings(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.Configure<AuditLogStoreDatabaseSettings>(configuration.GetSection(AuditLogStoreDatabaseSettings.Section));
-       
+
         return services;
     }
 

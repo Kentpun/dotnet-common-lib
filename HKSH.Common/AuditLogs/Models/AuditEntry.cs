@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using HKSH.Common.Extensions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
 
 namespace HKSH.Common.AuditLogs.Models
@@ -50,6 +51,14 @@ namespace HKSH.Common.AuditLogs.Models
         public string? UpdateBy { get; set; }
 
         /// <summary>
+        /// Gets or sets the action.
+        /// </summary>
+        /// <value>
+        /// The action.
+        /// </value>
+        public string Action { get; set; } = null!;
+
+        /// <summary>
         /// Gets the key values.
         /// </summary>
         /// <value>
@@ -97,9 +106,9 @@ namespace HKSH.Common.AuditLogs.Models
         {
             var audit = new RowAuditLog
             {
-                Action = Entry.State.ToString(),
+                Action = Action,
                 TableName = TableName,
-                RowId = KeyValues.FirstOrDefault().Value.ToString(),
+                RowId = Entry.PrimaryKey(),
                 BusinessCode = BusinessCode,
                 Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
                 UpdateBy = UpdateBy,

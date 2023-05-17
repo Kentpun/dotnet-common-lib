@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Data;
-using System.Security.Policy;
 
 namespace HKSH.Common.Repository.Database
 {

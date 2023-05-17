@@ -63,12 +63,15 @@ public static class DbLogger
                 var entityDelTracker = entityEntry.Entity as IEntityDelTracker;
                 updateBy = entityDelTracker?.DeletedBy;
                 break;
+
             case EntityState.Modified:
                 updateBy = entityTracker?.ModifiedBy;
                 break;
+
             case EntityState.Added:
                 updateBy = entityTracker?.CreatedBy;
                 break;
+
             default:
                 break;
         }
