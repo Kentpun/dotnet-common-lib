@@ -347,10 +347,7 @@ public static class ServiceCollectionExtension
         }
 
         //Redis
-        if (programConfigure.EnableRedis)
-        {
-            services.RegisterRedis(configuration);
-        }
+        services.RegisterRedis(configuration);
 
         //Kafka
         if (programConfigure.EnableKafka)
@@ -455,10 +452,7 @@ public static class ServiceCollectionExtension
         }
 
         //Redis
-        if (programConfigure.EnableRedis)
-        {
-            services.RegisterRedis(configuration);
-        }
+        services.RegisterRedis(configuration);
 
         //Kafka
         if (programConfigure.EnableKafka)
