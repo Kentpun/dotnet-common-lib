@@ -297,15 +297,9 @@ namespace HKSH.Common.Repository.Database
                 var rows = new List<RowAuditLog>();
                 var auditEntries = OnBeforeSaveChanges(auditLogRequest?.BusinessCode);
                 var result = _dbContext.SaveChangesAsync();
-                if (result.IsCompleted)
-                {
-                    var afterResult = OnAfterSaveChanges(auditEntries);
-                    if (afterResult.IsCompleted)
-                    {
-                        rows = auditEntries.Select(s => s.ToAudit()).ToList();
-                    }
-                }
-
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
