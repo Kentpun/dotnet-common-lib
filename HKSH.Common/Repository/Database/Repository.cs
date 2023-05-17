@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -260,22 +259,30 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="auditLogRequest">The audit log request.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        public int SaveChanges(AuditLogRequest? auditLogRequest)
+        public int SaveChanges(string? businessCode)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var logs = _dbContext.ApplyAuditLog(auditLogRequest);
-                if (logs.Any())
+                var rows = new List<RowAuditLog>();
+                var auditEntries = OnBeforeSaveChanges(businessCode);
+                var result = _dbContext.SaveChangesAsync();
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                if (result.Result > 0 && rows.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                    publisher?.Publish(CapTopic.AuditLogs, rows);
                 }
+                return result.Result;
             }
-
-            return _dbContext.SaveChanges();
+            else
+            {
+                return _dbContext.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -287,23 +294,21 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="auditLogRequest">The audit log request.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(AuditLogRequest? auditLogRequest)
+        public Task<int> SaveChangesAsync(string? businessCode)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLog>();
-                var auditEntries = OnBeforeSaveChanges(auditLogRequest?.BusinessCode);
+                var auditEntries = OnBeforeSaveChanges(businessCode);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
-                Console.WriteLine("Rows：" + JsonConvert.SerializeObject(rows));
                 if (result.Result > 0 && rows.Any())
                 {
-                    Console.WriteLine("可以发消息");
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
                     publisher?.Publish(CapTopic.AuditLogs, rows);
                 }
@@ -409,7 +414,6 @@ namespace HKSH.Common.Repository.Database
         {
             _dbContext.ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
-            Console.WriteLine("来了");
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
                 if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
@@ -455,7 +459,6 @@ namespace HKSH.Common.Repository.Database
                             break;
 
                         case EntityState.Modified:
-                            Console.WriteLine("修改");
                             auditEntry.UpdateBy = entityTracker?.CreatedBy;
                             if (property.IsModified)
                             {
