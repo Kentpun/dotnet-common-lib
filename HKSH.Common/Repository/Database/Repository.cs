@@ -407,6 +407,7 @@ namespace HKSH.Common.Repository.Database
         {
             _dbContext.ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
+            Console.WriteLine("来了");
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
                 if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
@@ -452,6 +453,7 @@ namespace HKSH.Common.Repository.Database
                             break;
 
                         case EntityState.Modified:
+                            Console.WriteLine("修改");
                             auditEntry.UpdateBy = entityTracker?.CreatedBy;
                             if (property.IsModified)
                             {
