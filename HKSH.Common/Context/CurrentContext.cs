@@ -1,6 +1,14 @@
-﻿using HKSH.Common.Repository.Database;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using HKSH.Common.Caching.Redis;
+using HKSH.Common.Extensions;
+using HKSH.Common.Repository.Database;
+using HKSH.Common.Repository.Database.Privileges;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
-namespace HKSH.Common
+namespace HKSH.Common.Context
 {
     /// <summary>
     /// CurrentContext
@@ -10,6 +18,21 @@ namespace HKSH.Common
     public class CurrentContext : ICurrentContext, IRepositoryCurrentContext
     {
         /// <summary>
+        /// http context accessor
+        /// </summary>
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        /// <summary>
+        /// redis repo
+        /// </summary>
+        private readonly IRedisRepository _redisRepository;
+
+        /// <summary>
+        /// logger
+        /// </summary>
+        private readonly ILogger<CurrentContext> _logger;
+
+        /// <summary>
         /// Gets or sets the current user.
         /// </summary>
         /// <value>
@@ -18,21 +41,158 @@ namespace HKSH.Common
         private ClaimCurrentUser? _currentUser;
 
         /// <summary>
-        /// Gets the current user.
+        /// current user id
         /// </summary>
-        /// <value>
-        /// The current user.
-        /// </value>
+        private long? _currentUserId;
+
+        /// <summary>
+        /// user permissions
+        /// </summary>
+        private List<UserPrivilegeModule> _userPermissions = new();
+
+        /// <summary>
+        /// user current location
+        /// </summary>
+        private string? _currentLocation;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
+        /// <param name="redisRepository"></param>
+        /// <param name="logger"></param>
+        public CurrentContext(IHttpContextAccessor httpContextAccessor, IRedisRepository redisRepository,
+            ILogger<CurrentContext> logger)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _redisRepository = redisRepository;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// current user id
+        /// </summary>
+        public long CurrentUserId
+        {
+            get
+            {
+                if (_currentUserId != null)
+                {
+                    return _currentUserId.Value;
+                }
+
+                var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(reallyUserId))
+                {
+                    throw new Exception("Error access token");
+                }
+
+                int providerIndex = reallyUserId.IndexOf(':', 2);
+                string externalId = reallyUserId.Substring(providerIndex + 1);
+
+                if (!long.TryParse(externalId, out var userId))
+                {
+                    throw new Exception("Error access token");
+                }
+
+                _currentUserId = userId;
+
+                return _currentUserId.Value;
+            }
+        }
+
+        /// <summary>
+        /// current user
+        /// </summary>
         public ClaimCurrentUser CurrentUser
         {
             get
             {
-                _currentUser ??= new ClaimCurrentUser { Account = "168563", Name = "Leo Feihong", Phone = "15111907921", Id = 1 };
-                return _currentUser;
+                if (_currentUser != null)
+                {
+                    return _currentUser;
+                }
+
+                long userId = CurrentUserId;
+
+                var key = $"session:userinfo:{userId}";
+
+                try
+                {
+                    var claimCurrentUser = _redisRepository.GetString<ClaimCurrentUser>(key);
+                    if (claimCurrentUser.Id != userId)
+                    {
+                        throw new Exception("You are not logged in yet");
+                    }
+
+                    _currentUser = claimCurrentUser;
+
+                    return _currentUser;
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExc(e, "Get user info from cache err ");
+                    throw e;
+                }
             }
-            set
+        }
+
+        /// <summary>
+        /// current location
+        /// </summary>
+        public string CurrentLocation
+        {
+            get
             {
-                _currentUser = value;
+                if (!string.IsNullOrEmpty(_currentLocation))
+                {
+                    return _currentLocation;
+                }
+
+                long userId = CurrentUserId;
+
+                var key = $"session:location:{userId}";
+
+                try
+                {
+                    _currentLocation = _redisRepository.GetString<string>(key);
+                    return _currentLocation;
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExc(e, "Get user location info from cache err ");
+                    throw e;
+                }
+            }
+        }
+
+        /// <summary>
+        /// get user permissions
+        /// </summary>
+        public List<UserPrivilegeModule> UserPermissions
+        {
+            get
+            {
+                if (_userPermissions.Count > 0)
+                {
+                    return _userPermissions;
+                }
+                
+                long userId = CurrentUserId;
+
+                var key = $"session:privilege:{userId}";
+
+                try
+                {
+                    _userPermissions = _redisRepository.GetString<List<UserPrivilegeModule>>(key);
+                    return _userPermissions;
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExc(e, "Get user privilege info from cache err ");
+                    throw e;
+                }
             }
         }
     }

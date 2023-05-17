@@ -73,7 +73,7 @@ namespace HKSH.Common.Repository.Database
             {
                 if (string.IsNullOrEmpty(_currentUserId))
                 {
-                    _currentUserId = _currentContext.CurrentUser?.Account ?? ""; // todo
+                    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? ""; // todo
                 }
                 return _currentUserId;
             }

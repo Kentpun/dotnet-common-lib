@@ -1,7 +1,8 @@
-﻿using HKSH.Common.Repository.Database;
+﻿using HKSH.Common.Context;
+using HKSH.Common.Repository.Database;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HKSH.Common
+namespace HKSH.Common.Extensions
 {
     /// <summary>
     /// DIExtension
