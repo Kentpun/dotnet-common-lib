@@ -467,14 +467,8 @@ namespace HKSH.Common.Repository.Database
                 }
             }
 
-            // Save audit entities that have all the modifications
-            foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
-            {
-                //Audits.Add(auditEntry.ToAudit());
-            }
-
             // keep a list of entries where the value of some properties are unknown at this step
-            return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
+            return auditEntries.ToList();
         }
 
         /// <summary>
