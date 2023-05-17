@@ -76,7 +76,7 @@ public static class DbLogger
         var row = new RowAuditLog
         {
             TableName = type.Name,
-            TableId = auditLogRequest?.Uuid,
+            RowId = auditLogRequest?.Uuid,
             Action = entityEntry.State.ToString(),
             UpdateBy = updateBy,
             BusinessCode = auditLogRequest?.BusinessCode,

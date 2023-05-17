@@ -39,8 +39,8 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The type of the business.
         /// </value>
-        [BsonElement("TableId")]
-        public string? TableId { get; set; }
+        [BsonElement("RowId")]
+        public string? RowId { get; set; }
 
         /// <summary>
         /// 业务编号(类似于组装后的FormId(ALC.434.001)).
