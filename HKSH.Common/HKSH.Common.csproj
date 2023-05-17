@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>HKSH.Common</Title>
-    <Version>2.3.3</Version>
-    <Description>Test</Description>
+    <Version>2.3.4</Version>
+    <Description>Test2</Description>
     <Authors>Liu, Leo Feihong</Authors>
   </PropertyGroup>
 

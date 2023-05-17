@@ -300,8 +300,10 @@ namespace HKSH.Common.Repository.Database
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                Console.WriteLine("Rows：" + JsonConvert.SerializeObject(rows));
                 if (result.Result > 0 && rows.Any())
                 {
+                    Console.WriteLine("可以发消息");
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
                     publisher?.Publish(CapTopic.AuditLogs, rows);
                 }
