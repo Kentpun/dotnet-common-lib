@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;
@@ -85,7 +83,8 @@ namespace HKSH.Common.Context
 
                 if (string.IsNullOrEmpty(reallyUserId))
                 {
-                    throw new Exception("Error access token");
+                    //throw new Exception("Error access token");
+                    return 0;
                 }
 
                 int providerIndex = reallyUserId.IndexOf(':', 2);
@@ -93,7 +92,8 @@ namespace HKSH.Common.Context
 
                 if (!long.TryParse(externalId, out var userId))
                 {
-                    throw new Exception("Error access token");
+                    //throw new Exception("Error access token");
+                    return 0;
                 }
 
                 _currentUserId = userId;
