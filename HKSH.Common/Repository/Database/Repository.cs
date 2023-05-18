@@ -426,7 +426,7 @@ namespace HKSH.Common.Repository.Database
                 {
                     TableName = entry.Metadata.GetTableName() ?? "",
                     BusinessCode = businessCode,
-                    Action = entry.State.ToString()
+                    Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);
 
