@@ -2,6 +2,7 @@ using HKSH.Common.AuditLogs;
 using HKSH.Common.AutoMapper;
 using HKSH.Common.Base;
 using HKSH.Common.Caching.Redis;
+using HKSH.Common.Elastic;
 using HKSH.Common.File;
 using HKSH.Common.RabbitMQ;
 using HKSH.Common.Repository;
@@ -237,6 +238,20 @@ public static class ServiceCollectionExtension
     }
 
     /// <summary>
+    /// Adds the elastic search.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="elasticMqOptions">The elastic mq options.</param>
+    /// <returns></returns>
+    public static IServiceCollection AddElasticSearch(this IServiceCollection services, Action<ElasticSearchOptions> elasticMqOptions)
+    {
+        services.Configure(elasticMqOptions);
+        services.AddSingleton<IElasticSearchClientProvider, ElasticSearchClientProvider>();
+
+        return services;
+    }
+
+    /// <summary>
     /// Registers the rabbit mq.
     /// </summary>
     /// <param name="services">The services.</param>
@@ -255,6 +270,30 @@ public static class ServiceCollectionExtension
                 options.HostName = section["HostName"];
                 options.Enable = bool.Parse(section["Enable"] ?? "0");
                 options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
+            }
+        });
+
+        return services;
+    }
+
+    /// <summary>
+    /// Registers the elastic search.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration">The configuration.</param>
+    /// <returns></returns>
+    public static IServiceCollection RegisterElasticSearch(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        services.AddElasticSearch(options =>
+        {
+            var section = configuration.GetSection("ElasticSearch");
+            if (section != null)
+            {
+                options.Url = section["Url"];
+                options.DefaultIndex = section["DefaultIndex"];
+                options.CertificateFingerprint = section["CertificateFingerprint"];
+                options.UserName = section["UserName"];
+                options.Password = section["Password"];
             }
         });
 
@@ -453,6 +492,9 @@ public static class ServiceCollectionExtension
 
         //Redis
         services.RegisterRedis(configuration);
+
+        //Elastic
+        services.RegisterElasticSearch(configuration);
 
         //Kafka
         if (programConfigure.EnableKafka)
