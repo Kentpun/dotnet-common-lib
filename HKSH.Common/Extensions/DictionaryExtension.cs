@@ -14,7 +14,7 @@ namespace HKSH.Common.Extensions
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="jsonStr">The json string.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> DeserializeStringToDictionary<TKey, TValue>(string jsonStr)
+        public static Dictionary<TKey, TValue> DeserializeStringToDictionary<TKey, TValue>(this string jsonStr)
         {
             if (string.IsNullOrEmpty(jsonStr))
                 return new Dictionary<TKey, TValue>();
