@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.3.9</Version>
-		<Description>Add IsDeleted Support Action</Description>
+		<Version>2.4.0</Version>
+		<Description>Delete CurrentContext Exception</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
