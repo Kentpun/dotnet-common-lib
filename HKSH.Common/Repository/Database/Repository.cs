@@ -72,11 +72,12 @@ namespace HKSH.Common.Repository.Database
         {
             get
             {
-                if (string.IsNullOrEmpty(_currentUserId))
-                {
-                    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? ""; // todo
-                }
-                return _currentUserId;
+                //if (string.IsNullOrEmpty(_currentUserId))
+                //{
+                //    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? ""; // todo
+                //}
+                //return _currentUserId;
+                return "";
             }
         }
 

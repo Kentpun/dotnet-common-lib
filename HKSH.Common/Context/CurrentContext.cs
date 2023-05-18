@@ -83,8 +83,7 @@ namespace HKSH.Common.Context
 
                 if (string.IsNullOrEmpty(reallyUserId))
                 {
-                    //throw new Exception("Error access token");
-                    return 0;
+                    throw new Exception("Error access token");
                 }
 
                 int providerIndex = reallyUserId.IndexOf(':', 2);
@@ -92,8 +91,7 @@ namespace HKSH.Common.Context
 
                 if (!long.TryParse(externalId, out var userId))
                 {
-                    //throw new Exception("Error access token");
-                    return 0;
+                    throw new Exception("Error access token");
                 }
 
                 _currentUserId = userId;
