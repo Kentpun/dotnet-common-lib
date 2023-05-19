@@ -388,6 +388,8 @@ public static class ServiceCollectionExtension
         //Redis
         services.RegisterRedis(configuration);
 
+        services.RegisterElasticSearch(configuration);
+
         //Kafka
         if (programConfigure.EnableKafka)
         {
