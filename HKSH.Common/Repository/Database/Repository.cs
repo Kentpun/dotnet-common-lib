@@ -267,7 +267,7 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLog>();
+                var rows = new List<RowAuditLogDocument>();
                 var auditEntries = OnBeforeSaveChanges(businessCode);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
@@ -302,7 +302,7 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLog>();
+                var rows = new List<RowAuditLogDocument>();
                 var auditEntries = OnBeforeSaveChanges(businessCode);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();

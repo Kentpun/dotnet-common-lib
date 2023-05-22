@@ -102,9 +102,9 @@ namespace HKSH.Common.AuditLogs.Models
         /// Converts to audit.
         /// </summary>
         /// <returns></returns>
-        public RowAuditLog ToAudit()
+        public RowAuditLogDocument ToAudit()
         {
-            var audit = new RowAuditLog
+            var audit = new RowAuditLogDocument
             {
                 Action = Action,
                 TableName = TableName,
