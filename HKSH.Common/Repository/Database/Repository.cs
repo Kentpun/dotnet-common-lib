@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -73,11 +72,12 @@ namespace HKSH.Common.Repository.Database
         {
             get
             {
-                if (string.IsNullOrEmpty(_currentUserId))
-                {
-                    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? ""; // todo
-                }
-                return _currentUserId;
+                //if (string.IsNullOrEmpty(_currentUserId))
+                //{
+                //    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? ""; // todo
+                //}
+                //return _currentUserId;
+                return "";
             }
         }
 
@@ -260,22 +260,30 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="auditLogRequest">The audit log request.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        public int SaveChanges(AuditLogRequest? auditLogRequest)
+        public int SaveChanges(string? businessCode)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var logs = _dbContext.ApplyAuditLog(auditLogRequest);
-                if (logs.Any())
+                var rows = new List<RowAuditLog>();
+                var auditEntries = OnBeforeSaveChanges(businessCode);
+                var result = _dbContext.SaveChangesAsync();
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                if (result.Result > 0 && rows.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                    publisher?.Publish(CapTopic.AuditLogs, rows);
                 }
+                return result.Result;
             }
-
-            return _dbContext.SaveChanges();
+            else
+            {
+                return _dbContext.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -287,25 +295,19 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="auditLogRequest">The audit log request.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(AuditLogRequest? auditLogRequest)
+        public Task<int> SaveChangesAsync(string? businessCode)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLog>();
-                var auditEntries = OnBeforeSaveChanges(auditLogRequest?.BusinessCode);
+                var auditEntries = OnBeforeSaveChanges(businessCode);
                 var result = _dbContext.SaveChangesAsync();
-                if (result.IsCompleted)
-                {
-                    var afterResult = OnAfterSaveChanges(auditEntries);
-                    if (afterResult.IsCompleted)
-                    {
-                        rows = auditEntries.Select(s => s.ToAudit()).ToList();
-                    }
-                }
-
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
@@ -425,7 +427,7 @@ namespace HKSH.Common.Repository.Database
                 {
                     TableName = entry.Metadata.GetTableName() ?? "",
                     BusinessCode = businessCode,
-                    Action = entry.State.ToString()
+                    Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);
 
@@ -469,14 +471,8 @@ namespace HKSH.Common.Repository.Database
                 }
             }
 
-            // Save audit entities that have all the modifications
-            foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
-            {
-                //Audits.Add(auditEntry.ToAudit());
-            }
-
             // keep a list of entries where the value of some properties are unknown at this step
-            return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
+            return auditEntries.ToList();
         }
 
         /// <summary>

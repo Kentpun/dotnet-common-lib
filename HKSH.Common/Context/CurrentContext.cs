@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;

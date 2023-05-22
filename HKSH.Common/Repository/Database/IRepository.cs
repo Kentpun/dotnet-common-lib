@@ -1,5 +1,4 @@
-﻿using HKSH.Common.AuditLogs;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -94,9 +93,9 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="auditLogRequest">The audit log request.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        int SaveChanges(AuditLogRequest? auditLogRequest);
+        int SaveChanges(string? businessCode);
 
         /// <summary>
         /// Saves the changes asynchronous.
@@ -107,9 +106,9 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="auditLogRequest">The audit log request.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(AuditLogRequest? auditLogRequest);
+        Task<int> SaveChangesAsync(string? businessCode);
 
         /// <summary>
         /// Gets the entities.
