@@ -15,6 +15,11 @@ namespace HKSH.Common.Repository.Database.Privileges
         public string PermissionCode { get; set; } = String.Empty;
 
         /// <summary>
+        /// permission name
+        /// </summary>
+        public string PermissionName { get; set; } = String.Empty;
+
+        /// <summary>
         /// has read
         /// </summary>
         public bool? HasRead { get; set; }

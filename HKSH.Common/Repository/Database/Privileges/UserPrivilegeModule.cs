@@ -16,14 +16,29 @@ namespace HKSH.Common.Repository.Database.Privileges
         public string ModuleCode { get; set; } = String.Empty;
 
         /// <summary>
+        /// module name
+        /// </summary>
+        public string ModuleName { get; set; } = string.Empty;
+
+        /// <summary>
         /// role code
         /// </summary>
         public string RoleCode { get; set; } = String.Empty;
 
         /// <summary>
+        /// role name
+        /// </summary>
+        public string RoleName { get; set; } = string.Empty;
+
+        /// <summary>
         /// location code
         /// </summary>
         public string LocationCode { get; set; } = String.Empty;
+
+        /// <summary>
+        /// location name
+        /// </summary>
+        public string LocationName { get; set; } = String.Empty;
 
         /// <summary>
         /// centre menus
