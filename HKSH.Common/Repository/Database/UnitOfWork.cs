@@ -1,11 +1,12 @@
 ﻿using DotNetCore.CAP;
 using HKSH.Common.AuditLogs;
+using HKSH.Common.AuditLogs.Models;
+using HKSH.Common.Base;
 using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Data;
-using System.Security.Policy;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -105,21 +106,25 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        public int SaveChanges(string businessType)
+        public int SaveChanges(string? businessCode)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                Console.WriteLine("允许记录日志");
-                var logs = DbContext.ApplyAuditLog(businessType);
-                if (logs.Any())
+                var rows = new List<RowAuditLogDocument>();
+                var auditEntries = OnBeforeSaveChanges(businessCode);
+                var result = DbContext.SaveChangesAsync();
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                if (result.Result > 0 && rows.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    Console.WriteLine("成功发送消息");
-                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                    publisher?.Publish(CapTopic.AuditLogs, rows);
                 }
+                return result.Result;
             }
 
             return DbContext.SaveChanges();
@@ -134,27 +139,136 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
+        /// <param name="businessCode">The business code.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(string businessType)
+        public Task<int> SaveChangesAsync(string? businessCode)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var logs = DbContext.ApplyAuditLog(businessType);
-                if (logs.Any())
+                var rows = new List<RowAuditLogDocument>();
+                var auditEntries = OnBeforeSaveChanges(businessCode);
+                var result = DbContext.SaveChangesAsync();
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                if (result.Result > 0 && rows.Any())
                 {
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, logs);
+                    publisher?.Publish(CapTopic.AuditLogs, rows);
                 }
+                return result;
             }
-
-            return DbContext.SaveChangesAsync();
+            else
+            {
+                return DbContext.SaveChangesAsync();
+            }
         }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose() => DbContext?.Dispose();
+
+        #region Extention
+
+        /// <summary>
+        /// Called when [before save changes].
+        /// </summary>
+        /// <returns></returns>
+        private List<AuditEntry> OnBeforeSaveChanges(string? businessCode)
+        {
+            DbContext.ChangeTracker.DetectChanges();
+            var auditEntries = new List<AuditEntry>();
+            foreach (var entry in DbContext.ChangeTracker.Entries())
+            {
+                if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                    continue;
+
+                var entityTracker = entry.Entity as IEntityTracker;
+                var entityDelTracker = entry.Entity as IEntityDelTracker;
+
+                var auditEntry = new AuditEntry(entry)
+                {
+                    TableName = entry.Metadata.GetTableName() ?? "",
+                    BusinessCode = businessCode,
+                    Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
+                };
+                auditEntries.Add(auditEntry);
+
+                foreach (var property in entry.Properties)
+                {
+                    if (property.IsTemporary)
+                    {
+                        // value will be generated by the database, get the value after saving
+                        auditEntry.TemporaryProperties.Add(property);
+                        continue;
+                    }
+
+                    string propertyName = property.Metadata.Name;
+                    if (property.Metadata.IsPrimaryKey())
+                    {
+                        auditEntry.KeyValues[propertyName] = property.CurrentValue ?? "";
+                        continue;
+                    }
+
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            auditEntry.UpdateBy = entityTracker?.CreatedBy;
+                            auditEntry.NewValues[propertyName] = property.CurrentValue ?? "";
+                            break;
+
+                        case EntityState.Deleted:
+                            auditEntry.UpdateBy = entityDelTracker?.DeletedBy;
+                            auditEntry.OldValues[propertyName] = property.OriginalValue ?? "";
+                            break;
+
+                        case EntityState.Modified:
+                            auditEntry.UpdateBy = entityTracker?.CreatedBy;
+                            if (property.IsModified)
+                            {
+                                auditEntry.OldValues[propertyName] = property.OriginalValue ?? "";
+                                auditEntry.NewValues[propertyName] = property.CurrentValue ?? "";
+                            }
+                            break;
+                    }
+                }
+            }
+
+            // keep a list of entries where the value of some properties are unknown at this step
+            return auditEntries.ToList();
+        }
+
+        /// <summary>
+        /// Called when [after save changes].
+        /// </summary>
+        /// <param name="auditEntries">The audit entries.</param>
+        /// <returns></returns>
+        private Task OnAfterSaveChanges(List<AuditEntry> auditEntries)
+        {
+            if (auditEntries == null || auditEntries.Count == 0)
+                return Task.CompletedTask;
+
+            foreach (var auditEntry in auditEntries)
+            {
+                // Get the final value of the temporary properties
+                foreach (var prop in auditEntry.TemporaryProperties)
+                {
+                    if (prop.Metadata.IsPrimaryKey())
+                    {
+                        auditEntry.KeyValues[prop.Metadata.Name] = prop.CurrentValue ?? "";
+                    }
+                    else
+                    {
+                        auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue ?? "";
+                    }
+                }
+            }
+
+            return SaveChangesAsync();
+        }
+
+        #endregion Extention
     }
 }

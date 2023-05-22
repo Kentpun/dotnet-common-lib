@@ -1,5 +1,10 @@
-﻿namespace HKSH.Common.Repository.Database
+﻿using System;
+
+namespace HKSH.Common.Repository.Database
 {
+    /// <summary>
+    /// user
+    /// </summary>
     public class ClaimCurrentUser
     {
         /// <summary>
@@ -11,27 +16,54 @@
         public long Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the department identifier.
         /// </summary>
         /// <value>
-        /// The name.
+        /// The department identifier.
         /// </value>
-        public string Name { get; set; }
+        public long DepartmentId { get; set; }
 
         /// <summary>
-        /// Gets or sets the account.
+        /// login name
         /// </summary>
-        /// <value>
-        /// The account.
-        /// </value>
-        public string Account { get; set; }
+        public string LoginName { get; set; } = String.Empty;
 
         /// <summary>
-        /// Gets or sets the phone.
+        /// Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The phone.
+        /// The title.
         /// </value>
-        public string Phone { get; set; }
+        public string Title { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the user name en.
+        /// </summary>
+        /// <value>
+        /// The user name en.
+        /// </value>
+        public string UserNameEn { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the user name cn.
+        /// </summary>
+        /// <value>
+        /// The user name cn.
+        /// </value>
+        public string UserNameCn { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
+        public string RoleType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// domain login
+        /// </summary>
+        public string DomainLogin { get; set; } = String.Empty;
+
     }
 }
