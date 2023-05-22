@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HKSH.Common.Repository.Database
+﻿namespace HKSH.Common.Repository.Database
 {
     /// <summary>
     /// user
@@ -64,6 +62,5 @@ namespace HKSH.Common.Repository.Database
         /// domain login
         /// </summary>
         public string DomainLogin { get; set; } = String.Empty;
-
     }
 }

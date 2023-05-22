@@ -3,7 +3,7 @@
     public class RowAuditLogDocument
     {
         /// <summary>
-        /// MongoDB 主键.
+        /// 主键.
         /// </summary>
         /// <value>
         /// The identifier.
@@ -17,6 +17,14 @@
         /// The operator.
         /// </value>
         public string Action { get; set; } = null!;
+
+        /// <summary>
+        /// 模块.
+        /// </summary>
+        /// <value>
+        /// The module.
+        /// </value>
+        public string? Module { get; set; }
 
         /// <summary>
         /// 行记录所属表.
@@ -35,12 +43,12 @@
         public string? RowId { get; set; }
 
         /// <summary>
-        /// 业务编号(类似于组装后的FormId(ALC.434.001)).
+        /// 业务类型.
         /// </summary>
         /// <value>
         /// The type of the business.
         /// </value>
-        public string? BusinessCode { get; set; } = null!;
+        public string? BusinessType { get; set; } = null!;
 
         /// <summary>
         /// 版本 时间戳.

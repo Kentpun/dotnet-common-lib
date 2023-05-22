@@ -1,6 +1,4 @@
-﻿using HKSH.Common.Caching.Redis;
-using HKSH.Common.RabbitMQ;
-using Microsoft.Extensions.Configuration;
+﻿using HKSH.Common.RabbitMQ;
 using Microsoft.Extensions.Options;
 using Nest;
 
@@ -16,6 +14,7 @@ namespace HKSH.Common.Elastic
         /// The configuration
         /// </summary>
         private readonly IOptions<ElasticSearchOptions> _options;
+
         /// <summary>
         /// The client
         /// </summary>

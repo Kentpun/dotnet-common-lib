@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.4.4</Version>
-		<Description>Audit log model change to elasticsearch document</Description>
+		<Version>2.4.5</Version>
+		<Description>Update Audit</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

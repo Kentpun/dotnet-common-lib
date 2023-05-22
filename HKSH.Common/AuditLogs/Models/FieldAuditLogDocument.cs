@@ -11,7 +11,23 @@
         public string? Id { get; set; }
 
         /// <summary>
-        /// 类似于组装后的FormId(ALC.434.001).
+        /// 模块.
+        /// </summary>
+        /// <value>
+        /// The module.
+        /// </value>
+        public string? Module { get; set; }
+
+        /// <summary>
+        /// 业务类型.
+        /// </summary>
+        /// <value>
+        /// The type of the business.
+        /// </value>
+        public string? BusinessType { get; set; } = null!;
+
+        /// <summary>
+        /// 暂时和BusinessType一致.
         /// </summary>
         /// <value>
         /// The section.
