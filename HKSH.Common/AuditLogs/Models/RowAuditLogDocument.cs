@@ -1,18 +1,13 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace HKSH.Common.AuditLogs.Models
+﻿namespace HKSH.Common.AuditLogs.Models
 {
-    public class RowAuditLog
+    public class RowAuditLogDocument
     {
         /// <summary>
-        /// MongoDB 主键.
+        /// 主键.
         /// </summary>
         /// <value>
         /// The identifier.
         /// </value>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
         /// <summary>
@@ -21,8 +16,15 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The operator.
         /// </value>
-        [BsonElement("Action")]
         public string Action { get; set; } = null!;
+
+        /// <summary>
+        /// 模块.
+        /// </summary>
+        /// <value>
+        /// The module.
+        /// </value>
+        public string? Module { get; set; }
 
         /// <summary>
         /// 行记录所属表.
@@ -30,7 +32,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The name of the table.
         /// </value>
-        [BsonElement("TableName")]
         public string TableName { get; set; } = null!;
 
         /// <summary>
@@ -39,17 +40,15 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The type of the business.
         /// </value>
-        [BsonElement("RowId")]
         public string? RowId { get; set; }
 
         /// <summary>
-        /// 业务编号(类似于组装后的FormId(ALC.434.001)).
+        /// 业务类型.
         /// </summary>
         /// <value>
         /// The type of the business.
         /// </value>
-        [BsonElement("BusinessCode")]
-        public string? BusinessCode { get; set; } = null!;
+        public string? BusinessType { get; set; } = null!;
 
         /// <summary>
         /// 版本 时间戳.
@@ -57,7 +56,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The log message.
         /// </value>
-        [BsonElement("Version")]
         public string Version { get; set; } = null!;
 
         /// <summary>
@@ -66,7 +64,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The update by.
         /// </value>
-        [BsonElement("UpdateBy")]
         public string? UpdateBy { get; set; } = null!;
 
         /// <summary>
@@ -75,7 +72,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The row.
         /// </value>
-        [BsonElement("Row")]
         public string Row { get; set; } = null!;
     }
 }

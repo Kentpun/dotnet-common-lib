@@ -43,9 +43,10 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessCode">The business code.</param>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(string? businessCode);
+        Task<int> SaveChangesAsync(string? businessType, string? module);
 
         /// <summary>
         /// do save
@@ -56,9 +57,10 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessCode">The business code.</param>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
         /// <returns></returns>
-        int SaveChanges(string? businessCode);
+        int SaveChanges(string? businessType, string? module);
 
         /// <summary>
         /// Gets the store.

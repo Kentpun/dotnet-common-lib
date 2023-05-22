@@ -1,9 +1,6 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace HKSH.Common.AuditLogs.Models
+﻿namespace HKSH.Common.AuditLogs.Models
 {
-    public class FieldAuditLog
+    public class FieldAuditLogDocument
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -11,17 +8,30 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The identifier.
         /// </value>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
         /// <summary>
-        /// 类似于组装后的FormId(ALC.434.001).
+        /// 模块.
+        /// </summary>
+        /// <value>
+        /// The module.
+        /// </value>
+        public string? Module { get; set; }
+
+        /// <summary>
+        /// 业务类型.
+        /// </summary>
+        /// <value>
+        /// The type of the business.
+        /// </value>
+        public string? BusinessType { get; set; } = null!;
+
+        /// <summary>
+        /// 暂时和BusinessType一致.
         /// </summary>
         /// <value>
         /// The section.
         /// </value>
-        [BsonElement("Section")]
         public string Section { get; set; } = null!;
 
         /// <summary>
@@ -30,7 +40,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The field.
         /// </value>
-        [BsonElement("Field")]
         public string Field { get; set; } = null!;
 
         /// <summary>
@@ -39,7 +48,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The update from.
         /// </value>
-        [BsonElement("UpdateFrom")]
         public string UpdateFrom { get; set; } = null!;
 
         /// <summary>
@@ -48,7 +56,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The update to.
         /// </value>
-        [BsonElement("UpdateTo")]
         public string UpdateTo { get; set; } = null!;
 
         /// <summary>
@@ -57,7 +64,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The update time.
         /// </value>
-        [BsonElement("UpdateTime")]
         public DateTime UpdateTime { get; set; }
 
         /// <summary>
@@ -66,7 +72,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The update by.
         /// </value>
-        [BsonElement("UpdateBy")]
         public string UpdateBy { get; set; } = null!;
 
         /// <summary>
@@ -75,7 +80,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The operator.
         /// </value>
-        [BsonElement("Action")]
         public string Action { get; set; } = null!;
     }
 }

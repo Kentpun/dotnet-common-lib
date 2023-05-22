@@ -106,15 +106,16 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessCode">The business code.</param>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
         /// <returns></returns>
-        public int SaveChanges(string? businessCode)
+        public int SaveChanges(string? businessType, string? module)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLog>();
-                var auditEntries = OnBeforeSaveChanges(businessCode);
+                var rows = new List<RowAuditLogDocument>();
+                var auditEntries = OnBeforeSaveChanges(businessType, module);
                 var result = DbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
@@ -139,15 +140,16 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessCode">The business code.</param>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(string? businessCode)
+        public Task<int> SaveChangesAsync(string? businessType, string? module)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLog>();
-                var auditEntries = OnBeforeSaveChanges(businessCode);
+                var rows = new List<RowAuditLogDocument>();
+                var auditEntries = OnBeforeSaveChanges(businessType, module);
                 var result = DbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
@@ -175,8 +177,10 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Called when [before save changes].
         /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
         /// <returns></returns>
-        private List<AuditEntry> OnBeforeSaveChanges(string? businessCode)
+        private List<AuditEntry> OnBeforeSaveChanges(string? businessType, string? module)
         {
             DbContext.ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
@@ -191,7 +195,8 @@ namespace HKSH.Common.Repository.Database
                 var auditEntry = new AuditEntry(entry)
                 {
                     TableName = entry.Metadata.GetTableName() ?? "",
-                    BusinessCode = businessCode,
+                    Module = module,
+                    BusinessType = businessType,
                     Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);

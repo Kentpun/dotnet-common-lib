@@ -40,7 +40,15 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         /// The business code.
         /// </value>
-        public string? BusinessCode { get; set; }
+        public string? BusinessType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the module.
+        /// </summary>
+        /// <value>
+        /// The module.
+        /// </value>
+        public string? Module { get; set; }
 
         /// <summary>
         /// Gets or sets the update by.
@@ -102,14 +110,15 @@ namespace HKSH.Common.AuditLogs.Models
         /// Converts to audit.
         /// </summary>
         /// <returns></returns>
-        public RowAuditLog ToAudit()
+        public RowAuditLogDocument ToAudit()
         {
-            var audit = new RowAuditLog
+            var audit = new RowAuditLogDocument
             {
                 Action = Action,
                 TableName = TableName,
                 RowId = Entry.PrimaryKey(),
-                BusinessCode = BusinessCode,
+                Module = Module,
+                BusinessType = BusinessType,
                 Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
                 UpdateBy = UpdateBy,
                 Row = JsonConvert.SerializeObject(Entry.Entity, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore })

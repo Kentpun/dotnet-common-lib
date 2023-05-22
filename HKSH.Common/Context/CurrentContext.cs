@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;
 using HKSH.Common.Repository.Database.Privileges;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace HKSH.Common.Context
 {
@@ -174,7 +173,7 @@ namespace HKSH.Common.Context
                 {
                     return _userPermissions;
                 }
-                
+
                 long userId = CurrentUserId;
 
                 try

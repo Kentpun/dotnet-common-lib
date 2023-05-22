@@ -1,7 +1,5 @@
 ﻿//  Mou,Xiaohua 2023/05/17 15:55
 
-using System;
-
 namespace HKSH.Common.Repository.Database.Privileges
 {
     /// <summary>
