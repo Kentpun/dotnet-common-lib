@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;
@@ -114,11 +115,9 @@ namespace HKSH.Common.Context
 
                 long userId = CurrentUserId;
 
-                var key = $"session:userinfo:{userId}";
-
                 try
                 {
-                    var claimCurrentUser = _redisRepository.GetString<ClaimCurrentUser>(key);
+                    var claimCurrentUser = _redisRepository.HashGet<ClaimCurrentUser>(ContextConst.KEY_PATTERN + userId, ContextConst.USER_INFO);
                     if (claimCurrentUser.Id != userId)
                     {
                         throw new Exception("You are not logged in yet");
@@ -150,11 +149,10 @@ namespace HKSH.Common.Context
 
                 long userId = CurrentUserId;
 
-                var key = $"session:location:{userId}";
 
                 try
                 {
-                    _currentLocation = _redisRepository.GetString<string>(key);
+                    _currentLocation = _redisRepository.HashGet<string>(ContextConst.KEY_PATTERN + userId, ContextConst.LOCATION_INFO);
                     return _currentLocation;
                 }
                 catch (Exception e)
@@ -179,11 +177,9 @@ namespace HKSH.Common.Context
                 
                 long userId = CurrentUserId;
 
-                var key = $"session:privilege:{userId}";
-
                 try
                 {
-                    _userPermissions = _redisRepository.GetString<List<UserPrivilegeModule>>(key);
+                    _userPermissions = _redisRepository.HashGet<List<UserPrivilegeModule>>(ContextConst.KEY_PATTERN + userId, ContextConst.PRIVILEGE_INFO);
                     return _userPermissions;
                 }
                 catch (Exception e)
