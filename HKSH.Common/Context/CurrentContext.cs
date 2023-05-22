@@ -119,7 +119,7 @@ namespace HKSH.Common.Context
                 try
                 {
                     var claimCurrentUser = _redisRepository.HashGet<ClaimCurrentUser>(ContextConst.KEY_PATTERN + userId, ContextConst.USER_INFO);
-                    if (claimCurrentUser.Id != userId)
+                    if (claimCurrentUser == null || claimCurrentUser.Id != userId)
                     {
                         throw new Exception("You are not logged in yet");
                     }
