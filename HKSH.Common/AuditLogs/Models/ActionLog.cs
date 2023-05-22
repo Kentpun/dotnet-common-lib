@@ -26,6 +26,7 @@ namespace HKSH.Common.AuditLogs.Models
         /// The action date.
         /// </value>
         [BsonElement("ActionDate")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime ActionDate { get; set; }
 
 
