@@ -7,6 +7,7 @@ using HKSH.Common.Repository.Database.Privileges;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using HKSH.Common.Constants;
 
 namespace HKSH.Common.Context
 {
@@ -82,6 +83,14 @@ namespace HKSH.Common.Context
                 }
 
                 var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(reallyUserId))
+                {
+                    var containsUserId = _httpContextAccessor?.HttpContext?.Request.Headers.ContainsKey(GlobalConstant.CURRENT_USER_CODE) ?? false;
+                    if (containsUserId)
+                    {
+                        reallyUserId = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.CURRENT_USER_CODE];
+                    }
+                }
 
                 if (string.IsNullOrEmpty(reallyUserId))
                 {

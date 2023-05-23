@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HKSH.Common.Constants;
+using Microsoft.AspNetCore.Http;
+using NetTopologySuite.Utilities;
+using System.Security.Claims;
 using WebApiClient;
 
 namespace HKSH.Common.ServiceInvoker
@@ -46,6 +49,12 @@ namespace HKSH.Common.ServiceInvoker
                             authentication.ToString());
                     }
                 }
+
+                var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!string.IsNullOrEmpty(reallyUserId))
+                {
+                    options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
+                }
             });
 
             return factory.CreateHttpApi() as TInterface;
@@ -82,6 +91,12 @@ namespace HKSH.Common.ServiceInvoker
                     {
                         options.HttpClient.DefaultRequestHeaders.Add(h.Key, Convert.ToString(h.Value));
                     }
+                }
+
+                var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!string.IsNullOrEmpty(reallyUserId))
+                {
+                    options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
                 }
             });
 
