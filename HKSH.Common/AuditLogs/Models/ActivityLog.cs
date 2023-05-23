@@ -5,9 +5,9 @@ namespace HKSH.Common.AuditLogs.Models
 {
 
     /// <summary>
-    /// 
+    /// ActivityLog
     /// </summary>
-    public class AcitivityLog
+    public class ActivityLog
     {
 
         /// <summary>
