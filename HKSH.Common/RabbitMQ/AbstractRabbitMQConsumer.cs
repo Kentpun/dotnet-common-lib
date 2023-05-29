@@ -8,10 +8,11 @@ using System.Text;
 namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// RabbitMQConsumer
+    /// AbstractRabbitMQConsumer
     /// </summary>
+    /// <seealso cref="HKSH.Common.RabbitMQ.IMessageQueueConsumer" />
     /// <seealso cref="IMessageQueueConsumer" />
-    public abstract class RabbitMQConsumer : IMessageQueueConsumer
+    public abstract class AbstractRabbitMQConsumer : IMessageQueueConsumer
     {
         /// <summary>
         /// The service provider
@@ -21,7 +22,7 @@ namespace HKSH.Common.RabbitMQ
         /// <summary>
         /// The logger
         /// </summary>
-        protected ILogger<RabbitMQConsumer> _logger;
+        protected ILogger<AbstractRabbitMQConsumer> _logger;
 
         /// <summary>
         /// Gets or sets the context.
@@ -37,12 +38,12 @@ namespace HKSH.Common.RabbitMQ
         protected abstract void Initialize();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RabbitMQConsumer"/> class.
+        /// Initializes a new instance of the <see cref="AbstractRabbitMQConsumer"/> class.
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
         /// <param name="logger">The logger.</param>
         /// <exception cref="ArgumentNullException">serviceProvider</exception>
-        public RabbitMQConsumer(IServiceProvider serviceProvider, ILogger<RabbitMQConsumer> logger)
+        public AbstractRabbitMQConsumer(IServiceProvider serviceProvider, ILogger<AbstractRabbitMQConsumer> logger)
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             _logger = logger;
