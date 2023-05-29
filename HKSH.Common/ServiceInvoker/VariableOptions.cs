@@ -31,6 +31,11 @@ public class VariableOptions
     public const string EFormMasterCoreHost = "MasterCore";
 
     /// <summary>
+    /// The MDM master core host
+    /// </summary>
+    public const string MdmMasterCoreHost = "MdmMasterCore";
+
+    /// <summary>
     /// Gets or sets the key.
     /// </summary>
     /// <value>
