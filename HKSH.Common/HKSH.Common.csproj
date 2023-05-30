@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.5.0</Version>
-		<Description>Update ServiceInvoker</Description>
+		<Version>2.5.2</Version>
+		<Description>Add Constant MdmMasterCoreHost</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
