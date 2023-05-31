@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.5.5</Version>
-		<Description>update log</Description>
+		<Version>2.5.6</Version>
+		<Description>delete redis helper</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
