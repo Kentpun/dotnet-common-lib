@@ -27,6 +27,6 @@
         /// <value>
         /// The log.
         /// </value>
-        public object Log { get; set; } = null!;
+        public string Log { get; set; } = null!;
     }
 }

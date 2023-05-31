@@ -6,6 +6,7 @@ using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.Data;
 
 namespace HKSH.Common.Repository.Database
@@ -127,7 +128,7 @@ namespace HKSH.Common.Repository.Database
                     {
                         Uuid = Guid.NewGuid(),
                         Action = "change",
-                        Log = rows
+                        Log = JsonConvert.SerializeObject(rows)
                     };
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
                     publisher?.Publish(CapTopic.AuditLogs, message);
@@ -168,7 +169,7 @@ namespace HKSH.Common.Repository.Database
                     {
                         Uuid = Guid.NewGuid(),
                         Action = "change",
-                        Log = rows
+                        Log = JsonConvert.SerializeObject(rows)
                     };
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
                     publisher?.Publish(CapTopic.AuditLogs, message);

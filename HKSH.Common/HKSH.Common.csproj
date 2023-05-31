@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.5.6</Version>
-		<Description>delete redis helper</Description>
+		<Version>2.5.7</Version>
+		<Description>change to json convert</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
