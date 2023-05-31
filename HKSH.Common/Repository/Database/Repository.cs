@@ -261,22 +261,29 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        public int SaveChanges(string? businessType, string? module)
+        public int SaveChanges(string businessType, string module, string? section = "")
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module);
+                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
+                    var message = new LogMqRequest
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Action = "change",
+                        Log = rows
+                    };
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, rows);
+                    publisher?.Publish(CapTopic.AuditLogs, message);
                 }
                 return result.Result;
             }
@@ -297,22 +304,29 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(string? businessType, string? module)
+        public Task<int> SaveChangesAsync(string businessType, string module, string? section = "")
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module);
+                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
+                    var message = new LogMqRequest
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Action = "change",
+                        Log = rows
+                    };
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, rows);
+                    publisher?.Publish(CapTopic.AuditLogs, message);
                 }
                 return result;
             }
@@ -413,8 +427,9 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        private List<AuditEntry> OnBeforeSaveChanges(string? businessType, string? module)
+        private List<AuditEntry> OnBeforeSaveChanges(string businessType, string module, string? section = "")
         {
             _dbContext.ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
@@ -431,6 +446,7 @@ namespace HKSH.Common.Repository.Database
                     TableName = entry.Metadata.GetTableName() ?? "",
                     Module = module,
                     BusinessType = businessType,
+                    Section = section,
                     Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);

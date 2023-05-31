@@ -24,15 +24,15 @@
         /// <value>
         /// The type of the business.
         /// </value>
-        public string? BusinessType { get; set; } = null!;
+        public string BusinessType { get; set; } = null!;
 
         /// <summary>
-        /// 暂时和BusinessType一致.
+        /// Section 待定，暂时后端传入.
         /// </summary>
         /// <value>
         /// The section.
         /// </value>
-        public string Section { get; set; } = null!;
+        public string? Section { get; set; }
 
         /// <summary>
         /// 修改字段.

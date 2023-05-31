@@ -15,7 +15,6 @@
         /// </summary>
         public const string ActivityLogs = "HKSH.Logs.Row.ActivityLogs";
 
-
         /// <summary>
         /// The action logs
         /// </summary>

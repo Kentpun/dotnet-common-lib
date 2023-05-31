@@ -23,6 +23,5 @@ namespace HKSH.Common.Context
         /// privilege info
         /// </summary>
         public static readonly string PRIVILEGE_INFO = "priviligeinfo";
-        
     }
 }

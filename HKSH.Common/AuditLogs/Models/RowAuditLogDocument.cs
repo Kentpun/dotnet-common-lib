@@ -48,7 +48,15 @@
         /// <value>
         /// The type of the business.
         /// </value>
-        public string? BusinessType { get; set; } = null!;
+        public string BusinessType { get; set; } = null!;
+
+        /// <summary>
+        /// Section 待定，暂时后端传入.
+        /// </summary>
+        /// <value>
+        /// The section.
+        /// </value>
+        public string? Section { get; set; }
 
         /// <summary>
         /// 版本 时间戳.

@@ -95,8 +95,9 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        int SaveChanges(string? businessType, string? module);
+        int SaveChanges(string businessType, string module, string? section = "");
 
         /// <summary>
         /// Saves the changes asynchronous.
@@ -109,8 +110,9 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(string? businessType, string? module);
+        Task<int> SaveChangesAsync(string businessType, string module, string? section = "");
 
         /// <summary>
         /// Gets the entities.
