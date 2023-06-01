@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.5.8</Version>
-		<Description>add IEnumerable extension OrderByCN</Description>
+		<Version>2.5.9</Version>
+		<Description>Add mini excel</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
@@ -46,6 +46,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+		<PackageReference Include="MiniExcel" Version="1.31.0" />
 		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
 		<PackageReference Include="NEST" Version="7.17.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
