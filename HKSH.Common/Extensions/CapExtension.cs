@@ -2,7 +2,7 @@
 using HKSH.Common.Repository.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace MicroService.Repository
+namespace HKSH.Common.Extensions
 {
     /// <summary>
     /// CAPExtensions

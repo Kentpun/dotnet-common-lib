@@ -128,7 +128,7 @@ namespace HKSH.Common.AuditLogs.Models
                 Module = Module,
                 BusinessType = BusinessType,
                 Section = Section,
-                Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
+                Version = DateTime.Now.ToStamp(),
                 UpdateBy = UpdateBy,
                 Row = JsonConvert.SerializeObject(Entry.Entity, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore })
             };
