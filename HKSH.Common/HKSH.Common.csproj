@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.6.0</Version>
-		<Description>Add excel helper and background service some extensions</Description>
+		<Version>2.6.1</Version>
+		<Description>FieldAuditLogDocument add field table name</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

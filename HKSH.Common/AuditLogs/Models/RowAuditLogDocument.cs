@@ -1,9 +1,12 @@
 ﻿namespace HKSH.Common.AuditLogs.Models
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class RowAuditLogDocument
     {
         /// <summary>
-        /// 主键.
+        /// Gets or sets the identifier.
         /// </summary>
         /// <value>
         /// The identifier.
@@ -11,15 +14,15 @@
         public string? Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the operator.
+        /// Gets or sets the action.
         /// </summary>
         /// <value>
-        /// The operator.
+        /// The action.
         /// </value>
         public string Action { get; set; } = null!;
 
         /// <summary>
-        /// 模块.
+        /// Gets or sets the module.
         /// </summary>
         /// <value>
         /// The module.
@@ -27,7 +30,7 @@
         public string? Module { get; set; }
 
         /// <summary>
-        /// 行记录所属表.
+        /// Gets or sets the name of the table.
         /// </summary>
         /// <value>
         /// The name of the table.
@@ -35,15 +38,15 @@
         public string TableName { get; set; } = null!;
 
         /// <summary>
-        /// 行记录Id.
+        /// Gets or sets the row identifier.
         /// </summary>
         /// <value>
-        /// The type of the business.
+        /// The row identifier.
         /// </value>
         public string? RowId { get; set; }
 
         /// <summary>
-        /// 业务类型.
+        /// Gets or sets the type of the business.
         /// </summary>
         /// <value>
         /// The type of the business.
@@ -51,7 +54,7 @@
         public string BusinessType { get; set; } = null!;
 
         /// <summary>
-        /// Section 待定，暂时后端传入.
+        /// Gets or sets the section.
         /// </summary>
         /// <value>
         /// The section.
@@ -59,15 +62,15 @@
         public string? Section { get; set; }
 
         /// <summary>
-        /// 版本 时间戳.
+        /// Gets or sets the version.
         /// </summary>
         /// <value>
-        /// The log message.
+        /// The version.
         /// </value>
         public string Version { get; set; } = null!;
 
         /// <summary>
-        /// 操作人.
+        /// Gets or sets the update by.
         /// </summary>
         /// <value>
         /// The update by.
@@ -75,7 +78,7 @@
         public string? UpdateBy { get; set; } = null!;
 
         /// <summary>
-        /// 行记录Json结构.
+        /// Gets or sets the row.
         /// </summary>
         /// <value>
         /// The row.

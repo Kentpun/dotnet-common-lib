@@ -24,6 +24,10 @@ namespace HKSH.Common.Helper
             ExcelVersion = GetExcelVersion(FilePath);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NpoiExcel"/> class.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
         public NpoiExcel(Stream stream)
         {
             FileStream = stream;
