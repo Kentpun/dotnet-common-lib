@@ -16,6 +16,13 @@ namespace HKSH.Common.Repository.Database
         void Add(T entity);
 
         /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Add(T entity, long userId);
+
+        /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -47,6 +54,13 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Modify(T entity);
+
+        /// <summary>
+        /// Modifies the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Modify(T entity, long userId);
 
         /// <summary>
         /// Modifies the no track.

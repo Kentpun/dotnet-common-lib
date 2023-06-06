@@ -100,6 +100,25 @@ namespace HKSH.Common.Repository.Database
         }
 
         /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Add(T entity, long userId)
+        {
+            var tracker = entity as IEntityTracker;
+            if (tracker != null)
+            {
+                tracker.CreatedAt = DateTime.Now;
+                if (string.IsNullOrEmpty(tracker.CreatedBy))
+                {
+                    tracker.CreatedBy = userId.ToString();
+                }
+            }
+            _dbSet.Add(entity);
+        }
+
+        /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -171,6 +190,36 @@ namespace HKSH.Common.Repository.Database
                 if (string.IsNullOrEmpty(tracker.ModifiedBy))
                 {
                     tracker.ModifiedBy = CurrentUserId;
+                }
+            }
+            //tracked already
+            foreach (var item in _dbSet.Local)
+            {
+                var existedEntity = item as IEntityIdentify<long>;
+                var currentEntity = entity as IEntityIdentify<long>;
+                if (existedEntity?.Id == currentEntity?.Id)
+                {
+                    _dbSet.Local.Remove(item);
+                    break;
+                }
+            }
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Modifies the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Modify(T entity, long userId)
+        {
+            var tracker = entity as IEntityTracker;
+            if (tracker != null)
+            {
+                tracker.ModifiedAt = DateTime.Now;
+                if (string.IsNullOrEmpty(tracker.ModifiedBy))
+                {
+                    tracker.ModifiedBy = userId.ToString();
                 }
             }
             //tracked already
