@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.6.3</Version>
-		<Description>overload add and modify</Description>
+		<Version>2.6.4</Version>
+		<Description>overload delete</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

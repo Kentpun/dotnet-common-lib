@@ -277,6 +277,26 @@ namespace HKSH.Common.Repository.Database
         }
 
         /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Delete(T entity, string userId)
+        {
+            var tracker = entity as IEntityDelTracker;
+            if (tracker != null)
+            {
+                tracker.DeletedAt = DateTime.Now;
+                tracker.IsDeleted = true;
+                if (string.IsNullOrEmpty(tracker.DeletedBy))
+                {
+                    tracker.DeletedBy = userId;
+                }
+            }
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
         /// Batches the delete.
         /// </summary>
         /// <param name="entities">The entities.</param>
