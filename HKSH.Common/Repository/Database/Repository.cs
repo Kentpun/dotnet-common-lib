@@ -104,7 +104,7 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <param name="userId">The user identifier.</param>
-        public void Add(T entity, long userId)
+        public void Add(T entity, string userId)
         {
             var tracker = entity as IEntityTracker;
             if (tracker != null)
@@ -112,7 +112,7 @@ namespace HKSH.Common.Repository.Database
                 tracker.CreatedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
-                    tracker.CreatedBy = userId.ToString();
+                    tracker.CreatedBy = userId;
                 }
             }
             _dbSet.Add(entity);
@@ -211,7 +211,7 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <param name="userId">The user identifier.</param>
-        public void Modify(T entity, long userId)
+        public void Modify(T entity, string userId)
         {
             var tracker = entity as IEntityTracker;
             if (tracker != null)
@@ -219,7 +219,7 @@ namespace HKSH.Common.Repository.Database
                 tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.ModifiedBy))
                 {
-                    tracker.ModifiedBy = userId.ToString();
+                    tracker.ModifiedBy = userId;
                 }
             }
             //tracked already
