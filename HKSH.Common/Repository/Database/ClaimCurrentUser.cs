@@ -19,7 +19,7 @@
         /// <value>
         /// The department identifier.
         /// </value>
-        public long DepartmentId { get; set; }
+        public string DepartmentId { get; set; }
 
         /// <summary>
         /// login name
