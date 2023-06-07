@@ -91,9 +91,11 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.CreatedAt = DateTime.Now;
+                tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId;
+                    tracker.ModifiedBy = CurrentUserId;
                 }
             }
             _dbSet.Add(entity);
@@ -110,9 +112,11 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.CreatedAt = DateTime.Now;
+                tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = userId;
+                    tracker.ModifiedBy = userId;
                 }
             }
             _dbSet.Add(entity);
