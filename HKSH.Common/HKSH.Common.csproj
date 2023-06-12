@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.6.6</Version>
-		<Description>Modify Current user department type</Description>
+		<Version>2.6.7</Version>
+		<Description>Add role constants</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
