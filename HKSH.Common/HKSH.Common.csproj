@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.6.8</Version>
-		<Description>VariableOptions Add AlertMasterCoreHost</Description>
+		<Version>2.6.9</Version>
+		<Description>Extend DateExtension</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
