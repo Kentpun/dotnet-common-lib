@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace HKSH.Common.Constants
 {
     /// <summary>
-    /// CommonConstant
+    /// CommonImportConstant
     /// </summary>
-    public class CommonConstant
+    public class CommonImportConstant
     {
 
         /// <summary>
