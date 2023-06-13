@@ -1,4 +1,5 @@
-﻿using HKSH.Common.Constants;
+﻿using System;
+using HKSH.Common.Constants;
 using Microsoft.Extensions.Logging;
 
 namespace HKSH.Common.Extensions
