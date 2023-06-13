@@ -51,5 +51,23 @@
             }
             return ToReadable(span.Value);
         }
+
+        /// <summary>
+        /// Gets the date range minimum.
+        /// </summary>
+        /// <param name="dateString">The date string.</param>
+        /// <returns></returns>
+        public static DateTime? GetDateRangeMin(this string dateString) => DateTime.TryParse(dateString, out DateTime outDate) ? new DateTime(outDate.Year, outDate.Month, outDate.Day) : null;
+
+        /// <summary>
+        /// Gets the date range maximum.
+        /// </summary>
+        /// <param name="dateString">The date string.</param>
+        /// <returns></returns>
+        public static DateTime? GetDateRangeMax(this string dateString)
+        {
+            DateTime? date = dateString.GetDateRangeMin();
+            return date.HasValue ? date.Value.AddDays(1) : null;
+        }
     }
 }

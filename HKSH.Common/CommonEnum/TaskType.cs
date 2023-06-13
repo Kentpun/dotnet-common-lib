@@ -48,5 +48,17 @@ namespace HKSH.Common.CommonEnum
         /// The dictionary
         /// </summary>
         [Description("Dictionary")] Dictionary = 1008,
+
+
+        /// <summary>
+        /// The alert
+        /// </summary>
+        [Description("Alert")] Alert = 1009,
+
+
+        /// <summary>
+        /// The button
+        /// </summary>
+        [Description("Button")] Button = 1010,
     }
 }

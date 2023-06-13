@@ -36,6 +36,11 @@ public class VariableOptions
     public const string MdmMasterCoreHost = "MdmMasterCore";
 
     /// <summary>
+    /// The alert master core host
+    /// </summary>
+    public const string AlertMasterCoreHost = "AlertMasterCore";
+
+    /// <summary>
     /// Gets or sets the key.
     /// </summary>
     /// <value>
