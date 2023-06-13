@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -89,10 +90,33 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityTracker;
             if (tracker != null)
             {
-                tracker.CreatedAt = DateTime.UtcNow;
+                tracker.CreatedAt = DateTime.Now;
+                tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId;
+                    tracker.ModifiedBy = CurrentUserId;
+                }
+            }
+            _dbSet.Add(entity);
+        }
+
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Add(T entity, string userId)
+        {
+            var tracker = entity as IEntityTracker;
+            if (tracker != null)
+            {
+                tracker.CreatedAt = DateTime.Now;
+                tracker.ModifiedAt = DateTime.Now;
+                if (string.IsNullOrEmpty(tracker.CreatedBy))
+                {
+                    tracker.CreatedBy = userId;
+                    tracker.ModifiedBy = userId;
                 }
             }
             _dbSet.Add(entity);
@@ -108,7 +132,7 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityTracker;
             if (tracker != null)
             {
-                tracker.CreatedAt = DateTime.UtcNow;
+                tracker.CreatedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId;
@@ -166,10 +190,40 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityTracker;
             if (tracker != null)
             {
-                tracker.ModifiedAt = DateTime.UtcNow;
+                tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.ModifiedBy))
                 {
                     tracker.ModifiedBy = CurrentUserId;
+                }
+            }
+            //tracked already
+            foreach (var item in _dbSet.Local)
+            {
+                var existedEntity = item as IEntityIdentify<long>;
+                var currentEntity = entity as IEntityIdentify<long>;
+                if (existedEntity?.Id == currentEntity?.Id)
+                {
+                    _dbSet.Local.Remove(item);
+                    break;
+                }
+            }
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Modifies the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Modify(T entity, string userId)
+        {
+            var tracker = entity as IEntityTracker;
+            if (tracker != null)
+            {
+                tracker.ModifiedAt = DateTime.Now;
+                if (string.IsNullOrEmpty(tracker.ModifiedBy))
+                {
+                    tracker.ModifiedBy = userId;
                 }
             }
             //tracked already
@@ -216,11 +270,31 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityDelTracker;
             if (tracker != null)
             {
-                tracker.DeletedAt = DateTime.UtcNow;
+                tracker.DeletedAt = DateTime.Now;
                 tracker.IsDeleted = true;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
                     tracker.DeletedBy = CurrentUserId;
+                }
+            }
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Delete(T entity, string userId)
+        {
+            var tracker = entity as IEntityDelTracker;
+            if (tracker != null)
+            {
+                tracker.DeletedAt = DateTime.Now;
+                tracker.IsDeleted = true;
+                if (string.IsNullOrEmpty(tracker.DeletedBy))
+                {
+                    tracker.DeletedBy = userId;
                 }
             }
             _dbSet.Update(entity);
@@ -261,22 +335,29 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        public int SaveChanges(string? businessType, string? module)
+        public int SaveChanges(string businessType, string module, string? section = "")
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module);
+                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
+                    var message = new LogMqRequest
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Action = "change",
+                        Log = JsonConvert.SerializeObject(rows)
+                    };
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, rows);
+                    publisher?.Publish(CapTopic.AuditLogs, message);
                 }
                 return result.Result;
             }
@@ -297,22 +378,29 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(string? businessType, string? module)
+        public Task<int> SaveChangesAsync(string businessType, string module, string? section = "")
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module);
+                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
+                    var message = new LogMqRequest
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Action = "change",
+                        Log = JsonConvert.SerializeObject(rows)
+                    };
                     var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, rows);
+                    publisher?.Publish(CapTopic.AuditLogs, message);
                 }
                 return result;
             }
@@ -413,8 +501,9 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        private List<AuditEntry> OnBeforeSaveChanges(string? businessType, string? module)
+        private List<AuditEntry> OnBeforeSaveChanges(string businessType, string module, string? section = "")
         {
             _dbContext.ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
@@ -431,6 +520,7 @@ namespace HKSH.Common.Repository.Database
                     TableName = entry.Metadata.GetTableName() ?? "",
                     Module = module,
                     BusinessType = businessType,
+                    Section = section,
                     Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);

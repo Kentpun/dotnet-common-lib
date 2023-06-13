@@ -52,8 +52,8 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityTracker;
             if (tracker != null)
             {
-                tracker.CreatedAt = DateTime.UtcNow;
-                tracker.ModifiedAt = DateTime.UtcNow;
+                tracker.CreatedAt = DateTime.Now;
+                tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId ?? string.Empty;
@@ -84,7 +84,7 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityTracker;
             if (tracker != null)
             {
-                tracker.ModifiedAt = DateTime.UtcNow;
+                tracker.ModifiedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.ModifiedBy))
                 {
                     tracker.ModifiedBy = CurrentUserId;
@@ -134,7 +134,7 @@ namespace HKSH.Common.Repository.Database
             var tracker = entity as IEntityDelTracker;
             if (tracker != null)
             {
-                tracker.DeletedAt = DateTime.UtcNow;
+                tracker.DeletedAt = DateTime.Now;
                 tracker.IsDeleted = true;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {

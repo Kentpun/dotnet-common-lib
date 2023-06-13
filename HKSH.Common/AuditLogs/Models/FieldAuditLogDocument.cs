@@ -1,5 +1,8 @@
 ﻿namespace HKSH.Common.AuditLogs.Models
 {
+    /// <summary>
+    /// Field AuditLog Document
+    /// </summary>
     public class FieldAuditLogDocument
     {
         /// <summary>
@@ -11,7 +14,7 @@
         public string? Id { get; set; }
 
         /// <summary>
-        /// 模块.
+        /// Gets or sets the module.
         /// </summary>
         /// <value>
         /// The module.
@@ -19,23 +22,31 @@
         public string? Module { get; set; }
 
         /// <summary>
-        /// 业务类型.
+        /// Gets or sets the name of the table.
+        /// </summary>
+        /// <value>
+        /// The name of the table.
+        /// </value>
+        public string TableName { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the type of the business.
         /// </summary>
         /// <value>
         /// The type of the business.
         /// </value>
-        public string? BusinessType { get; set; } = null!;
+        public string BusinessType { get; set; } = null!;
 
         /// <summary>
-        /// 暂时和BusinessType一致.
+        /// Gets or sets the section.
         /// </summary>
         /// <value>
         /// The section.
         /// </value>
-        public string Section { get; set; } = null!;
+        public string? Section { get; set; }
 
         /// <summary>
-        /// 修改字段.
+        /// Gets or sets the field.
         /// </summary>
         /// <value>
         /// The field.
@@ -43,7 +54,7 @@
         public string Field { get; set; } = null!;
 
         /// <summary>
-        /// 原始值.
+        /// Gets or sets the update from.
         /// </summary>
         /// <value>
         /// The update from.
@@ -51,7 +62,7 @@
         public string UpdateFrom { get; set; } = null!;
 
         /// <summary>
-        /// 修改值.
+        /// Gets or sets the update to.
         /// </summary>
         /// <value>
         /// The update to.
@@ -59,7 +70,7 @@
         public string UpdateTo { get; set; } = null!;
 
         /// <summary>
-        /// 修改的时间.
+        /// Gets or sets the update time.
         /// </summary>
         /// <value>
         /// The update time.
@@ -67,7 +78,7 @@
         public DateTime UpdateTime { get; set; }
 
         /// <summary>
-        /// 修改的操作人.
+        /// Gets or sets the update by.
         /// </summary>
         /// <value>
         /// The update by.
@@ -75,10 +86,10 @@
         public string UpdateBy { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the operator.
+        /// Gets or sets the action.
         /// </summary>
         /// <value>
-        /// The operator.
+        /// The action.
         /// </value>
         public string Action { get; set; } = null!;
     }

@@ -39,12 +39,10 @@ namespace HKSH.Common.CommonEnum
         /// </summary>
         [Description("DictionarySetting")] DictionarySetting = 1006,
 
-
         /// <summary>
         /// The dictionary data set
         /// </summary>
         [Description("DictionaryDataSet")] DictionaryDataSet = 1007,
-
 
         /// <summary>
         /// The dictionary

@@ -35,12 +35,20 @@ namespace HKSH.Common.AuditLogs.Models
         public string TableName { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the business code.
+        /// Gets or sets the type of the business.
         /// </summary>
         /// <value>
-        /// The business code.
+        /// The type of the business.
         /// </value>
-        public string? BusinessType { get; set; }
+        public string BusinessType { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the section.
+        /// </summary>
+        /// <value>
+        /// The section.
+        /// </value>
+        public string? Section { get; set; }
 
         /// <summary>
         /// Gets or sets the module.
@@ -119,7 +127,8 @@ namespace HKSH.Common.AuditLogs.Models
                 RowId = Entry.PrimaryKey(),
                 Module = Module,
                 BusinessType = BusinessType,
-                Version = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString(),
+                Section = Section,
+                Version = DateTime.Now.ToStamp(),
                 UpdateBy = UpdateBy,
                 Row = JsonConvert.SerializeObject(Entry.Entity, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore })
             };

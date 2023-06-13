@@ -16,6 +16,13 @@ namespace HKSH.Common.Repository.Database
         void Add(T entity);
 
         /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Add(T entity, string userId);
+
+        /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -49,6 +56,13 @@ namespace HKSH.Common.Repository.Database
         void Modify(T entity);
 
         /// <summary>
+        /// Modifies the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Modify(T entity, string userId);
+
+        /// <summary>
         /// Modifies the no track.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -65,6 +79,13 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Delete(T entity);
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Delete(T entity, string userId);
 
         /// <summary>
         /// Batches the delete.
@@ -95,8 +116,9 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        int SaveChanges(string? businessType, string? module);
+        int SaveChanges(string businessType, string module, string? section = "");
 
         /// <summary>
         /// Saves the changes asynchronous.
@@ -109,8 +131,9 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="businessType">Type of the business.</param>
         /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(string? businessType, string? module);
+        Task<int> SaveChangesAsync(string businessType, string module, string? section = "");
 
         /// <summary>
         /// Gets the entities.

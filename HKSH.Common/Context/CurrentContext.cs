@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
 using HKSH.Common.Caching.Redis;
+using HKSH.Common.Constants;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;
 using HKSH.Common.Repository.Database.Privileges;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
-using HKSH.Common.Constants;
 
 namespace HKSH.Common.Context
 {
@@ -158,7 +156,6 @@ namespace HKSH.Common.Context
                 }
 
                 long userId = CurrentUserId;
-
 
                 try
                 {

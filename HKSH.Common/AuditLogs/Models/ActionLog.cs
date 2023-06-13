@@ -1,14 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace HKSH.Common.AuditLogs.Models
+﻿namespace HKSH.Common.AuditLogs.Models
 {
     /// <summary>
     /// ActionLog
     /// </summary>
     public class ActionLog
     {
-
         /// <summary>
         /// Gets or sets the action date.
         /// </summary>

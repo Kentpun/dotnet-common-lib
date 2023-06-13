@@ -1,5 +1,4 @@
-﻿
-using HKSH.Common.Base;
+﻿using HKSH.Common.Base;
 using HKSH.Common.CommonEnum;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +9,7 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// 数据导入异步任务
     /// </summary>
-    /// <seealso cref="HKSH.Common.Base.BaseTrackedEntity" />
+    /// <seealso cref="BaseTrackedEntity" />
     public class AsynTask : BaseTrackedEntity
     {
         /// <summary>
@@ -53,7 +52,7 @@ namespace HKSH.Common.ShareModel
         [Column("file_name")]
         [Comment("file name")]
         [MaxLength(200)]
-        public string FileName { get; set; } = String.Empty;
+        public string FileName { get; set; } = string.Empty;
 
         /// <summary>
         /// 文件路径
@@ -64,7 +63,7 @@ namespace HKSH.Common.ShareModel
         [Column("file_url")]
         [Comment("file url")]
         [MaxLength(500)]
-        public string FileUrl { get; set; } = String.Empty;
+        public string FileUrl { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the status.
@@ -74,7 +73,7 @@ namespace HKSH.Common.ShareModel
         /// </value>
         [Column("status")]
         [Comment("status")]
-        public Common.CommonEnum.TaskStatus Status { get; set; }
+        public CommonEnum.TaskStatus Status { get; set; }
 
         /// <summary>
         /// 状态变更原因
@@ -85,6 +84,6 @@ namespace HKSH.Common.ShareModel
         [Column("remark")]
         [Comment("remark")]
         [MaxLength(200)]
-        public string Remark { get; set; } = String.Empty;
+        public string Remark { get; set; } = string.Empty;
     }
 }

@@ -1,15 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace HKSH.Common.AuditLogs.Models
+﻿namespace HKSH.Common.AuditLogs.Models
 {
-
     /// <summary>
     /// ActivityLog
     /// </summary>
     public class ActivityLog
     {
-
         /// <summary>
         /// Gets or sets the action date.
         /// </summary>
@@ -25,7 +20,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// The user.
         /// </value>
         public string User { get; set; } = null!;
-
 
         /// <summary>
         /// Gets or sets the module.
@@ -51,9 +45,6 @@ namespace HKSH.Common.AuditLogs.Models
         /// </value>
         public string Function { get; set; } = null!;
 
-
-
-
         /// <summary>
         /// Gets or sets the visti file no.
         /// </summary>
@@ -61,6 +52,5 @@ namespace HKSH.Common.AuditLogs.Models
         /// The visti file no.
         /// </value>
         public string VistiFileNo { get; set; } = null!;
-
     }
 }

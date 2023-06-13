@@ -4,6 +4,7 @@ using HKSH.Common.Base;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Elastic;
 using HKSH.Common.File;
+using HKSH.Common.Helper;
 using HKSH.Common.RabbitMQ;
 using HKSH.Common.Repository;
 using HKSH.Common.ServiceInvoker;
@@ -434,6 +435,12 @@ public static class ServiceCollectionExtension
             services.AddxxlJobs(configuration);
         }
 
+        //IHostedService
+        if (programConfigure.EnableBackgroundService)
+        {
+            services.AddBackgroundServices();
+        }
+
         return services;
     }
 
@@ -534,6 +541,12 @@ public static class ServiceCollectionExtension
         if (programConfigure.EnableXxlJob)
         {
             services.AddxxlJobs(configuration);
+        }
+
+        //IHostedService
+        if (programConfigure.EnableBackgroundService)
+        {
+            services.AddBackgroundServices();
         }
 
         return services;

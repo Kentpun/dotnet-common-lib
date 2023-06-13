@@ -92,5 +92,13 @@
         ///   <c>true</c> if [enable XXL job]; otherwise, <c>false</c>.
         /// </value>
         public bool EnableXxlJob { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [enable background service].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable background service]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnableBackgroundService { get; set; } = false;
     }
 }

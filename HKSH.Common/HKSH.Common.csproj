@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.5.4</Version>
-		<Description>Add task status</Description>
+		<Version>2.6.9</Version>
+		<Description>Extend DateExtension</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
@@ -26,6 +26,7 @@
 		<PackageReference Include="DotNetCore.CAP.Kafka" Version="7.1.2" />
 		<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.2" />
 		<PackageReference Include="DotNetCore.CAP.SqlServer" Version="7.1.2" />
+		<PackageReference Include="DotNetCore.NPOI" Version="1.2.3" />
 		<PackageReference Include="DotXxlJob.Core" Version="2.3.2" />
 		<PackageReference Include="EFCore.BulkExtensions" Version="7.0.1" />
 		<PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.22.0" />
@@ -46,6 +47,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+		<PackageReference Include="MiniExcel" Version="1.31.0" />
 		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
 		<PackageReference Include="NEST" Version="7.17.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
