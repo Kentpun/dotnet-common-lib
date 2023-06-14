@@ -49,16 +49,25 @@ namespace HKSH.Common.CommonEnum
         /// </summary>
         [Description("Dictionary")] Dictionary = 1008,
 
+        /// <summary>
+        /// The dictionary
+        /// </summary>
+        [Description("DictionaryExcelTemplte")] DictionaryExcelTemplte = 1009,
+
+        /// <summary>
+        /// The dictionary
+        /// </summary>
+        [Description("PublishLog")] PublishLog = 1010,
 
         /// <summary>
         /// The alert
         /// </summary>
-        [Description("Alert")] Alert = 1009,
+        [Description("Alert")] Alert = 1011,
 
 
         /// <summary>
         /// The button
         /// </summary>
-        [Description("Button")] Button = 1010,
+        [Description("Button")] Button = 1012,
     }
 }
