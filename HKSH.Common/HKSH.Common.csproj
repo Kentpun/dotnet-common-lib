@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.7.3</Version>
-		<Description>Update claim current user</Description>
+		<Version>2.7.4</Version>
+		<Description>Add Template Enum</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
