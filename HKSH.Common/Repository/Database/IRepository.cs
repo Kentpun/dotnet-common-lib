@@ -112,28 +112,10 @@ namespace HKSH.Common.Repository.Database
         int SaveChanges();
 
         /// <summary>
-        /// Saves the changes.
-        /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
-        /// <returns></returns>
-        int SaveChanges(string businessType, string module, string? section = "");
-
-        /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
         Task<int> SaveChangesAsync();
-
-        /// <summary>
-        /// Saves the changes asynchronous.
-        /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
-        /// <returns></returns>
-        Task<int> SaveChangesAsync(string businessType, string module, string? section = "");
 
         /// <summary>
         /// Gets the entities.
@@ -191,5 +173,27 @@ namespace HKSH.Common.Repository.Database
         /// <param name="paddingCount">The padding count.</param>
         /// <returns></returns>
         string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount);
+
+        #region Extension
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
+        int SaveChanges(string businessType, string module, string? section = "");
+
+        /// <summary>
+        /// Saves the changes asynchronous.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
+        Task<int> SaveChangesAsync(string businessType, string module, string? section = "");
+
+        #endregion Extension
     }
 }

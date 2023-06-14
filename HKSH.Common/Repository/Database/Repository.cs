@@ -331,84 +331,10 @@ namespace HKSH.Common.Repository.Database
         public int SaveChanges() => _dbContext.SaveChanges();
 
         /// <summary>
-        /// Saves the changes.
-        /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
-        /// <returns></returns>
-        public int SaveChanges(string businessType, string module, string? section = "")
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
-            if (dbLogSettings?.Value?.IsEnabled == true)
-            {
-                var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
-                var result = _dbContext.SaveChangesAsync();
-                result.Wait();
-                OnAfterSaveChanges(auditEntries).Wait();
-                rows = auditEntries.Select(s => s.ToAudit()).ToList();
-                if (result.Result > 0 && rows.Any())
-                {
-                    var message = new LogMqRequest
-                    {
-                        Uuid = Guid.NewGuid(),
-                        Action = "change",
-                        Log = JsonConvert.SerializeObject(rows)
-                    };
-                    var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, message);
-                }
-                return result.Result;
-            }
-            else
-            {
-                return _dbContext.SaveChanges();
-            }
-        }
-
-        /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
         public Task<int> SaveChangesAsync() => _dbContext.SaveChangesAsync();
-
-        /// <summary>
-        /// Saves the changes asynchronous.
-        /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
-        /// <returns></returns>
-        public Task<int> SaveChangesAsync(string businessType, string module, string? section = "")
-        {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
-            if (dbLogSettings?.Value?.IsEnabled == true)
-            {
-                var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
-                var result = _dbContext.SaveChangesAsync();
-                result.Wait();
-                OnAfterSaveChanges(auditEntries).Wait();
-                rows = auditEntries.Select(s => s.ToAudit()).ToList();
-                if (result.Result > 0 && rows.Any())
-                {
-                    var message = new LogMqRequest
-                    {
-                        Uuid = Guid.NewGuid(),
-                        Action = "change",
-                        Log = JsonConvert.SerializeObject(rows)
-                    };
-                    var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, message);
-                }
-                return result;
-            }
-            else
-            {
-                return _dbContext.SaveChangesAsync();
-            }
-        }
 
         /// <summary>
         /// Gets the entities.
@@ -494,7 +420,81 @@ namespace HKSH.Common.Repository.Database
             _dbContext?.Dispose();
         }
 
-        #region Extention
+        #region Extension
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
+        public int SaveChanges(string businessType, string module, string? section = "")
+        {
+            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            if (dbLogSettings?.Value?.IsEnabled == true)
+            {
+                var rows = new List<RowAuditLogDocument>();
+                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
+                var result = _dbContext.SaveChangesAsync();
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                if (result.Result > 0 && rows.Any())
+                {
+                    var message = new LogMqRequest
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Action = "change",
+                        Log = JsonConvert.SerializeObject(rows)
+                    };
+                    var publisher = _serviceProvider.GetService<ICapPublisher>();
+                    publisher?.Publish(CapTopic.AuditLogs, message);
+                }
+                return result.Result;
+            }
+            else
+            {
+                return _dbContext.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Saves the changes asynchronous.
+        /// </summary>
+        /// <param name="businessType">Type of the business.</param>
+        /// <param name="module">The module.</param>
+        /// <param name="section">The section.</param>
+        /// <returns></returns>
+        public Task<int> SaveChangesAsync(string businessType, string module, string? section = "")
+        {
+            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            if (dbLogSettings?.Value?.IsEnabled == true)
+            {
+                var rows = new List<RowAuditLogDocument>();
+                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
+                var result = _dbContext.SaveChangesAsync();
+                result.Wait();
+                OnAfterSaveChanges(auditEntries).Wait();
+                rows = auditEntries.Select(s => s.ToAudit()).ToList();
+                if (result.Result > 0 && rows.Any())
+                {
+                    var message = new LogMqRequest
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Action = "change",
+                        Log = JsonConvert.SerializeObject(rows)
+                    };
+                    var publisher = _serviceProvider.GetService<ICapPublisher>();
+                    publisher?.Publish(CapTopic.AuditLogs, message);
+                }
+                return result;
+            }
+            else
+            {
+                return _dbContext.SaveChangesAsync();
+            }
+        }
 
         /// <summary>
         /// Called when [before save changes].
@@ -598,6 +598,6 @@ namespace HKSH.Common.Repository.Database
             return SaveChangesAsync();
         }
 
-        #endregion Extention
+        #endregion Extension
     }
 }
