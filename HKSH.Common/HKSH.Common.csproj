@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.7.6</Version>
-		<Description>Update SaveChanges() about auditlog and add Dictionary model</Description>
+		<Version>2.7.7</Version>
+		<Description>Add DictioaryRedisKey</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
