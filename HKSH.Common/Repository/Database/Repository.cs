@@ -420,22 +420,20 @@ namespace HKSH.Common.Repository.Database
             _dbContext?.Dispose();
         }
 
-        #region Extension
+        #region AuditLog
 
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        public int SaveChanges(string businessType, string module, string? section = "")
+        public int SaveChanges(AuditLogParams request)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
+                var auditEntries = OnBeforeSaveChanges(request);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
@@ -462,17 +460,15 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        public Task<int> SaveChangesAsync(string businessType, string module, string? section = "")
+        public Task<int> SaveChangesAsync(AuditLogParams request)
         {
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(businessType, module, section);
+                var auditEntries = OnBeforeSaveChanges(request);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
@@ -499,16 +495,15 @@ namespace HKSH.Common.Repository.Database
         /// <summary>
         /// Called when [before save changes].
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        private List<AuditEntry> OnBeforeSaveChanges(string businessType, string module, string? section = "")
+        private List<AuditEntry> OnBeforeSaveChanges(AuditLogParams request)
         {
             _dbContext.ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
+                //繼承了IAuditLog的數據庫對象才可以記錄日誌
                 if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
@@ -517,10 +512,10 @@ namespace HKSH.Common.Repository.Database
 
                 var auditEntry = new AuditEntry(entry)
                 {
-                    TableName = entry.Metadata.GetTableName() ?? "",
-                    Module = module,
-                    BusinessType = businessType,
-                    Section = section,
+                    TableName = entry.Metadata.GetTableName() ?? string.Empty,
+                    Module = request.Module,
+                    BusinessType = request.BusinessType,
+                    Section = request.Section,
                     Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);
@@ -537,7 +532,7 @@ namespace HKSH.Common.Repository.Database
                     string propertyName = property.Metadata.Name;
                     if (property.Metadata.IsPrimaryKey())
                     {
-                        auditEntry.KeyValues[propertyName] = property.CurrentValue ?? "";
+                        auditEntry.KeyValues[propertyName] = property.CurrentValue ?? string.Empty;
                         continue;
                     }
 
@@ -545,20 +540,20 @@ namespace HKSH.Common.Repository.Database
                     {
                         case EntityState.Added:
                             auditEntry.UpdateBy = entityTracker?.CreatedBy;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue ?? "";
+                            auditEntry.NewValues[propertyName] = property.CurrentValue ?? string.Empty;
                             break;
 
                         case EntityState.Deleted:
                             auditEntry.UpdateBy = entityDelTracker?.DeletedBy;
-                            auditEntry.OldValues[propertyName] = property.OriginalValue ?? "";
+                            auditEntry.OldValues[propertyName] = property.OriginalValue ?? string.Empty;
                             break;
 
                         case EntityState.Modified:
                             auditEntry.UpdateBy = entityTracker?.CreatedBy;
                             if (property.IsModified)
                             {
-                                auditEntry.OldValues[propertyName] = property.OriginalValue ?? "";
-                                auditEntry.NewValues[propertyName] = property.CurrentValue ?? "";
+                                auditEntry.OldValues[propertyName] = property.OriginalValue ?? string.Empty;
+                                auditEntry.NewValues[propertyName] = property.CurrentValue ?? string.Empty;
                             }
                             break;
                     }
@@ -586,11 +581,11 @@ namespace HKSH.Common.Repository.Database
                 {
                     if (prop.Metadata.IsPrimaryKey())
                     {
-                        auditEntry.KeyValues[prop.Metadata.Name] = prop.CurrentValue ?? "";
+                        auditEntry.KeyValues[prop.Metadata.Name] = prop.CurrentValue ?? string.Empty;
                     }
                     else
                     {
-                        auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue ?? "";
+                        auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue ?? string.Empty;
                     }
                 }
             }
@@ -598,6 +593,6 @@ namespace HKSH.Common.Repository.Database
             return SaveChangesAsync();
         }
 
-        #endregion Extension
+        #endregion AuditLog
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using HKSH.Common.AuditLogs.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -174,26 +175,22 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount);
 
-        #region Extension
+        #region AuditLog
 
         /// <summary>
         /// Saves the changes.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        int SaveChanges(string businessType, string module, string? section = "");
+        int SaveChanges(AuditLogParams request);
 
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(string businessType, string module, string? section = "");
+        Task<int> SaveChangesAsync(AuditLogParams request);
 
-        #endregion Extension
+        #endregion AuditLog
     }
 }
