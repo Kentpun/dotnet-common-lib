@@ -20,12 +20,12 @@ namespace HKSH.Common.Repository.Database.Privileges
         /// <summary>
         /// role code
         /// </summary>
-        public string RoleCode { get; set; } = String.Empty;
+        public List<string> RoleCodes { get; set; } = new();
 
         /// <summary>
         /// role name
         /// </summary>
-        public string RoleName { get; set; } = string.Empty;
+        public List<string> RoleNames { get; set; } = new();
 
         /// <summary>
         /// location code

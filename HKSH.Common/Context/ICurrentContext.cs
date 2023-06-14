@@ -1,4 +1,5 @@
-﻿using HKSH.Common.Repository.Database;
+﻿using System.Collections.Generic;
+using HKSH.Common.Repository.Database;
 using HKSH.Common.Repository.Database.Privileges;
 
 namespace HKSH.Common.Context

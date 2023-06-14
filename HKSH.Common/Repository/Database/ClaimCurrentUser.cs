@@ -1,4 +1,9 @@
-﻿namespace HKSH.Common.Repository.Database
+﻿using System;
+using System.Collections.Generic;
+using HKSH.Common.Constants;
+using HKSH.Common.Repository.Database.Privileges;
+
+namespace HKSH.Common.Repository.Database
 {
     /// <summary>
     /// user
@@ -19,7 +24,7 @@
         /// <value>
         /// The department identifier.
         /// </value>
-        public string DepartmentId { get; set; }
+        public string DepartmentId { get; set; } = String.Empty;
 
         /// <summary>
         /// login name
@@ -62,5 +67,34 @@
         /// domain login
         /// </summary>
         public string DomainLogin { get; set; } = String.Empty;
+
+        /// <summary>
+        /// permissions
+        /// </summary>
+        public List<UserPrivilegeModule> Permissions { get; set; } = new();
+
+        /// <summary>
+        /// user roles
+        /// </summary>
+        public List<string> UserRoles { get; set; } = new();
+
+        /// <summary>
+        /// has role
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public bool HasRole(string role)
+        {
+            return UserRoles.Contains(role);
+        }
+
+        /// <summary>
+        /// is admin user
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAdminUser()
+        {
+            return HasRole(CommonRoleConstants.AdminRoleCode);
+        }
     }
 }

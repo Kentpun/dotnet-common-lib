@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.Extensions;
@@ -132,6 +134,7 @@ namespace HKSH.Common.Context
                     }
 
                     _currentUser = claimCurrentUser;
+                    _currentUser.Permissions = UserPermissions;
 
                     return _currentUser;
                 }
