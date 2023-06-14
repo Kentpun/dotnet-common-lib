@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HKSH.Common.AuditLogs.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace HKSH.Common.Repository.Database
@@ -52,5 +53,23 @@ namespace HKSH.Common.Repository.Database
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         IRepository<T> GetStore<T>() where T : class;
+
+        #region AuditLog
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        int SaveChanges(AuditLogParams request);
+
+        /// <summary>
+        /// Saves the changes asynchronous.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        Task<int> SaveChangesAsync(AuditLogParams request);
+
+        #endregion AuditLog
     }
 }
