@@ -9,7 +9,7 @@ namespace HKSH.Common.Exception
     /// business exception
     /// </summary>
     [Serializable]
-    public class BusinessException : System.Exception
+    public class BusinessException : Exception
     {
         /// <summary>
         /// constructor
