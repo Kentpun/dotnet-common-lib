@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace HKSH.Common.Exception
+namespace HKSH.Common.Exceptions
 {
     /// <summary>
     /// business exception
