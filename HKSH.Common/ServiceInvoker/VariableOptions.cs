@@ -39,6 +39,11 @@ public class VariableOptions
     /// The alert master core host
     /// </summary>
     public const string AlertMasterCoreHost = "AlertMasterCore";
+    
+    /// <summary>
+    /// The alert master core host
+    /// </summary>
+    public const string NotificationMasterCoreHost = "NotificationMasterCore";
 
     /// <summary>
     /// Gets or sets the key.

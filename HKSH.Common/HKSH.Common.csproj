@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.7.8</Version>
-		<Description>Update IUnitOfWork</Description>
+		<Version>2.7.10</Version>
+		<Description>Add Notification master core</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
