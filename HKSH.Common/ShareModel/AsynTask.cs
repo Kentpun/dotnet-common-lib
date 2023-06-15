@@ -9,6 +9,7 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// 数据导入异步任务
     /// </summary>
+    /// <seealso cref="HKSH.Common.Base.BaseTrackedEntity" />
     /// <seealso cref="BaseTrackedEntity" />
     public class AsynTask : BaseTrackedEntity
     {
@@ -85,5 +86,16 @@ namespace HKSH.Common.ShareModel
         [Comment("remark")]
         [MaxLength(200)]
         public string Remark { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the query code.
+        /// </summary>
+        /// <value>
+        /// The query code.
+        /// </value>
+        [Column("task_code")]
+        [Comment("task_code")]
+        [MaxLength(200)]
+        public string QueryCode { get; set; }= string.Empty;
     }
 }
