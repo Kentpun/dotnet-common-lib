@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using HKSH.Common.AuditLogs.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -112,28 +113,10 @@ namespace HKSH.Common.Repository.Database
         int SaveChanges();
 
         /// <summary>
-        /// Saves the changes.
-        /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
-        /// <returns></returns>
-        int SaveChanges(string businessType, string module, string? section = "");
-
-        /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
         Task<int> SaveChangesAsync();
-
-        /// <summary>
-        /// Saves the changes asynchronous.
-        /// </summary>
-        /// <param name="businessType">Type of the business.</param>
-        /// <param name="module">The module.</param>
-        /// <param name="section">The section.</param>
-        /// <returns></returns>
-        Task<int> SaveChangesAsync(string businessType, string module, string? section = "");
 
         /// <summary>
         /// Gets the entities.
@@ -191,5 +174,23 @@ namespace HKSH.Common.Repository.Database
         /// <param name="paddingCount">The padding count.</param>
         /// <returns></returns>
         string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount);
+
+        #region AuditLog
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        int SaveChanges(AuditLogParams request);
+
+        /// <summary>
+        /// Saves the changes asynchronous.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        Task<int> SaveChangesAsync(AuditLogParams request);
+
+        #endregion AuditLog
     }
 }

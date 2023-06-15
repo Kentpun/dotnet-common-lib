@@ -14,5 +14,15 @@
         /// The current user code
         /// </summary>
         public const string CURRENT_USER_CODE = "X_USERID";
+
+        /// <summary>
+        /// The log field translate redis key
+        /// </summary>
+        public const string DictioaryRedisKey = "DictioaryRedisKey";
+
+        /// <summary>
+        /// The dictioary redis field
+        /// </summary>
+        public const string DictioaryRedisField = "Dictionary";
     }
 }
