@@ -40,8 +40,8 @@ namespace HKSH.Common.RabbitMQ
         /// <param name="message">The message.</param>
         public void PushMessage(RabbitMQConsumerContext context)
         {
-            //把交换机设置成Direct模式
-            Channel.ExchangeDeclare(context.ExchangeName, ExchangeType.Direct);
+            //把交换机设置成分發模式
+            Channel.ExchangeDeclare(context.ExchangeName, ExchangeType.Fanout);
             Channel.QueueDeclare(queue: context.QueueName,
                                         durable: false,
                                         exclusive: false,

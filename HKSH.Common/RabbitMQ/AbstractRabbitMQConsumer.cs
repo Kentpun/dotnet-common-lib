@@ -69,8 +69,8 @@ namespace HKSH.Common.RabbitMQ
             }
             var connection = factory.CreateConnection(options.EndPoints);
             IModel _channel = connection.CreateModel();
-
-            _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Direct);
+            //分發模式
+            _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Fanout);
             _channel.QueueDeclare(queue: Context?.QueueName,
                                         durable: false,
                                         exclusive: false,
