@@ -93,8 +93,8 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The query code.
         /// </value>
-        [Column("task_code")]
-        [Comment("task_code")]
+        [Column("query_code")]
+        [Comment("query_code")]
         [MaxLength(200)]
         public string QueryCode { get; set; }= string.Empty;
     }
