@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.8.1</Version>
-		<Description>Update queue and others</Description>
+		<Version>2.8.2</Version>
+		<Description>Update task field type</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
