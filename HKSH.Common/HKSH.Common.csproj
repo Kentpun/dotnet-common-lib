@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.8.3</Version>
-		<Description>Support /Configmap/appsettings.configmap.nlogs.json</Description>
+		<Version>2.8.4</Version>
+		<Description>BatchDelete() overloaded method and MessageResult add field Code</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
