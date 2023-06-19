@@ -21,19 +21,27 @@
         public const string HandlerSection = "Handler";
 
         /// <summary>
-        /// 节点当前所属命名空间
+        /// 節點當前所屬命名空間
         /// </summary>
         public const string MyPodNameSpace = "MY_POD_NAMESPACE";
 
         /// <summary>
-        /// 默认命名空间
+        /// 默認命名空間
         /// </summary>
         public const string DefaultNameSpace = "demo";
 
         /// <summary>
-        /// 默认文件存储根路径
+        /// 默認文件存儲根路徑
         /// </summary>
         public const string DefaultBasePath = "File/Common";
+
+        /// <summary>
+        /// Gets or sets the name space.
+        /// </summary>
+        /// <value>
+        /// The name space.
+        /// </value>
+        public string NameSpace { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the directory.
@@ -53,7 +61,7 @@
     }
 
     /// <summary>
-    ///
+    /// FileDirectoryOptions
     /// </summary>
     public class FileDirectoryOptions
     {
@@ -75,7 +83,7 @@
     }
 
     /// <summary>
-    ///
+    /// FileHandlerOptions
     /// </summary>
     public class FileHandlerOptions
     {
