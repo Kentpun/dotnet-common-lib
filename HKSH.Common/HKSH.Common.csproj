@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.8.5</Version>
-		<Description>FileUploadOptions add NameSpace</Description>
+		<Version>2.8.6</Version>
+		<Description>EnableStaticFiles</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

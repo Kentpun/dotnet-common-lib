@@ -403,11 +403,8 @@ public static class ServiceCollectionExtension
         }
 
         //File
-        if (programConfigure.EnableStaticFiles)
-        {
-            services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
-            services.AddTransient<FileUploadOptions>();
-        }
+        services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
+        services.AddTransient<FileUploadOptions>();
 
         //Enable Cors
         if (programConfigure.EnableCors)
@@ -517,11 +514,8 @@ public static class ServiceCollectionExtension
         }
 
         //File
-        if (programConfigure.EnableStaticFiles)
-        {
-            services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
-            services.AddTransient<FileUploadOptions>();
-        }
+        services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
+        services.AddTransient<FileUploadOptions>();
 
         //Enable Cors
         if (programConfigure.EnableCors)
