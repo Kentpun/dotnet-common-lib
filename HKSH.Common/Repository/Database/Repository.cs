@@ -102,27 +102,6 @@ namespace HKSH.Common.Repository.Database
         }
 
         /// <summary>
-        /// Adds the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="userId">The user identifier.</param>
-        public void Add(T entity, string userId)
-        {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
-            {
-                tracker.CreatedAt = DateTime.Now;
-                tracker.ModifiedAt = DateTime.Now;
-                if (string.IsNullOrEmpty(tracker.CreatedBy))
-                {
-                    tracker.CreatedBy = userId;
-                    tracker.ModifiedBy = userId;
-                }
-            }
-            _dbSet.Add(entity);
-        }
-
-        /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -211,36 +190,6 @@ namespace HKSH.Common.Repository.Database
         }
 
         /// <summary>
-        /// Modifies the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="userId">The user identifier.</param>
-        public void Modify(T entity, string userId)
-        {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
-            {
-                tracker.ModifiedAt = DateTime.Now;
-                if (string.IsNullOrEmpty(tracker.ModifiedBy))
-                {
-                    tracker.ModifiedBy = userId;
-                }
-            }
-            //tracked already
-            foreach (var item in _dbSet.Local)
-            {
-                var existedEntity = item as IEntityIdentify<long>;
-                var currentEntity = entity as IEntityIdentify<long>;
-                if (existedEntity?.Id == currentEntity?.Id)
-                {
-                    _dbSet.Local.Remove(item);
-                    break;
-                }
-            }
-            _dbSet.Update(entity);
-        }
-
-        /// <summary>
         /// Modifies the no track.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -275,26 +224,6 @@ namespace HKSH.Common.Repository.Database
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
                     tracker.DeletedBy = CurrentUserId;
-                }
-            }
-            _dbSet.Update(entity);
-        }
-
-        /// <summary>
-        /// Deletes the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="userId">The user identifier.</param>
-        public void Delete(T entity, string userId)
-        {
-            var tracker = entity as IEntityDelTracker;
-            if (tracker != null)
-            {
-                tracker.DeletedAt = DateTime.Now;
-                tracker.IsDeleted = true;
-                if (string.IsNullOrEmpty(tracker.DeletedBy))
-                {
-                    tracker.DeletedBy = userId;
                 }
             }
             _dbSet.Update(entity);
@@ -419,6 +348,94 @@ namespace HKSH.Common.Repository.Database
         {
             _dbContext?.Dispose();
         }
+
+        #region Overloaded
+
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Add(T entity, string userId)
+        {
+            var tracker = entity as IEntityTracker;
+            if (tracker != null)
+            {
+                tracker.CreatedAt = DateTime.Now;
+                tracker.ModifiedAt = DateTime.Now;
+                if (string.IsNullOrEmpty(tracker.CreatedBy))
+                {
+                    tracker.CreatedBy = userId;
+                    tracker.ModifiedBy = userId;
+                }
+            }
+            _dbSet.Add(entity);
+        }
+
+        /// <summary>
+        /// Modifies the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Modify(T entity, string userId)
+        {
+            var tracker = entity as IEntityTracker;
+            if (tracker != null)
+            {
+                tracker.ModifiedAt = DateTime.Now;
+                if (string.IsNullOrEmpty(tracker.ModifiedBy))
+                {
+                    tracker.ModifiedBy = userId;
+                }
+            }
+            //tracked already
+            foreach (var item in _dbSet.Local)
+            {
+                var existedEntity = item as IEntityIdentify<long>;
+                var currentEntity = entity as IEntityIdentify<long>;
+                if (existedEntity?.Id == currentEntity?.Id)
+                {
+                    _dbSet.Local.Remove(item);
+                    break;
+                }
+            }
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void Delete(T entity, string userId)
+        {
+            var tracker = entity as IEntityDelTracker;
+            if (tracker != null)
+            {
+                tracker.DeletedAt = DateTime.Now;
+                tracker.IsDeleted = true;
+                if (string.IsNullOrEmpty(tracker.DeletedBy))
+                {
+                    tracker.DeletedBy = userId;
+                }
+            }
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Batches the delete.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void BatchDelete(IEnumerable<T> entities, string userId)
+        {
+            foreach (T item in entities)
+            {
+                Delete(item, userId);
+            }
+        }
+
+        #endregion Overloaded
 
         #region AuditLog
 

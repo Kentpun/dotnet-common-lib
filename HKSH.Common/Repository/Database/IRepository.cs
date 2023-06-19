@@ -17,13 +17,6 @@ namespace HKSH.Common.Repository.Database
         void Add(T entity);
 
         /// <summary>
-        /// Adds the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="userId">The user identifier.</param>
-        void Add(T entity, string userId);
-
-        /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -57,13 +50,6 @@ namespace HKSH.Common.Repository.Database
         void Modify(T entity);
 
         /// <summary>
-        /// Modifies the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="userId">The user identifier.</param>
-        void Modify(T entity, string userId);
-
-        /// <summary>
         /// Modifies the no track.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -80,13 +66,6 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Delete(T entity);
-
-        /// <summary>
-        /// Deletes the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <param name="userId">The user identifier.</param>
-        void Delete(T entity, string userId);
 
         /// <summary>
         /// Batches the delete.
@@ -174,6 +153,38 @@ namespace HKSH.Common.Repository.Database
         /// <param name="paddingCount">The padding count.</param>
         /// <returns></returns>
         string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount);
+
+        #region Overloaded
+
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Add(T entity, string userId);
+
+        /// <summary>
+        /// Modifies the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Modify(T entity, string userId);
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        void Delete(T entity, string userId);
+
+        /// <summary>
+        /// Batches the delete.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <param name="userId">The user identifier.</param>
+        void BatchDelete(IEnumerable<T> entities, string userId);
+
+        #endregion Overloaded
 
         #region AuditLog
 
