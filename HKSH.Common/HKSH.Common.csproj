@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.8.4</Version>
-		<Description>BatchDelete() overloaded method and MessageResult add field Code</Description>
+		<Version>2.8.8</Version>
+		<Description>Update Modify</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

@@ -170,10 +170,7 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.ModifiedAt = DateTime.Now;
-                if (string.IsNullOrEmpty(tracker.ModifiedBy))
-                {
-                    tracker.ModifiedBy = CurrentUserId;
-                }
+                tracker.ModifiedBy = CurrentUserId;
             }
             //tracked already
             foreach (var item in _dbSet.Local)
@@ -372,6 +369,14 @@ namespace HKSH.Common.Repository.Database
             _dbSet.Add(entity);
         }
 
+        public void AddRange(IEnumerable<T> entities, string userId)
+        {
+            foreach (T item in entities)
+            {
+                Add(item, userId);
+            }
+        }
+
         /// <summary>
         /// Modifies the specified entity.
         /// </summary>
@@ -383,10 +388,7 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.ModifiedAt = DateTime.Now;
-                if (string.IsNullOrEmpty(tracker.ModifiedBy))
-                {
-                    tracker.ModifiedBy = userId;
-                }
+                tracker.ModifiedBy = userId;
             }
             //tracked already
             foreach (var item in _dbSet.Local)
@@ -400,6 +402,14 @@ namespace HKSH.Common.Repository.Database
                 }
             }
             _dbSet.Update(entity);
+        }
+
+        public void ModifyRange(IEnumerable<T> entities, string userId)
+        {
+            foreach (T item in entities)
+            {
+                Modify(item, userId);
+            }
         }
 
         /// <summary>

@@ -164,11 +164,25 @@ namespace HKSH.Common.Repository.Database
         void Add(T entity, string userId);
 
         /// <summary>
+        /// Adds the range.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <param name="userId">The user identifier.</param>
+        void AddRange(IEnumerable<T> entities, string userId);
+
+        /// <summary>
         /// Modifies the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <param name="userId">The user identifier.</param>
         void Modify(T entity, string userId);
+
+        /// <summary>
+        /// Modifies the range.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <param name="userId">The user identifier.</param>
+        void ModifyRange(IEnumerable<T> entities, string userId);
 
         /// <summary>
         /// Deletes the specified entity.
