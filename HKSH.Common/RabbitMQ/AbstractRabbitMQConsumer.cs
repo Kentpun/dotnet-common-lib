@@ -72,7 +72,7 @@ namespace HKSH.Common.RabbitMQ
             //分發模式
             _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Direct,true,false,null);
             _channel.QueueDeclare(queue: Context?.QueueName,
-                                        durable: true,
+                                        durable: false,
                                         exclusive: false,
                                         autoDelete: false,
                                         arguments: null);

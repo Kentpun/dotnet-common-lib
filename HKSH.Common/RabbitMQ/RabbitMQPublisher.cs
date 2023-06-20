@@ -43,7 +43,7 @@ namespace HKSH.Common.RabbitMQ
             //把交换机设置成分發模式
             Channel.ExchangeDeclare(context.ExchangeName, ExchangeType.Direct,true,false,null);
             Channel.QueueDeclare(queue: context.QueueName,
-                                        durable: true,
+                                        durable: false,
                                         exclusive: false,
                                         autoDelete: false,
                                         arguments: null);
