@@ -83,7 +83,6 @@ namespace HKSH.Common.RabbitMQ
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 Process(message).ConfigureAwait(false).GetAwaiter().GetResult();
-                //确认一个或多个已传递的消息 踢出队列
                 _channel.BasicAck(ea.DeliveryTag, true);
             };
             _channel.BasicConsume(queue: Context?.QueueName, consumer: consumer);
