@@ -170,10 +170,7 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.ModifiedAt = DateTime.Now;
-                if (string.IsNullOrEmpty(tracker.ModifiedBy))
-                {
-                    tracker.ModifiedBy = CurrentUserId;
-                }
+                tracker.ModifiedBy = CurrentUserId;
             }
             //tracked already
             foreach (var item in _dbSet.Local)
@@ -391,10 +388,7 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.ModifiedAt = DateTime.Now;
-                if (string.IsNullOrEmpty(tracker.ModifiedBy))
-                {
-                    tracker.ModifiedBy = userId;
-                }
+                tracker.ModifiedBy = userId;
             }
             //tracked already
             foreach (var item in _dbSet.Local)
