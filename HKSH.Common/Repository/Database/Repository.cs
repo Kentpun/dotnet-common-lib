@@ -576,7 +576,7 @@ namespace HKSH.Common.Repository.Database
                             break;
 
                         case EntityState.Modified:
-                            auditEntry.UpdateBy = entityTracker?.CreatedBy;
+                            auditEntry.UpdateBy = entityTracker?.ModifiedBy;
                             if (property.IsModified)
                             {
                                 auditEntry.OldValues[propertyName] = property.OriginalValue ?? string.Empty;
