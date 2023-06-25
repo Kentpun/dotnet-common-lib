@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.9.1</Version>
-		<Description>Remove Exception Message</Description>
+		<Version>2.9.2</Version>
+		<Description>Change Redis Lock Key</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
