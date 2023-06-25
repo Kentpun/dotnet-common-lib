@@ -80,10 +80,18 @@ namespace HKSH.Common.RabbitMQ
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (model, ea) =>
             {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Process(message).ConfigureAwait(false).GetAwaiter().GetResult();
-                _channel.BasicAck(ea.DeliveryTag, true);
+                try
+                {
+                    var body = ea.Body.ToArray();
+                    var message = Encoding.UTF8.GetString(body);
+                    Process(message).ConfigureAwait(false).GetAwaiter().GetResult();
+                    _channel.BasicAck(ea.DeliveryTag, true);
+
+                }
+                catch (Exception)
+                {
+                    _channel.BasicNack(ea.DeliveryTag, false,false);
+                }
             };
             _channel.BasicConsume(queue: Context?.QueueName, consumer: consumer);
         }
