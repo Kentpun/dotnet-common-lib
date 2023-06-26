@@ -369,6 +369,11 @@ namespace HKSH.Common.Repository.Database
             _dbSet.Add(entity);
         }
 
+        /// <summary>
+        /// Adds the range.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <param name="userId">The user identifier.</param>
         public void AddRange(IEnumerable<T> entities, string userId)
         {
             foreach (T item in entities)
