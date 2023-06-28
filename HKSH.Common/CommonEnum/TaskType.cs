@@ -69,5 +69,10 @@ namespace HKSH.Common.CommonEnum
         /// The button
         /// </summary>
         [Description("Button")] Button = 1012,
+
+        /// <summary>
+        /// The Notification Templte
+        /// </summary>
+        [Description("NotificationTemplte")] NotificationTemplte = 1013,
     }
 }
