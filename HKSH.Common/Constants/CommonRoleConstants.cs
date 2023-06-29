@@ -10,6 +10,6 @@ namespace HKSH.Common.Constants
         /// <summary>
         /// admin role code
         /// </summary>
-        public  const string AdminRoleCode = "r_supper_admin";
+        public const string AdminRoleCode = "r_supper_admin";
     }
 }

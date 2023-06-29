@@ -70,7 +70,7 @@ namespace HKSH.Common.RabbitMQ
             var connection = factory.CreateConnection(options.EndPoints);
             IModel _channel = connection.CreateModel();
             //分發模式
-            _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Direct,true,false,null);
+            _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Direct, true, false, null);
             _channel.QueueDeclare(queue: Context?.QueueName,
                                         durable: false,
                                         exclusive: false,
@@ -86,11 +86,10 @@ namespace HKSH.Common.RabbitMQ
                     var message = Encoding.UTF8.GetString(body);
                     Process(message).ConfigureAwait(false).GetAwaiter().GetResult();
                     _channel.BasicAck(ea.DeliveryTag, true);
-
                 }
                 catch (Exception)
                 {
-                    _channel.BasicNack(ea.DeliveryTag, false,false);
+                    _channel.BasicNack(ea.DeliveryTag, false, false);
                 }
             };
             _channel.BasicConsume(queue: Context?.QueueName, consumer: consumer);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using HKSH.Common.Constants;
+﻿using HKSH.Common.Constants;
 using HKSH.Common.Repository.Database.Privileges;
 
 namespace HKSH.Common.Repository.Database

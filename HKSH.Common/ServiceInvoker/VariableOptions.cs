@@ -11,14 +11,14 @@ public class VariableOptions
     public const string Section = "VariableOptions";
 
     /// <summary>
-    /// The organization core host
-    /// </summary>
-    public const string OrganizationCoreHost = "OrganizationCore";
-
-    /// <summary>
     /// The organization daas host
     /// </summary>
     public const string OrganizationDaasHost = "OrganizationDaas";
+
+    /// <summary>
+    /// The patient daas host
+    /// </summary>
+    public const string PatientDaasHost = "PatientDaas";
 
     /// <summary>
     /// The acm master core host
@@ -39,7 +39,7 @@ public class VariableOptions
     /// The alert master core host
     /// </summary>
     public const string AlertMasterCoreHost = "AlertMasterCore";
-    
+
     /// <summary>
     /// The alert master core host
     /// </summary>

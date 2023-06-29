@@ -64,7 +64,6 @@ namespace HKSH.Common.CommonEnum
         /// </summary>
         [Description("Alert")] Alert = 1011,
 
-
         /// <summary>
         /// The button
         /// </summary>

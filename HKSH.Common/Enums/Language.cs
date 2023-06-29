@@ -12,11 +12,11 @@ namespace HKSH.Common.Enums
         /// <summary>
         /// chinese
         /// </summary>
-        [Description("Chinese")]Chinese = 1001,
-        
+        [Description("Chinese")] Chinese = 1001,
+
         /// <summary>
         /// english
         /// </summary>
-        [Description("English")]English = 1002,
+        [Description("English")] English = 1002,
     }
 }

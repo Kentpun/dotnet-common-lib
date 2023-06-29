@@ -1,6 +1,5 @@
 ﻿//  Mou,Xiaohua 2023/06/14 15:00
 
-using System;
 using System.Runtime.Serialization;
 
 namespace HKSH.Common.Exceptions

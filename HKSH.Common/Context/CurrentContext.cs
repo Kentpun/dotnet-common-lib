@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.Extensions;

@@ -1,13 +1,13 @@
 ﻿using DotNetCore.CAP;
-using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.AuditLogs;
+using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
 using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System.Data;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace HKSH.Common.Repository.Database
 {

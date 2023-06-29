@@ -96,6 +96,6 @@ namespace HKSH.Common.ShareModel
         [Column("query_code")]
         [Comment("query_code")]
         [MaxLength(200)]
-        public string? QueryCode { get; set; }= string.Empty;
+        public string? QueryCode { get; set; } = string.Empty;
     }
 }

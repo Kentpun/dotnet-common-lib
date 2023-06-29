@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HKSH.Common.Constants
+﻿namespace HKSH.Common.Constants
 {
     /// <summary>
     /// CommonImportConstant
     /// </summary>
     public class CommonImportConstant
     {
-
-
         /// <summary>
         /// The ex acm import data MSG
         /// </summary>
@@ -32,6 +24,7 @@ namespace HKSH.Common.Constants
         /// The ex MDM import data MSG
         /// </summary>
         public const string EX_MDM_IMPORT_DATA_MSG = "ex_mdm_import_data_msg";
+
         /// <summary>
         /// The queue MDM import data MSG
         /// </summary>
@@ -41,14 +34,17 @@ namespace HKSH.Common.Constants
         /// The key MDM import data MSG
         /// </summary>
         public const string KEY_MDM_IMPORT_DATA_MSG = "key_mdm_import_data_msg";
+
         /// <summary>
         /// The ex alert import data MSG
         /// </summary>
         public const string EX_ALERT_IMPORT_DATA_MSG = "ex_alert_import_data_msg";
+
         /// <summary>
         /// The queue alert import data MSG
         /// </summary>
         public const string QUEUE_ALERT_IMPORT_DATA_MSG = "queue_alert_import_data_msg";
+
         /// <summary>
         /// The key alert import data MSG
         /// </summary>

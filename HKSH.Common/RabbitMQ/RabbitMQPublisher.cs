@@ -41,7 +41,7 @@ namespace HKSH.Common.RabbitMQ
         public void PushMessage(RabbitMQConsumerContext context)
         {
             //把交换机设置成分發模式
-            Channel.ExchangeDeclare(context.ExchangeName, ExchangeType.Direct,true,false,null);
+            Channel.ExchangeDeclare(context.ExchangeName, ExchangeType.Direct, true, false, null);
             Channel.QueueDeclare(queue: context.QueueName,
                                         durable: false,
                                         exclusive: false,
