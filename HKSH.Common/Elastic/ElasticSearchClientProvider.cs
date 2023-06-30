@@ -7,7 +7,6 @@ namespace HKSH.Common.Elastic
     /// <summary>
     /// ElasticSearch
     /// </summary>
-    /// <seealso cref="HKSH.Eform.Master.Core.Util.IEsClientProvider" />
     public class ElasticSearchClientProvider : IElasticSearchClientProvider
     {
         /// <summary>

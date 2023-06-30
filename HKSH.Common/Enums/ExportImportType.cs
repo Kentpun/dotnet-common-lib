@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 
-namespace HKSH.Common.CommonEnum
+namespace HKSH.Common.Enums
 {
     /// <summary>
-    /// ExportImportType
+    /// Export and import type
     /// </summary>
     public enum ExportImportType
     {

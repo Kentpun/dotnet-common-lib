@@ -1,21 +1,22 @@
-﻿//  Mou,Xiaohua 2023/06/15 17:21
+﻿using System.ComponentModel;
 
-using System.ComponentModel;
-
+/// <summary>
+/// Language
+/// </summary>
 namespace HKSH.Common.Enums
 {
     /// <summary>
-    /// language
+    /// Language
     /// </summary>
     public enum Language
     {
         /// <summary>
-        /// chinese
+        /// The chinese
         /// </summary>
         [Description("Chinese")] Chinese = 1001,
 
         /// <summary>
-        /// english
+        /// The english
         /// </summary>
         [Description("English")] English = 1002,
     }

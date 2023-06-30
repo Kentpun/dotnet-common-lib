@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// IMessageQueueConsumer
+    /// IMessage queue consumer
     /// </summary>
     public interface IMessageQueueConsumer
     {

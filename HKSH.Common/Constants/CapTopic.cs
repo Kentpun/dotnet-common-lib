@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.Constants
 {
     /// <summary>
-    /// CapTopicConstant
+    /// Cap topic constant
     /// </summary>
     public static class CapTopic
     {

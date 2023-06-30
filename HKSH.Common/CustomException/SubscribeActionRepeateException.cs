@@ -3,7 +3,7 @@
     /// <summary>
     /// SubscribeActionRepeateException
     /// </summary>
-    /// <seealso cref="System.Exception" />
+    /// <seealso cref="Exception" />
     [Serializable]
     public class SubscribeActionRepeateException : OperationCanceledException
     {

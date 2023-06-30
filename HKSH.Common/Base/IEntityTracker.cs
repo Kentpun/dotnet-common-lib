@@ -1,5 +1,8 @@
 ﻿namespace HKSH.Common.Base
 {
+    /// <summary>
+    /// IEntityTracker
+    /// </summary>
     public interface IEntityTracker
     {
         /// <summary>

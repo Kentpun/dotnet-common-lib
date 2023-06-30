@@ -1,5 +1,4 @@
-﻿using HKSH.Common.Caching.Redis.Enum;
-using HKSH.Utils.Redis;
+﻿using HKSH.Common.Enums;
 using StackExchange.Redis;
 
 namespace HKSH.Common.Caching.Redis

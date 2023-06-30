@@ -1,4 +1,4 @@
-﻿namespace HKSH.Utils.Redis
+﻿namespace HKSH.Common.Enums
 {
     /// <summary>
     /// RedisLockKeys

@@ -145,15 +145,6 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         IQueryable<T> FromSqlRawTrack(string sql, params object[] @params);
 
-        /// <summary>
-        /// Gets the next sequence number.
-        /// </summary>
-        /// <param name="dependentSymbol">The dependent symbol.</param>
-        /// <param name="startingNumber">The starting number.</param>
-        /// <param name="paddingCount">The padding count.</param>
-        /// <returns></returns>
-        string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount);
-
         #region Overloaded
 
         /// <summary>

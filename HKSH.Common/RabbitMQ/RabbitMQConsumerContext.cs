@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// RabbitMQConsumerContext
+    /// RabbitMQ consumer context
     /// </summary>
     public class RabbitMQConsumerContext
     {

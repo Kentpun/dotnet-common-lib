@@ -10,7 +10,6 @@ namespace HKSH.Common.RabbitMQ
     /// <summary>
     /// AbstractRabbitMQConsumer
     /// </summary>
-    /// <seealso cref="HKSH.Common.RabbitMQ.IMessageQueueConsumer" />
     /// <seealso cref="IMessageQueueConsumer" />
     public abstract class AbstractRabbitMQConsumer : IMessageQueueConsumer
     {

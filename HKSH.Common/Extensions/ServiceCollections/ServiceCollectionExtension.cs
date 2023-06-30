@@ -212,19 +212,6 @@ public static class ServiceCollectionExtension
     }
 
     /// <summary>
-    /// Adds the audit log store mongo database settings.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="configuration">The configuration.</param>
-    /// <returns></returns>
-    public static IServiceCollection AddAuditLogStoreMongoDbSettings(this IServiceCollection services, ConfigurationManager configuration)
-    {
-        services.Configure<AuditLogStoreDatabaseSettings>(configuration.GetSection(AuditLogStoreDatabaseSettings.Section));
-
-        return services;
-    }
-
-    /// <summary>
     /// Adds the rabbit mq.
     /// </summary>
     /// <param name="services">The services.</param>
@@ -375,12 +362,6 @@ public static class ServiceCollectionExtension
         //Enable AuditLog Options
         services.AddEnableAuditLogOptions(configuration);
 
-        //Mongo DB
-        if (programConfigure.EnableMongoDB)
-        {
-            services.AddAuditLogStoreMongoDbSettings(configuration);
-        }
-
         //RabbitMQ
         if (programConfigure.EnableRabbitMQ)
         {
@@ -484,12 +465,6 @@ public static class ServiceCollectionExtension
 
         //Enable AuditLog Options
         services.AddEnableAuditLogOptions(configuration);
-
-        //Mongo DB
-        if (programConfigure.EnableMongoDB)
-        {
-            services.AddAuditLogStoreMongoDbSettings(configuration);
-        }
 
         //RabbitMQ
         if (programConfigure.EnableRabbitMQ)

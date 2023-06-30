@@ -1,48 +1,33 @@
 ﻿namespace HKSH.Common.ShareModel
 {
     /// <summary>
-    /// Program Configure
+    /// 程序啟動配置項
     /// </summary>
     public class ProgramConfigure
     {
         /// <summary>
-        /// Gets or sets a value indicating whether [enable authentication].
+        /// 啟用Keycloak授權認證.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable authentication]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableAuthentication { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable database context].
+        /// 啟用數據庫上下文.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable database context]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableDbContext { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable migration].
+        /// 啟用數據庫上下文自動執行Pening的Migration.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable migration]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableMigration { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable static files].
+        /// 啟用靜態文件.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable static files]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableStaticFiles { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable cors].
+        /// 啟用跨域.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable cors]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableCors { get; set; } = true;
 
         /// <summary>
@@ -54,51 +39,28 @@
         public bool EnableBuffering { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable kafka].
+        /// 啟用Kafka消息組件.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable kafka]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableKafka { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable mongo database].
+        /// 使用Elastic Apm鏈路追踪.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable mongo database]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableMongoDB { get; set; } = false;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [enable elastic apm].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable elastic apm]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableElasticApm { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable rabbit mq].
+        /// 啟用RabbitMQ消息組件.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable rabbit mq]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableRabbitMQ { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable XXL job].
+        /// 啟用定時任務組件 Xxl-Job.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable XXL job]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableXxlJob { get; set; } = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable background service].
+        /// 啟用.NET Core後台定時服務.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable background service]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableBackgroundService { get; set; } = false;
     }
 }

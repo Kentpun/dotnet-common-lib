@@ -5,49 +5,143 @@ using System.Reflection;
 
 namespace HKSH.Common.Repository
 {
+    /// <summary>
+    /// Query
+    /// </summary>
     public class Query
     {
+        /// <summary>
+        /// Operators
+        /// </summary>
         public enum Operators
         {
+            /// <summary>
+            /// The none
+            /// </summary>
             None = 0,
+
+            /// <summary>
+            /// The equal
+            /// </summary>
             Equal = 1,
+
+            /// <summary>
+            /// The greater than
+            /// </summary>
             GreaterThan = 2,
+
+            /// <summary>
+            /// The greater than or equal
+            /// </summary>
             GreaterThanOrEqual = 3,
+
+            /// <summary>
+            /// The less than
+            /// </summary>
             LessThan = 4,
+
+            /// <summary>
+            /// The less than or equal
+            /// </summary>
             LessThanOrEqual = 5,
+
+            /// <summary>
+            /// Determines whether this instance contains the object.
+            /// </summary>
             Contains = 6,
+
+            /// <summary>
+            /// The start with
+            /// </summary>
             StartWith = 7,
+
+            /// <summary>
+            /// The end width
+            /// </summary>
             EndWidth = 8,
+
+            /// <summary>
+            /// The range
+            /// </summary>
             Range = 9
         }
 
+        /// <summary>
+        /// Condition
+        /// </summary>
         public enum Condition
         {
+            /// <summary>
+            /// The or else
+            /// </summary>
             OrElse = 1,
+
+            /// <summary>
+            /// The and also
+            /// </summary>
             AndAlso = 2
         }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the operator.
+        /// </summary>
+        /// <value>
+        /// The operator.
+        /// </value>
         public Operators Operator { get; set; }
 
-        public object Value { get; set; }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public object Value { get; set; } = null!;
 
-        public object ValueMin { get; set; }
+        /// <summary>
+        /// Gets or sets the value minimum.
+        /// </summary>
+        /// <value>
+        /// The value minimum.
+        /// </value>
+        public object ValueMin { get; set; } = null!;
 
-        public object ValueMax { get; set; }
+        /// <summary>
+        /// Gets or sets the value maximum.
+        /// </summary>
+        /// <value>
+        /// The value maximum.
+        /// </value>
+        public object ValueMax { get; set; } = null!;
     }
 
+    /// <summary>
+    /// QueryCollection
+    /// </summary>
     public class QueryCollection : Collection<Query>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="QueryCollection"/> class.
+        /// Initializes a new instance of the <see cref="QueryCollection" /> class.
         /// </summary>
         public QueryCollection()
         {
             Add(new Query { Name = "IsDeleted", Operator = Query.Operators.Equal, Value = false });
         }
 
+        /// <summary>
+        /// Ases the expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="condition">The condition.</param>
+        /// <returns></returns>
         public Expression<Func<T, bool>> AsExpression<T>(Query.Condition? condition = Query.Condition.AndAlso) where T : class
         {
             Type targetType = typeof(T);
@@ -175,11 +269,15 @@ namespace HKSH.Common.Repository
         }
     }
 
+    /// <summary>
+    /// Query Extensions
+    /// </summary>
     public static class QueryExtensions
     {
         /// <summary>
         /// Orders the specified order.
         /// </summary>
+        /// <typeparam name="TSource">The type of the source.</typeparam>
         /// <param name="query">The query.</param>
         /// <param name="order">The order.fow example:order="age asc,name desc" or order="age desc"</param>
         /// <returns></returns>
@@ -189,6 +287,7 @@ namespace HKSH.Common.Repository
             {
                 return query;
             }
+
             // Verify that the field is inside
             var l = order.ToLower();
             if (query.Expression.Type.GetProperties().Any(p => l.Contains(p.Name.ToLower())))

@@ -1,9 +1,7 @@
-﻿//  Mou,Xiaohua 2023/06/12 9:37
-
-namespace HKSH.Common.Constants
+﻿namespace HKSH.Common.Constants
 {
     /// <summary>
-    /// role constants
+    /// Role constants
     /// </summary>
     public static class CommonRoleConstants
     {

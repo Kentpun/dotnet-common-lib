@@ -5,7 +5,7 @@ using System.Reflection;
 namespace HKSH.Common.Repository.Database
 {
     /// <summary>
-    /// DbOperate
+    /// Db Operate
     /// </summary>
     public class DbSqlOperate
     {

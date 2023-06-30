@@ -7,7 +7,6 @@ namespace HKSH.Common.Base
     /// BaseEntity
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <seealso cref="IEntityIdentify&lt;T&gt;" />
     public abstract class BaseEntity<T> : IEntityIdentify<T>
     {
         /// <summary>
@@ -16,11 +15,14 @@ namespace HKSH.Common.Base
         /// <value>
         /// The identifier.
         /// </value>
-        [Column("id")]
         [Key]
+        [Column("id")]
         public T Id { get; set; }
     }
 
+    /// <summary>
+    /// BaseEntity
+    /// </summary>
     public abstract class BaseEntity : BaseEntity<long>
     {
     }

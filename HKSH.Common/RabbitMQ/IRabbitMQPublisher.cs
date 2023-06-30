@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// IRabbitMQPublisher
+    /// IRabbitMQ publisher
     /// </summary>
     public interface IRabbitMQPublisher
     {

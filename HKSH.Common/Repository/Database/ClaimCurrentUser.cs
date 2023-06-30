@@ -4,7 +4,7 @@ using HKSH.Common.Repository.Database.Privileges;
 namespace HKSH.Common.Repository.Database
 {
     /// <summary>
-    /// user
+    /// Claim Current User
     /// </summary>
     public class ClaimCurrentUser
     {

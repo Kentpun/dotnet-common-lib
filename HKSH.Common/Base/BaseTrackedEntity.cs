@@ -18,8 +18,8 @@ namespace HKSH.Common.Base
         /// <value>
         /// The identifier.
         /// </value>
-        [Column("id")]
         [Key]
+        [Column("id")]
         public T Id { get; set; }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace HKSH.Common.Base
         /// </value>
         [Column("created_by")]
         [MaxLength(100)]
-        public string CreatedBy { get; set; }
+        public string CreatedBy { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the modified at.
@@ -90,11 +90,8 @@ namespace HKSH.Common.Base
     }
 
     /// <summary>
-    /// BaseTrackedEntity
+    /// Base TrackedEntity
     /// </summary>
-    /// <seealso cref="IEntityTracker" />
-    /// <seealso cref="IEntityDelTracker" />
-    /// <seealso cref="IEntityIdentify&lt;T&gt;" />
     [NotMapped]
     public class BaseTrackedEntity : BaseTrackedEntity<long>
     { }

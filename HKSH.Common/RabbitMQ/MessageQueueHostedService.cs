@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// MessageQueueHostedService
+    /// Message queue hosted service
     /// </summary>
     /// <seealso cref="IHostedService" />
     public class MessageQueueHostedService : IHostedService

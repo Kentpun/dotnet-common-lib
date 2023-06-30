@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// RabbitMQOptions
+    /// RabbitMQ options
     /// </summary>
     public class RabbitMQOptions
     {

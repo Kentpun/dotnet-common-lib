@@ -1,11 +1,9 @@
-﻿//  Mou,Xiaohua 2023/04/03 16:56
+﻿using System.ComponentModel;
 
-using System.ComponentModel;
-
-namespace HKSH.Common.CommonEnum
+namespace HKSH.Common.Enums
 {
     /// <summary>
-    /// TaskType
+    /// Task Type
     /// </summary>
     public enum TaskType
     {

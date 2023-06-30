@@ -3,13 +3,9 @@ using HKSH.Common.AuditLogs;
 using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
 using HKSH.Common.Constants;
-using HKSH.Common.Extensions;
-using HKSH.Common.Resources;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -309,34 +305,6 @@ namespace HKSH.Common.Repository.Database
         /// <param name="params">The parameters.</param>
         /// <returns></returns>
         public IQueryable<T> FromSqlRawTrack(string sql, params object[] @params) => _dbSet.FromSqlRaw(sql, @params);
-
-        /// <summary>
-        /// Gets the next sequence number.
-        /// </summary>
-        /// <param name="dependentSymbol">The dependent symbol.</param>
-        /// <param name="startingNumber">The starting number.</param>
-        /// <param name="paddingCount">The padding count.</param>
-        /// <returns></returns>
-        public virtual string GetNextSequenceNumber(string dependentSymbol, decimal startingNumber, int paddingCount)
-        {
-            var query = _dbContext.Database.SqlQuery<NextNumber>(RawSql.GetNextSequenceNumber,
-                new SqlParameter("@Category", typeof(T).Name),
-                new SqlParameter("@DependentSymbol", $"{dependentSymbol}{DateTime.Now.Year}"),
-                new SqlParameter("@StartingNumber", startingNumber),
-                new SqlParameter("@PaddingCount", paddingCount));
-
-            var lastNumber = query?.FirstOrDefault()?.NextSymbol;
-
-            #region Temp log to watch project number
-
-            var logger = _serviceProvider.GetService<ILogger<Repository<T>>>();
-            logger?.LogInformation("GetNextSequenceNumber-NextSymbol:{0}", lastNumber);
-            logger?.LogInformation("GetNextSequenceNumber-Database:{0}", _dbContext.Database.GetConnectionString());
-
-            #endregion Temp log to watch project number
-
-            return lastNumber;
-        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

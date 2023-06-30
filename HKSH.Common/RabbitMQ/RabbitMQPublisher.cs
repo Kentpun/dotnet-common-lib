@@ -5,7 +5,7 @@ using System.Text;
 namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// RabbitMQClient
+    /// RabbitMQ client
     /// </summary>
     public class RabbitMQPublisher : IRabbitMQPublisher
     {

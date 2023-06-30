@@ -1,5 +1,5 @@
 ﻿using HKSH.Common.Base;
-using HKSH.Common.CommonEnum;
+using HKSH.Common.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +9,6 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// 数据导入异步任务
     /// </summary>
-    /// <seealso cref="HKSH.Common.Base.BaseTrackedEntity" />
     /// <seealso cref="BaseTrackedEntity" />
     public class AsynTask : BaseTrackedEntity
     {
@@ -74,7 +73,7 @@ namespace HKSH.Common.ShareModel
         /// </value>
         [Column("status")]
         [Comment("status")]
-        public CommonEnum.TaskStatus Status { get; set; }
+        public Enums.TaskStatus Status { get; set; }
 
         /// <summary>
         /// 状态变更原因

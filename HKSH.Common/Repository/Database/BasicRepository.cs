@@ -10,8 +10,19 @@ namespace HKSH.Common.Repository.Database
     /// <seealso cref="MicroService.Repository.IRepository{T}" />
     internal class BasicRepository<T> : IBasicRepository<T> where T : class
     {
+        /// <summary>
+        /// The database context
+        /// </summary>
         private readonly DbContext _dbContext;
+
+        /// <summary>
+        /// The current user identifier
+        /// </summary>
         private string? _currentUserId;
+
+        /// <summary>
+        /// The current context
+        /// </summary>
         private readonly IRepositoryCurrentContext _currentContext;
 
         /// <summary>

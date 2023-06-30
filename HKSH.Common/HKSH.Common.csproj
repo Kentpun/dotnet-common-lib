@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>2.9.3</Version>
-		<Description>NotificationTemplte And Add VariableOptions Host PatientDaasHost</Description>
+		<Version>2.9.4</Version>
+		<Description>Refactoring, optimization and upgrade</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
@@ -15,6 +15,10 @@
 		<Compile Remove="Properties\**" />
 		<EmbeddedResource Remove="Properties\**" />
 		<None Remove="Properties\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="C:\Users\feiliu\.nuget\packages\dotnetcore.npoi\1.2.3\contentFiles\any\netstandard2.0\NOTICE.TXT" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -63,22 +67,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
 		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.1" />
 		<PackageReference Include="WebApiClient.JIT" Version="1.1.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="RawSql.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>RawSql.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="RawSql.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>RawSql.Designer.cs</LastGenOutput>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>

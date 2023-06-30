@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.RabbitMQ
 {
     /// <summary>
-    /// ElasticSearchOptions
+    /// Elastic search options
     /// </summary>
     public class ElasticSearchOptions
     {

@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common
 {
     /// <summary>
-    /// 公共接口
+    /// all service base interface
     /// </summary>
     public interface IService
     {

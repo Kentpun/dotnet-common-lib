@@ -1,5 +1,4 @@
-﻿using HKSH.Common.Caching.Redis.Enum;
-using HKSH.Utils.Redis;
+﻿using HKSH.Common.Enums;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using StackExchange.Redis;

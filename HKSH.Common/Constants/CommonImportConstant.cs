@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.Constants
 {
     /// <summary>
-    /// CommonImportConstant
+    /// Common import constant
     /// </summary>
     public class CommonImportConstant
     {
