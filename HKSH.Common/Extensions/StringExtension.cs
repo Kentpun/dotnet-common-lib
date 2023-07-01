@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Nest;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace HKSH.Common.Extensions
@@ -299,6 +300,25 @@ namespace HKSH.Common.Extensions
                 return new List<Tuple<T1, T2, T3>>();
 
             return System.Text.Json.JsonSerializer.Deserialize<List<Tuple<T1, T2, T3>>>(jsonStr);
+        }
+
+        /// <summary>
+        /// Converts to datetime.
+        /// </summary>
+        /// <param name="strDatetime">The string datetime.</param>
+        /// <returns></returns>
+        public static DateTime? ToDateTime(this string? strDatetime)
+        {
+            if (strDatetime.IsMissing())
+            {
+                return null;
+            }
+
+            if (DateTime.TryParse(strDatetime, out DateTime dt))
+            {
+                return dt;
+            }
+            return null;
         }
     }
 }
