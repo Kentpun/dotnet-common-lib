@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>3.0.2</Version>
-		<Description>Upgrade WriteAuditLogIntoDB</Description>
+		<Version>3.0.3</Version>
+		<Description>Change ToStamp</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
