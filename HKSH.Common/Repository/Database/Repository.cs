@@ -3,6 +3,7 @@ using HKSH.Common.AuditLogs;
 using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
 using HKSH.Common.Constants;
+using HKSH.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
@@ -651,11 +652,11 @@ namespace HKSH.Common.Repository.Database
                 {
                     if (i == rows.Count - 1)
                     {
-                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}',N'{rows[i].Version}',N'{rows[i].UpdateBy}',GETDATE());");
+                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}','{DateTime.Now.ToStamp()}',N'{rows[i].UpdateBy}',GETDATE());");
                     }
                     else
                     {
-                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}',N'{rows[i].Version}',N'{rows[i].UpdateBy}',GETDATE()),");
+                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}','{DateTime.Now.ToStamp()}',N'{rows[i].UpdateBy}',GETDATE()),");
                     }
                 }
 

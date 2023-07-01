@@ -12,8 +12,7 @@
         /// <returns></returns>
         public static string ToStamp(this DateTime time)
         {
-            DateTime startTime = new(1970, 1, 1);
-            return (time - startTime).TotalMilliseconds.ToString();
+            return new DateTimeOffset(time).ToUnixTimeSeconds().ToString();
         }
 
         /// <summary>
