@@ -345,11 +345,11 @@ namespace HKSH.Common.Repository.Database
                 {
                     if (i == rows.Count - 1)
                     {
-                        sqlDataBuilder.AppendLine(@$"('{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},'{rows[i].Action}','{rows[i].Row}','{rows[i].Version}','{rows[i].UpdateBy}',GETDATE());");
+                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}',N'{rows[i].Version}',N'{rows[i].UpdateBy}',GETDATE());");
                     }
                     else
                     {
-                        sqlDataBuilder.AppendLine(@$"('{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},'{rows[i].Action}','{rows[i].Row}','{rows[i].Version}','{rows[i].UpdateBy}',GETDATE()),");
+                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}',N'{rows[i].Version}',N'{rows[i].UpdateBy}',GETDATE()),");
                     }
                 }
 
