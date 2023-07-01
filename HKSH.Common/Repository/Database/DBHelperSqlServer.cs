@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -9,32 +8,17 @@ namespace HKSH.Common.Repository.Database
     public class DBHelperSqlServer
     {
         /// <summary>
-        /// The connection string default SqlServer
+        /// The connection default SqlServer ConnectionString
         /// </summary>
-        private static string connectionString = ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString;
-
-        /// <summary>
-        /// The connection default SqlServer ConnectionString 
-        /// </summary>
-        private static SqlConnection connection = new(connectionString);
+        private readonly SqlConnection connection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DBHelperSqlServer"/> class.
         /// </summary>
-        public DBHelperSqlServer()
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DBHelperSqlServer"/> class.
-        /// </summary>
-        /// <param name="dbName">Name of the database.</param>
-        public DBHelperSqlServer(string dbName)
+        /// <param name="connectionString">The connection string.</param>
+        public DBHelperSqlServer(string connectionString)
         {
-            if (!string.IsNullOrEmpty(dbName))
-            {
-                connectionString = ConfigurationManager.ConnectionStrings[dbName].ConnectionString;
-                connection = new SqlConnection(connectionString);
-            }
+            connection = new SqlConnection(connectionString);
         }
 
         /// <summary>

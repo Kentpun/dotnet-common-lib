@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>3.0.0</Version>
-		<Description>Audit log enable write to his db</Description>
+		<Version>3.0.1</Version>
+		<Description>Fix WriteAuditLogIntoDB</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

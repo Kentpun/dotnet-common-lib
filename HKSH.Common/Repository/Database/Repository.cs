@@ -1,18 +1,15 @@
-﻿using Amazon.Runtime.Internal.Util;
-using DotNetCore.CAP;
+﻿using DotNetCore.CAP;
 using HKSH.Common.AuditLogs;
 using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
 using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Nest;
 using Newtonsoft.Json;
-using NPOI.OpenXmlFormats.Spreadsheet;
-using NPOI.SS.Formula.Functions;
+using System.Data;
 using System.Text;
 
 namespace HKSH.Common.Repository.Database
@@ -50,11 +47,11 @@ namespace HKSH.Common.Repository.Database
         private readonly DbSet<T> _dbSet;
 
         /// <summary>
-        /// Repository
+        /// Initializes a new instance of the <see cref="Repository{T}"/> class.
         /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="currentContext"></param>
-        /// <param name="serviceProvider"></param>
+        /// <param name="dbContext">The database context.</param>
+        /// <param name="currentContext">The current context.</param>
+        /// <param name="serviceProvider">The service provider.</param>
         public Repository(DbContext dbContext,
             IRepositoryCurrentContext currentContext,
             IServiceProvider serviceProvider)
@@ -607,7 +604,7 @@ namespace HKSH.Common.Repository.Database
         /// Writes the audit log into database.
         /// </summary>
         /// <param name="rows">The rows.</param>
-        private static void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
+        private void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
         {
             StringBuilder tableSqlBuilder = new();
 
@@ -635,9 +632,15 @@ namespace HKSH.Common.Repository.Database
             tableSqlBuilder.AppendLine(@$") ON [PRIMARY]");
             tableSqlBuilder.AppendLine(@$"END COMMIT TRAN");
 
+            var configuration = _serviceProvider.GetService<IConfiguration>();
+
+            var connectionString = configuration?.GetConnectionString("SqlServer") ?? string.Empty;
+
             string tableSql = tableSqlBuilder.ToString();
-            var dbHelper = new DBHelperSqlServer();
-            dbHelper.ExecuteSql(tableSql);
+            if (!string.IsNullOrEmpty(tableSql))
+            {
+                new DBHelperSqlServer(connectionString).ExecuteSql(tableSql);
+            }
 
             if (rows != null && rows.Any())
             {
@@ -657,7 +660,10 @@ namespace HKSH.Common.Repository.Database
                 }
 
                 string dataSql = sqlDataBuilder.ToString();
-                dbHelper.ExecuteSql(dataSql);
+                if (!string.IsNullOrEmpty(dataSql))
+                {
+                    new DBHelperSqlServer(connectionString).ExecuteSql(dataSql);
+                }
             }
         }
 

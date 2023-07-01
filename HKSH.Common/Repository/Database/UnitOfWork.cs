@@ -4,6 +4,7 @@ using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
 using HKSH.Common.Constants;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -297,7 +298,7 @@ namespace HKSH.Common.Repository.Database
         /// Writes the audit log into database.
         /// </summary>
         /// <param name="rows">The rows.</param>
-        private static void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
+        private void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
         {
             StringBuilder tableSqlBuilder = new();
 
@@ -325,9 +326,15 @@ namespace HKSH.Common.Repository.Database
             tableSqlBuilder.AppendLine(@$") ON [PRIMARY]");
             tableSqlBuilder.AppendLine(@$"END COMMIT TRAN");
 
+            var configuration = _serviceProvider.GetService<IConfiguration>();
+
+            var connectionString = configuration?.GetConnectionString("SqlServer") ?? string.Empty;
+
             string tableSql = tableSqlBuilder.ToString();
-            var dbHelper = new DBHelperSqlServer();
-            dbHelper.ExecuteSql(tableSql);
+            if (!string.IsNullOrEmpty(tableSql))
+            {
+                new DBHelperSqlServer(connectionString).ExecuteSql(tableSql);
+            }
 
             if (rows != null && rows.Any())
             {
@@ -347,7 +354,10 @@ namespace HKSH.Common.Repository.Database
                 }
 
                 string dataSql = sqlDataBuilder.ToString();
-                dbHelper.ExecuteSql(dataSql);
+                if (!string.IsNullOrEmpty(dataSql))
+                {
+                    new DBHelperSqlServer(connectionString).ExecuteSql(dataSql);
+                }
             }
         }
 
