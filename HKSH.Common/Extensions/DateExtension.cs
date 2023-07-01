@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static string ToStamp(this DateTime time)
         {
-            return new DateTimeOffset(time).ToUnixTimeSeconds().ToString();
+            return time.Ticks.ToString();
         }
 
         /// <summary>
