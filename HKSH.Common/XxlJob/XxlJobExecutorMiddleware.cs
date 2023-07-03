@@ -1,6 +1,7 @@
 ﻿using DotXxlJob.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Nest;
 
 namespace HKSH.Common.XxlJob
 {
@@ -42,17 +43,20 @@ namespace HKSH.Common.XxlJob
         /// <param name="context">The context.</param>
         public async Task Invoke(HttpContext context)
         {
-            string? contentType = context.Request.ContentType;
-
-            if ("POST".Equals(context.Request.Method, StringComparison.OrdinalIgnoreCase)
-                && !string.IsNullOrEmpty(contentType)
-                && contentType.ToLower().StartsWith("application/json"))
+            if (context.Request.Headers.Any(s => s.Key == "Authorization"))
             {
-                await _rpcService.HandlerAsync(context.Request, context.Response);
-                return;
+                await _next.Invoke(context);
             }
+            else
+            {
+                var contentType = context.Request.ContentType;
 
-            await _next.Invoke(context);
+                if ("POST".Equals(context.Request.Method, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(contentType) && contentType.ToLower().StartsWith("application/json"))
+                {
+                    await _rpcService.HandlerAsync(context.Request, context.Response);
+                    return;
+                }
+            }
         }
     }
 }
