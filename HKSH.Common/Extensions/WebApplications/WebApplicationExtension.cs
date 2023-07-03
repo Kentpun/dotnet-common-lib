@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using XxlJob.Core.AspNetCore.XxlJobExtensions;
 
 namespace HKSH.Common.Extensions.WebApplications
 {
@@ -130,7 +131,13 @@ namespace HKSH.Common.Extensions.WebApplications
             //XxlJob
             if (programConfigure.EnableXxlJob)
             {
-                app.UseXxlJobExecutor();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+
+                    // 映射路由[BasePath] , 默认 = xxl-job
+                    endpoints.MapXxlJob();
+                });
             }
 
             //File
@@ -192,7 +199,13 @@ namespace HKSH.Common.Extensions.WebApplications
             //XxlJob
             if (programConfigure.EnableXxlJob)
             {
-                app.UseXxlJobExecutor();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+
+                    // 映射路由[BasePath] , 默认 = xxl-job
+                    endpoints.MapXxlJob();
+                });
             }
 
             //File
