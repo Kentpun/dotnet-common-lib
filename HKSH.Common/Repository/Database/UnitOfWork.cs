@@ -99,17 +99,7 @@ namespace HKSH.Common.Repository.Database
                 }
                 catch
                 {
-                    transaction.Rollback();
-
-                    var redisRepository = _serviceProvider.GetService<IRedisRepository>();
-
-                    var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
-                    var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
-
-                    if (currentTransitionFields != null && currentTransitionFields.Any())
-                    {
-                        redisRepository?.HashDelete(CommonAuditLogConstants.TransactionRedisKey, currentTransitionFields);
-                    }
+                    Rollback();
 
                     throw;
                 }
