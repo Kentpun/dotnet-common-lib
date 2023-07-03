@@ -70,6 +70,12 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         Task<int> SaveChangesAsync(AuditLogParams request);
 
+        /// <summary>
+        /// Writes the audit log into database.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows);
+
         #endregion AuditLog
     }
 }

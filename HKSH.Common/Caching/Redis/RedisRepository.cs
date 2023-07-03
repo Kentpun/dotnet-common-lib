@@ -1192,6 +1192,25 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public async Task<bool> LockReleaseAsync(string key, string value) => await Db.LockReleaseAsync(key, value);
 
+        /// <summary>
+        /// Hashes the fields.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public IEnumerable<string> HashFields(string key)
+        {
+            var list = new List<string>();
+
+            var fields = Db.HashKeys(key);
+
+            foreach (var item in fields)
+            {
+                list.Add(item.ToString());
+            }
+
+            return list;
+        }
+
         #endregion Lock Async
     }
 }

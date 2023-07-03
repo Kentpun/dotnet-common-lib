@@ -1,5 +1,4 @@
-﻿using Nest;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 
 namespace HKSH.Common.Extensions

@@ -2,6 +2,7 @@
 using HKSH.Common.AuditLogs;
 using HKSH.Common.AuditLogs.Models;
 using HKSH.Common.Base;
+using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Data;
-using System.Text;
 
 namespace HKSH.Common.Repository.Database
 {
@@ -77,10 +77,40 @@ namespace HKSH.Common.Repository.Database
                 try
                 {
                     transaction.Commit();
+
+                    var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+
+                    var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
+                    var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
+
+                    var rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TransactionRedisKey, $"{transaction.TransactionId}-").SelectMany(row => row).ToList();
+
+                    if (rows != null && rows.Any())
+                    {
+                        WriteAuditLogIntoDB(rows);
+
+                        PublishAuditLogIntoEs(rows);
+
+                        if (currentTransitionFields != null && currentTransitionFields.Any())
+                        {
+                            redisRepository?.HashDelete(CommonAuditLogConstants.TransactionRedisKey, currentTransitionFields);
+                        }
+                    }
                 }
                 catch
                 {
                     transaction.Rollback();
+
+                    var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+
+                    var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
+                    var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
+
+                    if (currentTransitionFields != null && currentTransitionFields.Any())
+                    {
+                        redisRepository?.HashDelete(CommonAuditLogConstants.TransactionRedisKey, currentTransitionFields);
+                    }
+
                     throw;
                 }
             }
@@ -91,7 +121,22 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         public void Rollback()
         {
-            DbContext.Database.CurrentTransaction?.Rollback();
+            var transaction = DbContext.Database.CurrentTransaction;
+
+            if (transaction != null)
+            {
+                transaction.Rollback();
+
+                var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+
+                var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
+                var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
+
+                if (currentTransitionFields != null && currentTransitionFields.Any())
+                {
+                    redisRepository?.HashDelete(CommonAuditLogConstants.TransactionRedisKey, currentTransitionFields);
+                }
+            }
         }
 
         /// <summary>
@@ -138,16 +183,17 @@ namespace HKSH.Common.Repository.Database
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
-                    WriteAuditLogIntoDB(rows);
-
-                    var message = new LogMqRequest
+                    if (DbContext.Database.CurrentTransaction == null)
                     {
-                        Uuid = Guid.NewGuid(),
-                        Action = "change",
-                        Log = JsonConvert.SerializeObject(rows)
-                    };
-                    var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, message);
+                        WriteAuditLogIntoDB(rows);
+
+                        PublishAuditLogIntoEs(rows);
+                    }
+                    else
+                    {
+                        var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                        redisRepository?.HashSet(CommonAuditLogConstants.TransactionRedisKey, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
+                    }
                 }
                 return result.Result;
             }
@@ -175,16 +221,17 @@ namespace HKSH.Common.Repository.Database
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
                 if (result.Result > 0 && rows.Any())
                 {
-                    WriteAuditLogIntoDB(rows);
-
-                    var message = new LogMqRequest
+                    if (DbContext.Database.CurrentTransaction == null)
                     {
-                        Uuid = Guid.NewGuid(),
-                        Action = "change",
-                        Log = JsonConvert.SerializeObject(rows)
-                    };
-                    var publisher = _serviceProvider.GetService<ICapPublisher>();
-                    publisher?.Publish(CapTopic.AuditLogs, message);
+                        WriteAuditLogIntoDB(rows);
+
+                        PublishAuditLogIntoEs(rows);
+                    }
+                    else
+                    {
+                        var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                        redisRepository?.HashSet(CommonAuditLogConstants.TransactionRedisKey, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
+                    }
                 }
                 return result;
             }
@@ -205,7 +252,6 @@ namespace HKSH.Common.Repository.Database
             var auditEntries = new List<AuditEntry>();
             foreach (var entry in DbContext.ChangeTracker.Entries())
             {
-                //繼承了IAuditLog的數據庫對象才可以記錄日誌
                 if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
@@ -226,7 +272,6 @@ namespace HKSH.Common.Repository.Database
                 {
                     if (property.IsTemporary)
                     {
-                        // value will be generated by the database, get the value after saving
                         auditEntry.TemporaryProperties.Add(property);
                         continue;
                     }
@@ -262,7 +307,6 @@ namespace HKSH.Common.Repository.Database
                 }
             }
 
-            // keep a list of entries where the value of some properties are unknown at this step
             return auditEntries.ToList();
         }
 
@@ -278,7 +322,6 @@ namespace HKSH.Common.Repository.Database
 
             foreach (var auditEntry in auditEntries)
             {
-                // Get the final value of the temporary properties
                 foreach (var prop in auditEntry.TemporaryProperties)
                 {
                     if (prop.Metadata.IsPrimaryKey())
@@ -299,67 +342,39 @@ namespace HKSH.Common.Repository.Database
         /// Writes the audit log into database.
         /// </summary>
         /// <param name="rows">The rows.</param>
-        private void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
+        public void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
         {
-            StringBuilder tableSqlBuilder = new();
-
-            tableSqlBuilder.AppendLine(@$"BEGIN TRAN IF NOT EXISTS (");
-            tableSqlBuilder.AppendLine(@$"  SELECT");
-            tableSqlBuilder.AppendLine(@$"    TOP 1 *");
-            tableSqlBuilder.AppendLine(@$"  FROM");
-            tableSqlBuilder.AppendLine(@$"    sysObjects");
-            tableSqlBuilder.AppendLine(@$"  WHERE");
-            tableSqlBuilder.AppendLine(@$"    Id = OBJECT_ID('com_audit_{DateTime.Now:yyyyMM}')");
-            tableSqlBuilder.AppendLine(@$"    and xtype = 'U'");
-            tableSqlBuilder.AppendLine(@$") BEGIN CREATE TABLE com_audit_{DateTime.Now:yyyyMM} (");
-            tableSqlBuilder.AppendLine(@$"  [id] [bigint] IDENTITY(1, 1) NOT NULL,");
-            tableSqlBuilder.AppendLine(@$"  [table_name] [nvarchar] (200) NULL,");
-            tableSqlBuilder.AppendLine(@$"  [row_id][bigint] NULL,");
-            tableSqlBuilder.AppendLine(@$"  [action][nvarchar] (100) NULL,");
-            tableSqlBuilder.AppendLine(@$"  [row][nvarchar] (max)NULL,");
-            tableSqlBuilder.AppendLine(@$"  [version][nvarchar] (max)NULL,");
-            tableSqlBuilder.AppendLine(@$"  [created_by][nvarchar] (100) NULL,");
-            tableSqlBuilder.AppendLine(@$"  [created_at] [datetime2](7) NULL CONSTRAINT [PK_com_audit_202206] PRIMARY KEY CLUSTERED ([id] ASC) WITH (");
-            tableSqlBuilder.AppendLine(@$"    STATISTICS_NORECOMPUTE = OFF,");
-            tableSqlBuilder.AppendLine(@$"    IGNORE_DUP_KEY = OFF,");
-            tableSqlBuilder.AppendLine(@$"    OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF");
-            tableSqlBuilder.AppendLine(@$"  ) ON [PRIMARY]");
-            tableSqlBuilder.AppendLine(@$") ON [PRIMARY]");
-            tableSqlBuilder.AppendLine(@$"END COMMIT TRAN");
-
             var configuration = _serviceProvider.GetService<IConfiguration>();
 
             var connectionString = configuration?.GetConnectionString("SqlServer") ?? string.Empty;
 
-            string tableSql = tableSqlBuilder.ToString();
-            if (!string.IsNullOrEmpty(tableSql))
+            var auditHistory = new AuditHistory(rows);
+
+            if (!string.IsNullOrEmpty(AuditHistory.CreateAuditLogTableSql))
             {
-                new DBHelperSqlServer(connectionString).ExecuteSql(tableSql);
+                new DBHelperSqlServer(connectionString).ExecuteSql(AuditHistory.CreateAuditLogTableSql);
             }
 
-            if (rows != null && rows.Any())
+            if (!string.IsNullOrEmpty(auditHistory.InsertAuditLogSql))
             {
-                StringBuilder sqlDataBuilder = new();
-                sqlDataBuilder.AppendLine(@$"INSERT INTO com_audit_{DateTime.Now:yyyyMM} ([table_name],[row_id],[action],[row],[version],[created_by],[created_at])");
-                sqlDataBuilder.AppendLine(@$"VALUES");
-                for (int i = 0; i < rows.Count; i++)
-                {
-                    if (i == rows.Count - 1)
-                    {
-                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}','{DateTime.Now.ToStamp()}',N'{rows[i].UpdateBy}',GETDATE());");
-                    }
-                    else
-                    {
-                        sqlDataBuilder.AppendLine(@$"(N'{rows[i].TableName}',{long.Parse(rows[i].RowId ?? "0")},N'{rows[i].Action}',N'{rows[i].Row}','{DateTime.Now.ToStamp()}',N'{rows[i].UpdateBy}',GETDATE()),");
-                    }
-                }
-
-                string dataSql = sqlDataBuilder.ToString();
-                if (!string.IsNullOrEmpty(dataSql))
-                {
-                    new DBHelperSqlServer(connectionString).ExecuteSql(dataSql);
-                }
+                new DBHelperSqlServer(connectionString).ExecuteSql(auditHistory.InsertAuditLogSql);
             }
+        }
+
+        /// <summary>
+        /// Publishes the audit log into es.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        private void PublishAuditLogIntoEs(List<RowAuditLogDocument> rows)
+        {
+            var message = new LogMqRequest
+            {
+                Uuid = Guid.NewGuid(),
+                Action = CommonAuditLogConstants.AuditLogAction,
+                Log = JsonConvert.SerializeObject(rows)
+            };
+            var publisher = _serviceProvider.GetService<ICapPublisher>();
+            publisher?.Publish(CapTopic.AuditLogs, message);
         }
 
         #endregion AuditLog

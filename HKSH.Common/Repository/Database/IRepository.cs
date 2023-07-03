@@ -145,7 +145,7 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         IQueryable<T> FromSqlRawTrack(string sql, params object[] @params);
 
-        #region Overloaded
+        #region Overload
 
         /// <summary>
         /// Adds the specified entity.
@@ -189,7 +189,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="userId">The user identifier.</param>
         void BatchDelete(IEnumerable<T> entities, string userId);
 
-        #endregion Overloaded
+        #endregion Overload
 
         #region AuditLog
 
@@ -206,6 +206,12 @@ namespace HKSH.Common.Repository.Database
         /// <param name="request">The request.</param>
         /// <returns></returns>
         Task<int> SaveChangesAsync(AuditLogParams request);
+
+        /// <summary>
+        /// Writes the audit log into database.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows);
 
         #endregion AuditLog
     }

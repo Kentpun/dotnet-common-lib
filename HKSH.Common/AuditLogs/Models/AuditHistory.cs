@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HKSH.Common.Extensions;
+using NPOI.SS.Formula.Functions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace HKSH.Common.AuditLogs.Models
 {
@@ -8,6 +11,26 @@ namespace HKSH.Common.AuditLogs.Models
     /// </summary>
     public class AuditHistory
     {
+        /// <summary>
+        /// The rows
+        /// </summary>
+        private readonly List<RowAuditLogDocument> _rows = new();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuditHistory"/> class.
+        /// </summary>
+        public AuditHistory()
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuditHistory"/> class.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        public AuditHistory(List<RowAuditLogDocument> rows)
+        {
+            _rows = rows;
+        }
+
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -83,5 +106,87 @@ namespace HKSH.Common.AuditLogs.Models
         [Column("created_by")]
         [MaxLength(100)]
         public string? CreatedBy { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets the create audit log table SQL.
+        /// </summary>
+        /// <value>
+        /// The create audit log table SQL.
+        /// </value>
+        public static string CreateAuditLogTableSql
+        {
+            get
+            {
+                StringBuilder tableSqlBuilder = new();
+
+                tableSqlBuilder.AppendLine(@$"BEGIN TRAN IF NOT EXISTS (");
+                tableSqlBuilder.AppendLine(@$"  SELECT");
+                tableSqlBuilder.AppendLine(@$"    TOP 1 *");
+                tableSqlBuilder.AppendLine(@$"  FROM");
+                tableSqlBuilder.AppendLine(@$"    sysObjects");
+                tableSqlBuilder.AppendLine(@$"  WHERE");
+                tableSqlBuilder.AppendLine(@$"    Id = OBJECT_ID('com_audit_{DateTime.Now:yyyyMM}')");
+                tableSqlBuilder.AppendLine(@$"    and xtype = 'U'");
+                tableSqlBuilder.AppendLine(@$") BEGIN CREATE TABLE com_audit_{DateTime.Now:yyyyMM} (");
+                tableSqlBuilder.AppendLine(@$"  [id] [bigint] IDENTITY(1, 1) NOT NULL,");
+                tableSqlBuilder.AppendLine(@$"  [table_name] [nvarchar] (200) NULL,");
+                tableSqlBuilder.AppendLine(@$"  [row_id][bigint] NULL,");
+                tableSqlBuilder.AppendLine(@$"  [action][nvarchar] (100) NULL,");
+                tableSqlBuilder.AppendLine(@$"  [row][nvarchar] (max)NULL,");
+                tableSqlBuilder.AppendLine(@$"  [version][nvarchar] (max)NULL,");
+                tableSqlBuilder.AppendLine(@$"  [created_by][nvarchar] (100) NULL,");
+                tableSqlBuilder.AppendLine(@$"  [created_at] [datetime2](7) NULL CONSTRAINT [PK_com_audit_202206] PRIMARY KEY CLUSTERED ([id] ASC) WITH (");
+                tableSqlBuilder.AppendLine(@$"    STATISTICS_NORECOMPUTE = OFF,");
+                tableSqlBuilder.AppendLine(@$"    IGNORE_DUP_KEY = OFF,");
+                tableSqlBuilder.AppendLine(@$"    OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF");
+                tableSqlBuilder.AppendLine(@$"  ) ON [PRIMARY]");
+                tableSqlBuilder.AppendLine(@$") ON [PRIMARY]");
+                tableSqlBuilder.AppendLine(@$"END COMMIT TRAN");
+
+                string createTableSql = tableSqlBuilder.ToString();
+
+                return createTableSql;
+            }
+        }
+
+        /// <summary>
+        /// Gets the insert audit log SQL.
+        /// </summary>
+        /// <value>
+        /// The insert audit log SQL.
+        /// </value>
+        public string InsertAuditLogSql
+        {
+            get
+            {
+                if (_rows != null && _rows.Any())
+                {
+                    StringBuilder sqlDataBuilder = new();
+                    sqlDataBuilder.AppendLine(@$"INSERT INTO com_audit_{DateTime.Now:yyyyMM} ([table_name],[row_id],[action],[row],[version],[created_by],[created_at])");
+                    sqlDataBuilder.AppendLine(@$"VALUES");
+                    for (int i = 0; i < _rows.Count; i++)
+                    {
+                        RowAuditLogDocument log = _rows[i];
+
+                        if (i == _rows.Count - 1)
+                        {
+                            sqlDataBuilder.AppendLine(@$"(N'{log.TableName}',{long.Parse(log.RowId ?? "0")},N'{log.Action}',N'{log.Row}','{DateTime.Now.ToStamp()}',N'{log.UpdateBy}',GETDATE());");
+                        }
+                        else
+                        {
+                            sqlDataBuilder.AppendLine(@$"(N'{log.TableName}',{long.Parse(log.RowId ?? "0")},N'{log.Action}',N'{log.Row}','{DateTime.Now.ToStamp()}',N'{log.UpdateBy}',GETDATE()),");
+                        }
+                    }
+
+                    string insertDataSql = sqlDataBuilder.ToString();
+
+                    return insertDataSql;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
     }
 }
