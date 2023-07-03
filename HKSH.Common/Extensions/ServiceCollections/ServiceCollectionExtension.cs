@@ -9,7 +9,6 @@ using HKSH.Common.RabbitMQ;
 using HKSH.Common.Repository;
 using HKSH.Common.ServiceInvoker;
 using HKSH.Common.ShareModel;
-using HKSH.Common.XxlJob;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -412,7 +411,7 @@ public static class ServiceCollectionExtension
         //XxlJob
         if (programConfigure.EnableXxlJob)
         {
-            services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
+            services.AddXxlJobService(configuration).ScanJobHandler(new Assembly?[] { Assembly.GetEntryAssembly(), Assembly.GetExecutingAssembly() });
         }
 
         //IHostedService
@@ -424,6 +423,12 @@ public static class ServiceCollectionExtension
         return services;
     }
 
+    /// <summary>
+    /// Adds the service collection.
+    /// </summary>
+    /// <param name="builder">The builder.</param>
+    /// <param name="programConfigure">The program configure.</param>
+    /// <returns></returns>
     public static IServiceCollection AddServiceCollection(this WebApplicationBuilder builder, ProgramConfigure programConfigure)
     {
         var services = builder.Services;
@@ -511,7 +516,7 @@ public static class ServiceCollectionExtension
         //XxlJob
         if (programConfigure.EnableXxlJob)
         {
-            services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
+            services.AddXxlJobService(configuration).ScanJobHandler(new Assembly?[] { Assembly.GetEntryAssembly(), Assembly.GetExecutingAssembly() });
         }
 
         //IHostedService

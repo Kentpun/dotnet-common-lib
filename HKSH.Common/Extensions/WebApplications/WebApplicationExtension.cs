@@ -2,7 +2,6 @@
 using HKSH.Common.Base;
 using HKSH.Common.File;
 using HKSH.Common.ShareModel;
-using HKSH.Common.XxlJob;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
