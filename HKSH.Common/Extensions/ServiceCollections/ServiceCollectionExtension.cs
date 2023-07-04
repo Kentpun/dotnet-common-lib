@@ -412,6 +412,7 @@ public static class ServiceCollectionExtension
         //XxlJob
         if (programConfigure.EnableXxlJob)
         {
+            Console.WriteLine($" ∆Ù”√XxlJob EnableXxlJob:{programConfigure.EnableXxlJob}");
             services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
         }
 
@@ -517,6 +518,7 @@ public static class ServiceCollectionExtension
         //XxlJob
         if (programConfigure.EnableXxlJob)
         {
+            Console.WriteLine($" ∆Ù”√XxlJob EnableXxlJob:{programConfigure.EnableXxlJob}");
             services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
         }
 
