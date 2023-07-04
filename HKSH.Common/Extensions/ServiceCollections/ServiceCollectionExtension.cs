@@ -23,8 +23,6 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Extensions.Logging;
 using System.Reflection;
-using XxlJob.Core.AspNetCore;
-using XxlJob.Core.AspNetCore.XxlJobExtensions;
 
 namespace HKSH.Common.Extensions.ServiceCollections;
 
@@ -409,9 +407,6 @@ public static class ServiceCollectionExtension
             services.RegisterDbContextRelated<TContext>(configuration);
         }
 
-        //XxlJob
-        services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
-
         //IHostedService
         if (programConfigure.EnableBackgroundService)
         {
@@ -510,9 +505,6 @@ public static class ServiceCollectionExtension
                 });
             });
         }
-
-        //XxlJob
-        services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
 
         //IHostedService
         if (programConfigure.EnableBackgroundService)
