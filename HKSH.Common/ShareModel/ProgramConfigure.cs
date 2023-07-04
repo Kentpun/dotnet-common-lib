@@ -54,11 +54,6 @@
         public bool EnableRabbitMQ { get; set; } = false;
 
         /// <summary>
-        /// 啟用定時任務組件 Xxl-Job.
-        /// </summary>
-        public bool EnableXxlJob { get; set; } = false;
-
-        /// <summary>
         /// 啟用.NET Core後台定時服務.
         /// </summary>
         public bool EnableBackgroundService { get; set; } = false;

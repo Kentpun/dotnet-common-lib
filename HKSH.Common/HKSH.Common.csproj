@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.0.3</Version>
-		<Description>XxlJob.Core.AspNetCore 1.0.5 XxlJob</Description>
+		<Version>4.0.4</Version>
+		<Description>Remove EnableXxlJob</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

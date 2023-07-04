@@ -410,11 +410,7 @@ public static class ServiceCollectionExtension
         }
 
         //XxlJob
-        if (programConfigure.EnableXxlJob)
-        {
-            Console.WriteLine($" ∆Ù”√XxlJob EnableXxlJob:{programConfigure.EnableXxlJob}");
-            services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
-        }
+        services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
 
         //IHostedService
         if (programConfigure.EnableBackgroundService)
@@ -516,11 +512,7 @@ public static class ServiceCollectionExtension
         }
 
         //XxlJob
-        if (programConfigure.EnableXxlJob)
-        {
-            Console.WriteLine($" ∆Ù”√XxlJob EnableXxlJob:{programConfigure.EnableXxlJob}");
-            services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
-        }
+        services.AddXxlJobService(configuration).ScanJobHandler(typeof(IJobBaseHandler).Assembly);
 
         //IHostedService
         if (programConfigure.EnableBackgroundService)

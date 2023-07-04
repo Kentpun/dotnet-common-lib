@@ -127,17 +127,11 @@ namespace HKSH.Common.Extensions.WebApplications
                 });
             }
 
-            //XxlJob
-            if (programConfigure.EnableXxlJob)
+            app.UseEndpoints(endpoints =>
             {
-                app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-
-                    // 映射路由[BasePath] , 默认 = xxl-job
-                    endpoints.MapXxlJob();
-                });
-            }
+                // 映射路由[BasePath] , 默认 = xxl-job
+                endpoints.MapXxlJob();
+            });
 
             //File
             if (programConfigure.EnableStaticFiles)
@@ -196,16 +190,11 @@ namespace HKSH.Common.Extensions.WebApplications
             }
 
             //XxlJob
-            if (programConfigure.EnableXxlJob)
+            app.UseEndpoints(endpoints =>
             {
-                app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-
-                    // 映射路由[BasePath] , 默认 = xxl-job
-                    endpoints.MapXxlJob();
-                });
-            }
+                // 映射路由[BasePath] , 默认 = xxl-job
+                endpoints.MapXxlJob();
+            });
 
             //File
             if (programConfigure.EnableStaticFiles)
