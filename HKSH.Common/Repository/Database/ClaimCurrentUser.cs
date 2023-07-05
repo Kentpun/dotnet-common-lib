@@ -17,6 +17,11 @@ namespace HKSH.Common.Repository.Database
         public long Id { get; set; }
 
         /// <summary>
+        /// staff id
+        /// </summary>
+        public string StaffId { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the department identifier.
         /// </summary>
         /// <value>
