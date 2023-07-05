@@ -28,7 +28,7 @@ public class VariableOptions
     /// <summary>
     /// The e form master core host
     /// </summary>
-    public const string EFormMasterCoreHost = "MasterCore";
+    public const string EFormMasterCoreHost = "EFormMasterCore";
 
     /// <summary>
     /// The MDM master core host
