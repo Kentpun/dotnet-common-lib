@@ -11,13 +11,13 @@ namespace HKSH.Common.Enums
     public enum Language
     {
         /// <summary>
-        /// The chinese
-        /// </summary>
-        [Description("Chinese")] Chinese = 1001,
-
-        /// <summary>
         /// The english
         /// </summary>
-        [Description("English")] English = 1002,
+        [Description("English")] English = 1001,
+
+        /// <summary>
+        /// The chinese
+        /// </summary>
+        [Description("Chinese")] Chinese = 1002
     }
 }

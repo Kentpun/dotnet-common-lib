@@ -83,7 +83,7 @@ namespace HKSH.Common.Repository.Database
                     var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
                     var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
 
-                    var rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TransactionRedisKey, $"{transaction.TransactionId}-").SelectMany(row => row).ToList();
+                    var rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TransactionRedisKey, $"{transaction.TransactionId}-*").SelectMany(row => row).ToList();
 
                     if (rows != null && rows.Any())
                     {
