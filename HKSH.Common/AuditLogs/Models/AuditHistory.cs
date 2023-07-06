@@ -108,6 +108,11 @@ namespace HKSH.Common.AuditLogs.Models
         public string? CreatedBy { get; set; } = string.Empty;
 
         /// <summary>
+        /// The change log connection string
+        /// </summary>
+        public const string ChangeLogConnectionString = "ChangeLog";
+
+        /// <summary>
         /// Gets the create audit log table SQL.
         /// </summary>
         /// <value>

@@ -336,7 +336,7 @@ namespace HKSH.Common.Repository.Database
         {
             var configuration = _serviceProvider.GetService<IConfiguration>();
 
-            var connectionString = configuration?.GetConnectionString("SqlServer") ?? string.Empty;
+            var connectionString = configuration?.GetConnectionString(AuditHistory.ChangeLogConnectionString) ?? string.Empty;
 
             var auditHistory = new AuditHistory(rows);
 
