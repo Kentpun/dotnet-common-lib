@@ -130,12 +130,12 @@ namespace HKSH.Common.AuditLogs.Models
                 tableSqlBuilder.AppendLine(@$") BEGIN CREATE TABLE com_audit_{DateTime.Now:yyyyMM} (");
                 tableSqlBuilder.AppendLine(@$"  [id] [bigint] IDENTITY(1, 1) NOT NULL,");
                 tableSqlBuilder.AppendLine(@$"  [table_name] [nvarchar] (200) NULL,");
-                tableSqlBuilder.AppendLine(@$"  [row_id][bigint] NULL,");
-                tableSqlBuilder.AppendLine(@$"  [action][nvarchar] (100) NULL,");
-                tableSqlBuilder.AppendLine(@$"  [row][nvarchar] (max)NULL,");
-                tableSqlBuilder.AppendLine(@$"  [version][nvarchar] (max)NULL,");
-                tableSqlBuilder.AppendLine(@$"  [created_by][nvarchar] (100) NULL,");
-                tableSqlBuilder.AppendLine(@$"  [created_at] [datetime2](7) NULL CONSTRAINT [PK_com_audit_202206] PRIMARY KEY CLUSTERED ([id] ASC) WITH (");
+                tableSqlBuilder.AppendLine(@$"  [row_id] [bigint] NULL,");
+                tableSqlBuilder.AppendLine(@$"  [action] [nvarchar] (100) NULL,");
+                tableSqlBuilder.AppendLine(@$"  [row] [nvarchar] (max)NULL,");
+                tableSqlBuilder.AppendLine(@$"  [version] [nvarchar] (max)NULL,");
+                tableSqlBuilder.AppendLine(@$"  [created_by] [nvarchar] (100) NULL,");
+                tableSqlBuilder.AppendLine(@$"  [created_at] [datetime2](7) NULL CONSTRAINT [PK_com_audit_{DateTime.Now:yyyyMM}] PRIMARY KEY CLUSTERED ([id] ASC) WITH (");
                 tableSqlBuilder.AppendLine(@$"    STATISTICS_NORECOMPUTE = OFF,");
                 tableSqlBuilder.AppendLine(@$"    IGNORE_DUP_KEY = OFF,");
                 tableSqlBuilder.AppendLine(@$"    OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF");
