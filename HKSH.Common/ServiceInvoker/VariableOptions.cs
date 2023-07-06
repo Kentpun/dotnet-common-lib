@@ -46,6 +46,21 @@ public class VariableOptions
     public const string NotificationMasterCoreHost = "NotificationMasterCore";
 
     /// <summary>
+    /// The notification inbox function host
+    /// </summary>
+    public const string NotificationInboxFunctionHost = "NotificationInboxFunction";
+
+    /// <summary>
+    /// The notification SMS function host
+    /// </summary>
+    public const string NotificationSmsFunctionHost = "NotificationSmsFunction";
+
+    /// <summary>
+    /// The notification email function host
+    /// </summary>
+    public const string NotificationEmailFunctionHost = "NotificationEmailFunction";
+
+    /// <summary>
     /// Gets or sets the key.
     /// </summary>
     /// <value>
