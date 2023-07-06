@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.1.0</Version>
-		<Description>AuditHistory.ChangeLogConnectionString</Description>
+		<Version>4.1.1</Version>
+		<Description>Add Notification Function Host</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Remove="C:\Users\feiliu\.nuget\packages\dotnetcore.npoi\1.2.3\contentFiles\any\netstandard2.0\NOTICE.TXT" />
+		<Content Remove="C:\Users\feiliu\.nuget\packages\dotnetcore.npoi\1.2.3\contentFiles\any\netstandard2.0\NOTICE.TXT" />
 	</ItemGroup>
 
 	<ItemGroup>
