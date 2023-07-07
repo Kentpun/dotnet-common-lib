@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.1.1</Version>
-		<Description>Add Notification Function Host</Description>
+		<Version>4.1.2</Version>
+		<Description>Add ShareModel About Organization and User</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
