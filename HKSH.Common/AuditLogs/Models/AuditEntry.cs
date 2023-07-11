@@ -48,7 +48,7 @@ namespace HKSH.Common.AuditLogs.Models
         /// <value>
         ///   <c>true</c> if [business type join primary key]; otherwise, <c>false</c>.
         /// </value>
-        public bool BusinessTypeJoinPrimaryKey { get; set; }
+        public bool? BusinessTypeJoinPrimaryKey { get; set; }
 
         /// <summary>
         /// Gets or sets the section.
@@ -134,7 +134,7 @@ namespace HKSH.Common.AuditLogs.Models
                 TableName = TableName,
                 RowId = Entry.PrimaryKey(),
                 Module = Module,
-                BusinessType = BusinessTypeJoinPrimaryKey ? $"{BusinessType}_{Entry.PrimaryKey()}" : BusinessType,
+                BusinessType = BusinessTypeJoinPrimaryKey.HasValue && BusinessTypeJoinPrimaryKey.Value ? $"{BusinessType}_{Entry.PrimaryKey()}" : BusinessType,
                 Section = Section,
                 Version = DateTime.Now.ToStamp(),
                 UpdateBy = UpdateBy,

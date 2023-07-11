@@ -27,7 +27,7 @@
         /// <value>
         ///   <c>true</c> if [business type join primary key]; otherwise, <c>false</c>.
         /// </value>
-        public bool BusinessTypeJoinPrimaryKey { get; set; } = false;
+        public bool? BusinessTypeJoinPrimaryKey { get; set; }
 
         /// <summary>
         /// 前端展示部分.
