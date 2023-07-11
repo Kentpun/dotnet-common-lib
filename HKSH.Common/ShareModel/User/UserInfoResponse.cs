@@ -59,5 +59,29 @@ namespace HKSH.Common.ShareModel.User
         /// language
         /// </summary>
         public Language? Language { get; set; }
+
+        /// <summary>
+        /// Gets or sets the department code.
+        /// </summary>
+        /// <value>
+        /// The department code.
+        /// </value>
+        public string? DepartmentCode { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        public string Title { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the type of the role.
+        /// </summary>
+        /// <value>
+        /// The type of the role.
+        /// </value>
+        public string RoleType { get; set; } = string.Empty;
     }
 }
