@@ -126,7 +126,7 @@ namespace HKSH.Common.AuditLogs.Models
                 TableName = TableName,
                 RowId = Entry.PrimaryKey(),
                 Module = Module,
-                BusinessType = BusinessType,
+                BusinessType = $"{BusinessType}_{Entry.PrimaryKey()}",
                 Section = Section,
                 Version = DateTime.Now.ToStamp(),
                 UpdateBy = UpdateBy,
