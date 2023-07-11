@@ -197,14 +197,20 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection AddVariableOptions(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.Configure<List<VariableOptions>>(configuration.GetSection(VariableOptions.Section));
+        services.Configure<List<VariableOptions>>(configuration.GetSection(VariableOptions.SECTION));
         services.AddTransient<List<VariableOptions>>();
         return services;
     }
 
+    /// <summary>
+    /// Adds the enable audit log options.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration">The configuration.</param>
+    /// <returns></returns>
     public static IServiceCollection AddEnableAuditLogOptions(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.Configure<EnableAuditLogOptions>(configuration.GetSection(EnableAuditLogOptions.Section));
+        services.Configure<EnableAuditLogOptions>(configuration.GetSection(EnableAuditLogOptions.SECTION));
         services.AddTransient<EnableAuditLogOptions>();
 
         return services;
@@ -370,6 +376,7 @@ public static class ServiceCollectionExtension
         //Redis
         services.RegisterRedis(configuration);
 
+        //Elastic
         services.RegisterElasticSearch(configuration);
 
         //Kafka
@@ -383,7 +390,7 @@ public static class ServiceCollectionExtension
         }
 
         //File
-        services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
+        services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.SECTION));
         services.AddTransient<FileUploadOptions>();
 
         //Enable Cors
@@ -488,7 +495,7 @@ public static class ServiceCollectionExtension
         }
 
         //File
-        services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section));
+        services.Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.SECTION));
         services.AddTransient<FileUploadOptions>();
 
         //Enable Cors

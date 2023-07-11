@@ -31,13 +31,13 @@
         public const string CURRENT_USER_CODE = "X_USERID";
 
         /// <summary>
-        /// The log field translate redis key
+        /// The dictioary redis key
         /// </summary>
-        public const string DictioaryRedisKey = "DictioaryRedisKey";
+        public const string DICTIOARY_REDIS_KEY = "DictioaryRedisKey";
 
         /// <summary>
         /// The dictioary redis field
         /// </summary>
-        public const string DictioaryRedisField = "Dictionary";
+        public const string DICTIOARY_REDIS_FIELD = "Dictionary";
     }
 }

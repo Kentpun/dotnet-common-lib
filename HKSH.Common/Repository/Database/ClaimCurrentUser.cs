@@ -97,7 +97,7 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public bool IsAdminUser()
         {
-            return HasRole(CommonRoleConstants.AdminRoleCode);
+            return HasRole(CommonRoleConstants.ADMIN_ROLE_CODE);
         }
     }
 }

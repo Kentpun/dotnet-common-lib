@@ -8,7 +8,7 @@ public class EnableAuditLogOptions
     /// <summary>
     /// The section
     /// </summary>
-    public const string Section = "EnableAuditLogOptions";
+    public const string SECTION = "EnableAuditLogOptions";
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is enabled.

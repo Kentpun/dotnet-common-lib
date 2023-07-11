@@ -80,10 +80,10 @@ namespace HKSH.Common.Repository.Database
 
                     var redisRepository = _serviceProvider.GetService<IRedisRepository>();
 
-                    var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
+                    var fields = redisRepository?.HashFields(CommonAuditLogConstants.TRANSACTION_REDIS_KEY);
                     var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
 
-                    var rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TransactionRedisKey, $"{transaction.TransactionId}-*").SelectMany(row => row).ToList();
+                    var rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{transaction.TransactionId}-*").SelectMany(row => row).ToList();
 
                     if (rows != null && rows.Any())
                     {
@@ -93,7 +93,7 @@ namespace HKSH.Common.Repository.Database
 
                         if (currentTransitionFields != null && currentTransitionFields.Any())
                         {
-                            redisRepository?.HashDelete(CommonAuditLogConstants.TransactionRedisKey, currentTransitionFields);
+                            redisRepository?.HashDelete(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, currentTransitionFields);
                         }
                     }
                 }
@@ -119,12 +119,12 @@ namespace HKSH.Common.Repository.Database
 
                 var redisRepository = _serviceProvider.GetService<IRedisRepository>();
 
-                var fields = redisRepository?.HashFields(CommonAuditLogConstants.TransactionRedisKey);
+                var fields = redisRepository?.HashFields(CommonAuditLogConstants.TRANSACTION_REDIS_KEY);
                 var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
 
                 if (currentTransitionFields != null && currentTransitionFields.Any())
                 {
-                    redisRepository?.HashDelete(CommonAuditLogConstants.TransactionRedisKey, currentTransitionFields);
+                    redisRepository?.HashDelete(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, currentTransitionFields);
                 }
             }
         }
@@ -182,7 +182,7 @@ namespace HKSH.Common.Repository.Database
                     else
                     {
                         var redisRepository = _serviceProvider.GetService<IRedisRepository>();
-                        redisRepository?.HashSet(CommonAuditLogConstants.TransactionRedisKey, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
+                        redisRepository?.HashSet(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
                     }
                 }
                 return result.Result;
@@ -220,7 +220,7 @@ namespace HKSH.Common.Repository.Database
                     else
                     {
                         var redisRepository = _serviceProvider.GetService<IRedisRepository>();
-                        redisRepository?.HashSet(CommonAuditLogConstants.TransactionRedisKey, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
+                        redisRepository?.HashSet(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
                     }
                 }
                 return result;
@@ -253,6 +253,7 @@ namespace HKSH.Common.Repository.Database
                     TableName = entry.Metadata.GetTableName() ?? string.Empty,
                     Module = request.Module,
                     BusinessType = request.BusinessType,
+                    BusinessTypeJoinPrimaryKey = request.BusinessTypeJoinPrimaryKey,
                     Section = request.Section,
                     Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
@@ -336,7 +337,7 @@ namespace HKSH.Common.Repository.Database
         {
             var configuration = _serviceProvider.GetService<IConfiguration>();
 
-            var connectionString = configuration?.GetConnectionString(AuditHistory.ChangeLogConnectionString) ?? string.Empty;
+            var connectionString = configuration?.GetConnectionString(AuditHistory.CHANGE_LOG_CONNECTION_STRING) ?? string.Empty;
 
             var auditHistory = new AuditHistory(rows);
 
@@ -360,11 +361,11 @@ namespace HKSH.Common.Repository.Database
             var message = new LogMqRequest
             {
                 Uuid = Guid.NewGuid(),
-                Action = CommonAuditLogConstants.AuditLogAction,
+                Action = CommonAuditLogConstants.AUDIT_LOG_ACTION,
                 Log = JsonConvert.SerializeObject(rows)
             };
             var publisher = _serviceProvider.GetService<ICapPublisher>();
-            publisher?.Publish(CapTopic.AuditLogs, message);
+            publisher?.Publish(CapTopic.AUDIT_LOGS, message);
         }
 
         #endregion AuditLog

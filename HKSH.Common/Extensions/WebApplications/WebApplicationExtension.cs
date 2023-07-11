@@ -13,6 +13,9 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace HKSH.Common.Extensions.WebApplications
 {
+    /// <summary>
+    /// WebApplicationExtension
+    /// </summary>
     public static class WebApplicationExtension
     {
         /// <summary>
@@ -23,7 +26,7 @@ namespace HKSH.Common.Extensions.WebApplications
         /// <returns></returns>
         public static WebApplication UseCustomizeStaticFiles(this WebApplication app, ConfigurationManager configuration)
         {
-            var services = new ServiceCollection().AddOptions().Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.Section)).BuildServiceProvider();
+            var services = new ServiceCollection().AddOptions().Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.SECTION)).BuildServiceProvider();
 
             var fileOptions = services.GetService<IOptions<FileUploadOptions>>();
 

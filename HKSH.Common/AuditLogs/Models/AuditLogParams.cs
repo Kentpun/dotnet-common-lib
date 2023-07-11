@@ -22,6 +22,14 @@
         public string BusinessType { get; set; } = null!;
 
         /// <summary>
+        /// 業務關聯字段是否自动拼接主键.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [business type join primary key]; otherwise, <c>false</c>.
+        /// </value>
+        public bool BusinessTypeJoinPrimaryKey { get; set; } = false;
+
+        /// <summary>
         /// 前端展示部分.
         /// </summary>
         /// <value>

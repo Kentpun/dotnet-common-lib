@@ -8,32 +8,32 @@
         /// <summary>
         /// The section
         /// </summary>
-        public const string Section = "FileOptions";
+        public const string SECTION = "FileOptions";
 
         /// <summary>
         /// The directory section
         /// </summary>
-        public const string DirectorySection = "Directory";
+        public const string DIRECTORY_SECTION = "Directory";
 
         /// <summary>
         /// The handler section
         /// </summary>
-        public const string HandlerSection = "Handler";
+        public const string HANDLER_SECTION = "Handler";
 
         /// <summary>
         /// 節點當前所屬命名空間
         /// </summary>
-        public const string MyPodNameSpace = "MY_POD_NAMESPACE";
+        public const string MY_POD_NAME_SPACE = "MY_POD_NAMESPACE";
 
         /// <summary>
         /// 默認命名空間
         /// </summary>
-        public const string DefaultNameSpace = "demo";
+        public const string DEFAULT_NAME_SPACE = "demo";
 
         /// <summary>
         /// 默認文件存儲根路徑
         /// </summary>
-        public const string DefaultBasePath = "File/Common";
+        public const string DEFAULT_BASE_PATH = "File/Common";
 
         /// <summary>
         /// Gets or sets the name space.

@@ -8,11 +8,11 @@
         /// <summary>
         /// The audit log action
         /// </summary>
-        public const string AuditLogAction = "change";
+        public const string AUDIT_LOG_ACTION = "change";
 
         /// <summary>
         /// The transaction redis key
         /// </summary>
-        public const string TransactionRedisKey = "TransactionRedisKey";
+        public const string TRANSACTION_REDIS_KEY = "TransactionRedisKey";
     }
 }

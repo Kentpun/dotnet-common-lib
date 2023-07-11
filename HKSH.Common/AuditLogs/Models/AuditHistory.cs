@@ -110,7 +110,7 @@ namespace HKSH.Common.AuditLogs.Models
         /// <summary>
         /// The change log connection string
         /// </summary>
-        public const string ChangeLogConnectionString = "ChangeLog";
+        public const string CHANGE_LOG_CONNECTION_STRING = "ChangeLog";
 
         /// <summary>
         /// Gets the create audit log table SQL.
