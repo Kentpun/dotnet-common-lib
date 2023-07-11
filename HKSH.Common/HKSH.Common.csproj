@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.1.3</Version>
-		<Description>Add Log Id</Description>
+		<Version>4.1.4</Version>
+		<Description>UserInfoResponse</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

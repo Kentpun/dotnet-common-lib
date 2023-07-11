@@ -8,6 +8,14 @@ namespace HKSH.Common.ShareModel.User
     public class UserInfoResponse
     {
         /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public long Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the staff identifier.
         /// </summary>
         /// <value>
