@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using HKSH.Common.Extensions;
 
 namespace HKSH.Common.RabbitMQ
 {
@@ -86,12 +88,25 @@ namespace HKSH.Common.RabbitMQ
                     Process(message).ConfigureAwait(false).GetAwaiter().GetResult();
                     _channel.BasicAck(ea.DeliveryTag, true);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    _channel.BasicNack(ea.DeliveryTag, false, false);
+                    HandleException(model, ea, e, _channel);
                 }
             };
             _channel.BasicConsume(queue: Context?.QueueName, consumer: consumer);
+        }
+
+        /// <summary>
+        /// handle exception
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="ea"></param>
+        /// <param name="ex"></param>
+        /// <param name="_channel"></param>
+        protected void HandleException(object? model, BasicDeliverEventArgs ea, Exception ex, IModel _channel)
+        {
+            _logger.LogExc(ex);
+            _channel.BasicNack(ea.DeliveryTag, false, false);
         }
 
         /// <summary>
