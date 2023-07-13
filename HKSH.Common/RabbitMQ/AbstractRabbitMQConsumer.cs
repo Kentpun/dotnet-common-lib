@@ -103,7 +103,7 @@ namespace HKSH.Common.RabbitMQ
         /// <param name="ea"></param>
         /// <param name="ex"></param>
         /// <param name="_channel"></param>
-        protected void HandleException(object? model, BasicDeliverEventArgs ea, Exception ex, IModel _channel)
+        protected virtual void HandleException(object? model, BasicDeliverEventArgs ea, Exception ex, IModel _channel)
         {
             _logger.LogExc(ex);
             _channel.BasicNack(ea.DeliveryTag, false, false);
