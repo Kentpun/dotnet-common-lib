@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// DIExtension
+    /// DI Extension
     /// </summary>
     public static class DIExtension
     {

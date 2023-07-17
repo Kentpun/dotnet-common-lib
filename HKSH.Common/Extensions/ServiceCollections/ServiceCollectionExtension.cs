@@ -26,7 +26,7 @@ using System.Reflection;
 namespace HKSH.Common.Extensions.ServiceCollections;
 
 /// <summary>
-/// ServiceCollectionExtensions
+/// ServiceCollection Extension
 /// </summary>
 public static class ServiceCollectionExtension
 {

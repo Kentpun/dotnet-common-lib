@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// EntityEntryExtension
+    /// EntityEntry Extension
     /// </summary>
     public static class EntityEntryExtension
     {

@@ -3,7 +3,7 @@
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// DictionaryExtension
+    /// Dictionary Extension
     /// </summary>
     public static class DictionaryExtension
     {
@@ -12,14 +12,8 @@ namespace HKSH.Common.Extensions
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="jsonStr">The json string.</param>
+        /// <param name="json">The json.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> DeserializeStringToDictionary<TKey, TValue>(this string jsonStr)
-        {
-            if (string.IsNullOrEmpty(jsonStr))
-                return new Dictionary<TKey, TValue>();
-
-            return JsonConvert.DeserializeObject<Dictionary<TKey, TValue>>(jsonStr);
-        }
+        public static Dictionary<TKey, TValue> DeserializeStringToDictionary<TKey, TValue>(this string json) where TKey : notnull => string.IsNullOrEmpty(json) ? new Dictionary<TKey, TValue>() : JsonConvert.DeserializeObject<Dictionary<TKey, TValue>>(json)!;
     }
 }

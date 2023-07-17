@@ -13,14 +13,7 @@ namespace HKSH.Common.Extensions
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static string? GetDescription(this Enum value)
-        {
-            return value.GetType()
-                .GetMember(value.ToString())
-                .FirstOrDefault()?
-                .GetCustomAttribute<DescriptionAttribute>()?
-                .Description;
-        }
+        public static string? GetDescription(this Enum value) => value.GetType().GetMember(value.ToString()).FirstOrDefault()?.GetCustomAttribute<DescriptionAttribute>()?.Description;
 
         /// <summary>
         /// Gets the enum value from description.
@@ -33,15 +26,20 @@ namespace HKSH.Common.Extensions
         {
             var type = typeof(T);
             if (!type.IsEnum)
-                throw new ArgumentException();
+                throw new ArgumentException($"{type.Name} is not enum type");
+
             FieldInfo[] fields = type.GetFields();
             var field = fields
                             .SelectMany(f => f.GetCustomAttributes(
                                 typeof(DescriptionAttribute), false), (
-                                    f, a) => new { Field = f, Att = a })
+                                    f, a) => new
+                                    {
+                                        Field = f,
+                                        Att = a
+                                    })
                             .Where(a => ((DescriptionAttribute)a.Att)
                                 .Description == description).SingleOrDefault();
-            return field == null ? default(T) : (T)field.Field.GetRawConstantValue();
+            return (T)field?.Field.GetRawConstantValue()!;
         }
     }
 }

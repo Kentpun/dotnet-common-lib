@@ -31,11 +31,8 @@
         public bool EnableCors { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable buffering].
+        /// 啟用緩衝.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable buffering]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableBuffering { get; set; } = true;
 
         /// <summary>

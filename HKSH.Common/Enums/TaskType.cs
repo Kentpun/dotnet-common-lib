@@ -72,12 +72,10 @@ namespace HKSH.Common.Enums
         /// </summary>
         [Description("NotificationTemplte")] NotificationTemplte = 1013,
 
-
         /// <summary>
         /// The action log
         /// </summary>
         [Description("ActionLog")] ActionLog = 1014,
-
 
         /// <summary>
         /// The activity log

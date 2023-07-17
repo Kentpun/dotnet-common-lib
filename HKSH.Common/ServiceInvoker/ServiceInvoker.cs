@@ -11,6 +11,9 @@ namespace HKSH.Common.ServiceInvoker
     /// <seealso cref="IServiceInvoker" />
     public class ServiceInvoker : IServiceInvoker
     {
+        /// <summary>
+        /// The HTTP context accessor
+        /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
@@ -26,7 +29,7 @@ namespace HKSH.Common.ServiceInvoker
         /// Creates the invoker.
         /// </summary>
         /// <typeparam name="TInterface">The type of the interface.</typeparam>
-        /// <param name="url">The URL.</param>
+        /// <param name="hostPrefix"></param>
         /// <returns></returns>
         public TInterface CreateInvoker<TInterface>(string? hostPrefix = "") where TInterface : class, IHttpApi
         {
@@ -56,7 +59,7 @@ namespace HKSH.Common.ServiceInvoker
                 }
             });
 
-            return factory.CreateHttpApi() as TInterface;
+            return (factory.CreateHttpApi() as TInterface)!;
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace HKSH.Common.ServiceInvoker
         /// </summary>
         /// <typeparam name="TInterface">The type of the interface.</typeparam>
         /// <param name="header">The header.</param>
-        /// <param name="url">The URL.</param>
+        /// <param name="hostPrefix"></param>
         /// <returns></returns>
         public TInterface CreateInvoker<TInterface>(IHeaderDictionary header, string? hostPrefix = "") where TInterface : class, IHttpApi
         {
@@ -99,7 +102,7 @@ namespace HKSH.Common.ServiceInvoker
                 }
             });
 
-            return factory.CreateHttpApi() as TInterface;
+            return (factory.CreateHttpApi() as TInterface)!;
         }
     }
 }

@@ -12,6 +12,7 @@
         /// The identifier.
         /// </value>
         public string Id { get; set; }
+
         /// <summary>
         /// Gets or sets the action date.
         /// </summary>

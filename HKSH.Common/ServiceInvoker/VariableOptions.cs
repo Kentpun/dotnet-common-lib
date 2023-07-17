@@ -11,16 +11,6 @@ public class VariableOptions
     public const string SECTION = "VariableOptions";
 
     /// <summary>
-    /// The organization daas host
-    /// </summary>
-    public const string ORGANIZATION_DAAS_HOST = "OrganizationDaas";
-
-    /// <summary>
-    /// The patient daas host
-    /// </summary>
-    public const string PATIENT_DAAS_HOST = "PatientDaas";
-
-    /// <summary>
     /// The acm master core host
     /// </summary>
     public const string ACM_MASTER_CORE_HOST = "AcmMasterCore";
@@ -59,6 +49,16 @@ public class VariableOptions
     /// The notification email function host
     /// </summary>
     public const string NOTIFICATION_EMAIL_FUNCTION_HOST = "NotificationEmailFunction";
+
+    /// <summary>
+    /// The organization daas host
+    /// </summary>
+    public const string ORGANIZATION_DAAS_HOST = "OrganizationDaas";
+
+    /// <summary>
+    /// The patient daas host
+    /// </summary>
+    public const string PATIENT_DAAS_HOST = "PatientDaas";
 
     /// <summary>
     /// Gets or sets the key.

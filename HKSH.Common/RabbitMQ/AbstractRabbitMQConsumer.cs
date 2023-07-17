@@ -1,11 +1,10 @@
-﻿using System;
+﻿using HKSH.Common.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using HKSH.Common.Extensions;
 
 namespace HKSH.Common.RabbitMQ
 {

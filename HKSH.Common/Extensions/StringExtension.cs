@@ -32,7 +32,7 @@ namespace HKSH.Common.Extensions
                 return string.Empty;
             }
             int num = fileName.LastIndexOf('.');
-            return num < 0 ? string.Empty : fileName[num..]?.ToLower();
+            return num < 0 ? string.Empty : fileName[num..]?.ToLower()!;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace HKSH.Common.Extensions
             {
                 return input;
             }
-            return input.Substring(prefix.Length);
+            return input[prefix.Length..];
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace HKSH.Common.Extensions
             {
                 return input;
             }
-            return input.Substring(0, input.LastIndexOf(suffix, comparison));
+            return input[..input.LastIndexOf(suffix, comparison)];
         }
 
         /// <summary>
@@ -216,13 +216,13 @@ namespace HKSH.Common.Extensions
         /// </summary>
         /// <param name="str">The string.</param>
         /// <returns></returns>
-        public static string UnescapeUnicode(this string str)  // 将unicode转义序列(\uxxxx)解码为字符串
+        public static string UnescapeUnicode(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
             {
                 return str;
             }
-            return (System.Text.RegularExpressions.Regex.Unescape(str));
+            return (Regex.Unescape(str));
         }
 
         /// <summary>
@@ -230,13 +230,13 @@ namespace HKSH.Common.Extensions
         /// </summary>
         /// <param name="str">The string.</param>
         /// <returns></returns>
-        public static string EscapeUnicode(this string str)  // 将字符串编码为unicode转义序列(\uxxxx)
+        public static string EscapeUnicode(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
             {
                 return str;
             }
-            StringBuilder tmp = new StringBuilder();
+            StringBuilder tmp = new();
             for (int i = 0; i < str.Length; i++)
             {
                 ushort uxc = (ushort)str[i];
@@ -277,7 +277,7 @@ namespace HKSH.Common.Extensions
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="jsonStr">The json string.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue>? DeserializeToDictionary<TKey, TValue>(this string? jsonStr)
+        public static Dictionary<TKey, TValue>? DeserializeToDictionary<TKey, TValue>(this string? jsonStr) where TKey : notnull
         {
             if (string.IsNullOrEmpty(jsonStr))
                 return new Dictionary<TKey, TValue>();
@@ -308,7 +308,7 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static DateTime? ToDateTime(this string? strDatetime)
         {
-            if (strDatetime.IsMissing())
+            if ((strDatetime ?? string.Empty).IsMissing())
             {
                 return null;
             }

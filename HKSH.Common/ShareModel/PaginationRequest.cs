@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.ShareModel
 {
     /// <summary>
-    /// 分页查询请求模型
+    /// 分頁查詢請求模型
     /// </summary>
     public class PaginationRequest
     {
@@ -20,7 +20,12 @@
         /// The index of the page.
         /// </value>
         public int PageIndex
-        { get { return Page < 1 ? 0 : Page - 1; } }
+        { 
+            get 
+            { 
+                return Page < 1 ? 0 : Page - 1; 
+            } 
+        }
 
         /// <summary>
         /// Gets or sets the size of the page.
