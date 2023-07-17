@@ -52,10 +52,5 @@
         /// 啟用RabbitMQ消息組件.
         /// </summary>
         public bool EnableRabbitMQ { get; set; } = false;
-
-        /// <summary>
-        /// 啟用.NET Core後台定時服務.
-        /// </summary>
-        public bool EnableBackgroundService { get; set; } = false;
     }
 }
