@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.2.4</Version>
-		<Description>Format code</Description>
+		<Version>4.2.5</Version>
+		<Description>log.Row.Replace("'", "\"\"")</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
