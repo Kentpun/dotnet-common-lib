@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HKSH.Common.Base
 {
     /// <summary>
-    /// Basic Entity
+    /// BaseTrackedEntity<T>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="IEntityTracker" />
@@ -20,7 +20,7 @@ namespace HKSH.Common.Base
         /// </value>
         [Key]
         [Column("id")]
-        public T Id { get; set; }
+        public T Id { get; set; } = default!;
 
         /// <summary>
         /// Gets or sets the created at.

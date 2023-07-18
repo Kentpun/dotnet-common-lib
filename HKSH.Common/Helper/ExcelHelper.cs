@@ -17,12 +17,12 @@ namespace HKSH.Common.Helper
         /// <param name="columnNameStartRow">The column name start row.</param>
         /// <param name="startRowNumber">The start row number.</param>
         /// <returns></returns>
-        public static DataTable ReadExcelToDataTable(string fileName, string sheetName = null, bool isFirstRowColumn = true, int? columnNameStartRow = null, int? startRowNumber = null)
+        public static DataTable ReadExcelToDataTable(string fileName, string sheetName = "", bool isFirstRowColumn = true, int? columnNameStartRow = null, int? startRowNumber = null)
         {
-            DataTable data = new DataTable();
+            DataTable data = new();
             if (!System.IO.File.Exists(fileName))
             {
-                return null;
+                return null!;
             }
             FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             IWorkbook workbook = WorkbookFactory.Create(fs);
@@ -30,10 +30,7 @@ namespace HKSH.Common.Helper
             if (!string.IsNullOrEmpty(sheetName))
             {
                 sheet = workbook.GetSheet(sheetName);
-                if (sheet == null)
-                {
-                    sheet = workbook.GetSheetAt(0);
-                }
+                sheet ??= workbook.GetSheetAt(0);
             }
             else
             {
@@ -112,9 +109,9 @@ namespace HKSH.Common.Helper
         /// <param name="startRowNumber">The start row number.</param>
         /// <param name="startCellNum">The start row number.</param>
         /// <returns></returns>
-        public static DataTable ReadStreamToDataTable(Stream fileStream, string sheetName = null, bool isFirstRowColumn = true, int? columnNameStartRow = null, int? startRowNumber = null, int startCellNum = 0)
+        public static DataTable ReadStreamToDataTable(Stream fileStream, string sheetName = "", bool isFirstRowColumn = true, int? columnNameStartRow = null, int? startRowNumber = null, int startCellNum = 0)
         {
-            DataTable data = new DataTable();
+            DataTable data = new();
             IWorkbook workbook = WorkbookFactory.Create(fileStream);
             ISheet sheet;
             if (!string.IsNullOrEmpty(sheetName))

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HKSH.Common.Base
 {
     /// <summary>
-    /// BaseEntity
+    /// BaseEntity<T>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class BaseEntity<T> : IEntityIdentify<T>
@@ -17,7 +17,7 @@ namespace HKSH.Common.Base
         /// </value>
         [Key]
         [Column("id")]
-        public T Id { get; set; }
+        public T Id { get; set; } = default!;
     }
 
     /// <summary>

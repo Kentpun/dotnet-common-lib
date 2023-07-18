@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace HKSH.Common.Base
 {
     /// <summary>
-    /// BaseTypeConfiguration
+    /// BaseTypeConfiguration<T>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <seealso cref="IEntityTypeConfiguration&lt;T&gt;" />
+    /// <seealso cref="IEntityTypeConfiguration<T>" />
     public class BaseTypeConfiguration<T> : IEntityTypeConfiguration<T> where T : class, IEntityIdentify<long>
     {
         /// <summary>
