@@ -84,5 +84,53 @@
         /// The committee alias.
         /// </value>
         public string? CommitteeAlias { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the location full name en.
+        /// </summary>
+        /// <value>
+        /// The location full name en.
+        /// </value>
+        public string? LocationFullNameEn { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the location full name tc.
+        /// </summary>
+        /// <value>
+        /// The location full name tc.
+        /// </value>
+        public string? LocationFullNameTc { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the type of the committee.
+        /// </summary>
+        /// <value>
+        /// The type of the committee.
+        /// </value>
+        public string? CommitteeType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the phone.
+        /// </summary>
+        /// <value>
+        /// The phone.
+        /// </value>
+        public string? Phone { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fax.
+        /// </summary>
+        /// <value>
+        /// The fax.
+        /// </value>
+        public string? Fax { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        public string? Email { get; set; }
     }
 }
