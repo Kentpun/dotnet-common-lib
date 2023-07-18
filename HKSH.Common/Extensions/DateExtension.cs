@@ -20,6 +20,20 @@
         public static long GetLongTypeTimeStamp(this DateTime time) => long.Parse(time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds.ToString("F0"));
 
         /// <summary>
+        /// Gets the local date time by time stamp.
+        /// </summary>
+        /// <param name="timeStamp">The time stamp.</param>
+        /// <returns></returns>
+        public static DateTime GetLocalDateTimeByTimeStamp(this long timeStamp) => DateTimeOffset.FromUnixTimeMilliseconds(timeStamp).LocalDateTime;
+
+        /// <summary>
+        /// Gets the local date time by time stamp.
+        /// </summary>
+        /// <param name="timeStamp">The time stamp.</param>
+        /// <returns></returns>
+        public static DateTime GetLocalDateTimeByTimeStamp(this string timeStamp) => GetLocalDateTimeByTimeStamp(long.Parse(timeStamp));
+
+        /// <summary>
         /// Converts to readable.
         /// </summary>
         /// <param name="span">The span.</param>
