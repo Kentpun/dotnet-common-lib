@@ -6,14 +6,18 @@
     public static class DateExtension
     {
         /// <summary>
-        /// Converts to stamp.
+        /// Gets the string type time stamp.
         /// </summary>
         /// <param name="time">The time.</param>
         /// <returns></returns>
-        public static string ToStamp(this DateTime time)
-        {
-            return time.Ticks.ToString();
-        }
+        public static string GetStringTypeTimeStamp(this DateTime time) => time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds.ToString("F0");
+
+        /// <summary>
+        /// Gets the long type time stamp.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns></returns>
+        public static long GetLongTypeTimeStamp(this DateTime time) => long.Parse(time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds.ToString("F0"));
 
         /// <summary>
         /// Converts to readable.
