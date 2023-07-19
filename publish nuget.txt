@@ -5,3 +5,4 @@ Password:789456
 ApiKey:e38e6dfb-af1b-3e56-b0b6-6a923bdaf2ea
 cd ../bin/Release
 dotnet nuget push -k e38e6dfb-af1b-3e56-b0b6-6a923bdaf2ea -s http://localhost:31998/repository/nuget-hosted HKSH.Common.1.0.3.nupkg
+dotnet nuget push -k e38e6dfb-af1b-3e56-b0b6-6a923bdaf2ea -s http://nexus-np.his5.com/repository/nuget-hosted HKSH.Common.1.0.3.nupkg
