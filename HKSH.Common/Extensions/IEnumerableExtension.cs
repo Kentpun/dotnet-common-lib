@@ -23,5 +23,15 @@ namespace ABI.Artwork.Utils.Extensions
             var property = typeof(T).GetProperty(propertyName);
             return source.OrderBy(o => BitConverter.ToString(encoding.GetBytes(Convert.ToString(property?.GetValue(o))!)));
         }
+
+        /// <summary>
+        /// Determines whether this instance has value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified source has value; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool HasValue<T>(this IEnumerable<T> source) => source != null && source.Any();
     }
 }
