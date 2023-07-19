@@ -3,7 +3,7 @@
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// AutoCompleteExtension
+    /// AutoComplete Extension
     /// </summary>
     public static class AutoCompleteExtension
     {
@@ -21,7 +21,7 @@ namespace HKSH.Common.Extensions
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public static TEntity DeserialeJson<TEntity>(this string model) where TEntity : class => string.IsNullOrEmpty(model) ? null : JsonConvert.DeserializeObject<TEntity>(model);
+        public static TEntity DeserialeJson<TEntity>(this string model) where TEntity : class => JsonConvert.DeserializeObject<TEntity>(model)!;
 
         /// <summary>
         /// Deseriales the json.
@@ -30,7 +30,7 @@ namespace HKSH.Common.Extensions
         /// <param name="model">The model.</param>
         /// <param name="settings">The settings.</param>
         /// <returns></returns>
-        public static TEntity DeserialeJson<TEntity>(this string model, JsonSerializerSettings settings) where TEntity : class => string.IsNullOrEmpty(model) ? null : JsonConvert.DeserializeObject<TEntity>(model, settings);
+        public static TEntity DeserialeJson<TEntity>(this string model, JsonSerializerSettings settings) where TEntity : class => JsonConvert.DeserializeObject<TEntity>(model, settings)!;
 
         /// <summary>
         /// Compares the list.

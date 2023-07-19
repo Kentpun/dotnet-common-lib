@@ -31,11 +31,8 @@
         public bool EnableCors { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [enable buffering].
+        /// 啟用緩衝.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [enable buffering]; otherwise, <c>false</c>.
-        /// </value>
         public bool EnableBuffering { get; set; } = true;
 
         /// <summary>
@@ -52,10 +49,5 @@
         /// 啟用RabbitMQ消息組件.
         /// </summary>
         public bool EnableRabbitMQ { get; set; } = false;
-
-        /// <summary>
-        /// 啟用.NET Core後台定時服務.
-        /// </summary>
-        public bool EnableBackgroundService { get; set; } = false;
     }
 }

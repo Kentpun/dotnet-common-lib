@@ -3,6 +3,9 @@ using System.Text;
 
 namespace HKSH.Common.Extensions
 {
+    /// <summary>
+    /// Hash Extension
+    /// </summary>
     public static class HashExtension
     {
         /// <summary>

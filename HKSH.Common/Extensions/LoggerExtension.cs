@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// LoggerExtension
+    /// Logger Extension
     /// </summary>
     public static class LoggerExtension
     {
@@ -22,6 +22,13 @@ namespace HKSH.Common.Extensions
         /// <param name="exception">The exception.</param>
         /// <param name="message">The message.</param>
         public static void LogExc(this ILogger logger, Exception? exception, string? message) => logger.LogError(exception, GlobalConstant.LOG_ERROR, message);
+
+        /// <summary>
+        /// Logs the exc.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="message">The message.</param>
+        public static void LogExc(this ILogger logger, string? message) => logger.LogError(GlobalConstant.LOG_ERROR, message);
 
         /// <summary>
         /// Logs the information.

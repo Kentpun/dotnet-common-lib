@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.ShareModel
 {
     /// <summary>
-    /// 分页查询响应模型
+    /// 分頁查詢響應模型
     /// </summary>
     public class PaginationResponse<T> where T : class, new()
     {

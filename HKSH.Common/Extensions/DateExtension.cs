@@ -1,19 +1,37 @@
 ﻿namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// DateExtension
+    /// Date Extension
     /// </summary>
     public static class DateExtension
     {
         /// <summary>
-        /// Converts to stamp.
+        /// Gets the string type time stamp.
         /// </summary>
         /// <param name="time">The time.</param>
         /// <returns></returns>
-        public static string ToStamp(this DateTime time)
-        {
-            return time.Ticks.ToString();
-        }
+        public static string GetStringTypeTimeStamp(this DateTime time) => time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds.ToString("F0");
+
+        /// <summary>
+        /// Gets the long type time stamp.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns></returns>
+        public static long GetLongTypeTimeStamp(this DateTime time) => long.Parse(time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds.ToString("F0"));
+
+        /// <summary>
+        /// Gets the local date time by time stamp.
+        /// </summary>
+        /// <param name="timeStamp">The time stamp.</param>
+        /// <returns></returns>
+        public static DateTime GetLocalDateTimeByTimeStamp(this long timeStamp) => DateTimeOffset.FromUnixTimeMilliseconds(timeStamp).LocalDateTime;
+
+        /// <summary>
+        /// Gets the local date time by time stamp.
+        /// </summary>
+        /// <param name="timeStamp">The time stamp.</param>
+        /// <returns></returns>
+        public static DateTime GetLocalDateTimeByTimeStamp(this string timeStamp) => GetLocalDateTimeByTimeStamp(long.Parse(timeStamp));
 
         /// <summary>
         /// Converts to readable.
@@ -28,11 +46,6 @@
             }
             else
             {
-                //return $"{(span.Hours > 0 ? $"{span.Hours}小时" : "")}" +
-                //    $"{(span.Minutes > 0 ? $"{span.Minutes}分" : "")}" +
-                //    $"{span.Seconds}秒";
-
-                //zhx20230315:slaDays 这个字段，际耗时小于1天，不用显示到时分秒，显示：＜1天
                 return "＜1天";
             }
         }

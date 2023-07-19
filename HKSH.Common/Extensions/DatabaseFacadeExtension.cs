@@ -8,7 +8,7 @@ using System.Reflection;
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// DatabaseFacadeExtension
+    /// DatabaseFacade Extension
     /// </summary>
     public static class DatabaseFacadeExtension
     {
@@ -54,7 +54,7 @@ namespace HKSH.Common.Extensions
             int i = 0;
             foreach (DataRow row in dt.Rows)
             {
-                T t = new T();
+                T t = new();
                 foreach (PropertyInfo p in propertyInfos)
                 {
                     if (dt.Columns.IndexOf(p.Name) != -1 && row[p.Name] != DBNull.Value)
@@ -85,7 +85,7 @@ namespace HKSH.Common.Extensions
             }
 
             DbDataReader reader = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
+            DataTable dt = new();
             dt.Load(reader);
             reader.Close();
             conn.Close();

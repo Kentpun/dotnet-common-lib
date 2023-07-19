@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HKSH.Common.Extensions
 {
     /// <summary>
-    /// CAPExtensions
+    /// CAP Extensions
     /// </summary>
     public static class CapExtension
     {

@@ -1,4 +1,5 @@
-﻿using NPOI.HSSF.UserModel;
+﻿using HKSH.Common.Enums;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
@@ -11,11 +12,18 @@ namespace HKSH.Common.Helper
     /// </summary>
     public class NpoiExcel
     {
-        private IWorkbook workbook = null;
-        private List<string> sheetNames;
+        /// <summary>
+        /// The workbook
+        /// </summary>
+        private IWorkbook workbook = null!;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NpoiExcel"/> class.
+        /// The sheet names
+        /// </summary>
+        private List<string> sheetNames = new();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NpoiExcel" /> class.
         /// </summary>
         /// <param name="filePath">The file path.</param>
         public NpoiExcel(string filePath)
@@ -25,7 +33,7 @@ namespace HKSH.Common.Helper
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NpoiExcel"/> class.
+        /// Initializes a new instance of the <see cref="NpoiExcel" /> class.
         /// </summary>
         /// <param name="stream">The stream.</param>
         public NpoiExcel(Stream stream)
@@ -57,7 +65,12 @@ namespace HKSH.Common.Helper
         /// The workbook.
         /// </value>
         public IWorkbook Workbook
-        { get { return workbook ??= ReadExcelFile(FilePath); } }
+        { 
+            get 
+            { 
+                return workbook ??= ReadExcelFile(FilePath);
+            } 
+        }
 
         /// <summary>
         /// Gets the stream workbook.
@@ -95,7 +108,12 @@ namespace HKSH.Common.Helper
         /// The sheet names.
         /// </value>
         public List<string> SheetNames
-        { get { return sheetNames ??= GetSheetNames(Workbook); } }
+        {
+            get 
+            { 
+                return sheetNames ??= GetSheetNames(Workbook); 
+            }
+        }
 
         #region Read Excel
 
@@ -106,7 +124,7 @@ namespace HKSH.Common.Helper
         /// <returns></returns>
         public static IWorkbook ReadExcelFile(string filePath)
         {
-            IWorkbook workbook = null;
+            IWorkbook workbook = null!;
             var file = new FileInfo(filePath);
             using (Stream s = file.OpenRead())
             {
@@ -645,6 +663,9 @@ namespace HKSH.Common.Helper
     {
         #region Property
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MergedRegion"/> class.
+        /// </summary>
         public MergedRegion()
         {
             Content = string.Empty;
@@ -652,6 +673,11 @@ namespace HKSH.Common.Helper
             Length = -1;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MergedRegion"/> class.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <param name="startIndex">The start index.</param>
         public MergedRegion(string content, int startIndex)
         {
             Content = content;
@@ -698,25 +724,5 @@ namespace HKSH.Common.Helper
         }
 
         #endregion Property
-    }
-
-    /// <summary>
-    /// excel version
-    /// </summary>
-    public enum ExcelVersion
-    {
-        #region Enum
-
-        /// <summary>
-        /// The below2007
-        /// </summary>
-        Below2007,
-
-        /// <summary>
-        /// The above2007
-        /// </summary>
-        Above2007
-
-        #endregion Enum
     }
 }

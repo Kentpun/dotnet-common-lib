@@ -11,7 +11,8 @@
         /// <value>
         /// The identifier.
         /// </value>
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
+
         /// <summary>
         /// Gets or sets the action date.
         /// </summary>

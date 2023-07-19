@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 namespace HKSH.Common.Extensions.WebApplications
 {
     /// <summary>
-    /// WebApplicationExtension
+    /// WebApplication Extension
     /// </summary>
     public static class WebApplicationExtension
     {
