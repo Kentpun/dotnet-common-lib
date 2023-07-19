@@ -32,6 +32,6 @@ namespace ABI.Artwork.Utils.Extensions
         /// <returns>
         ///   <c>true</c> if the specified source has value; otherwise, <c>false</c>.
         /// </returns>
-        public static bool HasValue<T>(this IEnumerable<T> source) => source != null && source.Any();
+        public static bool HasValue<T>(this IEnumerable<T>? source) => source != null && source.Any();
     }
 }

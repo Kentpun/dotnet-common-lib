@@ -7,7 +7,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
 		<Version>4.3.1</Version>
-		<Description>IEnumerableExtension Add HasValue</Description>
+		<Description>IEnumerableExtension Add HasValue2</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
