@@ -25,13 +25,11 @@ namespace ABI.Artwork.Utils.Extensions
         }
 
         /// <summary>
-        /// Determines whether this instance has value.
+        /// HasValue
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="source">The source.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified source has value; otherwise, <c>false</c>.
-        /// </returns>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public static bool HasValue<T>(this IEnumerable<T>? source) => source != null && source.Any();
     }
 }
