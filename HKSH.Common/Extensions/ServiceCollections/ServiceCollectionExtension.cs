@@ -401,6 +401,7 @@ public static class ServiceCollectionExtension
                 options.AddPolicy("Cors", policy =>
                 {
                     policy.WithOrigins("*")
+                    .WithExposedHeaders("content-disposition")
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
                     .AllowAnyMethod();
