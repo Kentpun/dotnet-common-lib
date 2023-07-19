@@ -18,6 +18,6 @@
         /// <summary>
         /// The action logs
         /// </summary>
-        public const string ACTION_LOGS = "HKSH.Logs.Row.ActionLogs";
+        public const string ACTION_LOGS = "HKSH.Logs.Row.ActionLogs.v1";
     }
 }
