@@ -4,16 +4,8 @@
     /// UploadFileStreamRequest
     /// </summary>
     /// <seealso cref="UploadFileRequest" />
-    public class UploadFileStreamRequest
+    public class UploadFileStreamRequest : UploadFileRequest
     {
-        /// <summary>
-        /// Gets or sets the key.
-        /// </summary>
-        /// <value>
-        /// The key.
-        /// </value>
-        public string Key { get; set; } = string.Empty;
-
         /// <summary>
         /// Gets or sets the files.
         /// </summary>
