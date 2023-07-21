@@ -61,6 +61,11 @@ public class VariableOptions
     public const string PATIENT_DAAS_HOST = "PatientDaas";
 
     /// <summary>
+    /// The file function
+    /// </summary>
+    public const string FILE_FUNCTION = "fileFunction";
+
+    /// <summary>
     /// Gets or sets the key.
     /// </summary>
     /// <value>
