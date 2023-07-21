@@ -26,7 +26,21 @@
         /// <value>
         /// The stream.
         /// </value>
-        public Stream Stream { get; set; } = null!;
+        public Stream Stream 
+        {
+            get 
+            {
+                return new MemoryStream(Bytes);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the bytes.
+        /// </summary>
+        /// <value>
+        /// The bytes.
+        /// </value>
+        public byte[] Bytes { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the name of the file.
