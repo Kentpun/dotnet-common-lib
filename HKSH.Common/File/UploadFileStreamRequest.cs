@@ -24,20 +24,6 @@ namespace HKSH.Common.File
     public class StreamRequest
     {
         /// <summary>
-        /// Gets or sets the stream.
-        /// </summary>
-        /// <value>
-        /// The stream.
-        /// </value>
-        public Stream? Stream 
-        {
-            get 
-            {
-                return JsonConvert.DeserializeObject<MemoryStream>(Json, new MemoryStreamJsonConverter())!;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the bytes.
         /// </summary>
         /// <value>
