@@ -1,7 +1,4 @@
-﻿using HKSH.Common.Json;
-using Newtonsoft.Json;
-
-namespace HKSH.Common.File
+﻿namespace HKSH.Common.File
 {
     /// <summary>
     /// UploadFileStreamRequest
