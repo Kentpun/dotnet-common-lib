@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.3.7</Version>
-		<Description>Update StreamRequest</Description>
+		<Version>4.3.8</Version>
+		<Description>UriKind.RelativeOrAbsolute</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
