@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.3.8</Version>
-		<Description>UriKind.RelativeOrAbsolute</Description>
+		<Version>4.3.9</Version>
+		<Description>MemoryStreamJsonConverter</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

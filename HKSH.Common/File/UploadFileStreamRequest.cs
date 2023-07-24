@@ -1,4 +1,7 @@
-﻿namespace HKSH.Common.File
+﻿using HKSH.Common.Json;
+using Newtonsoft.Json;
+
+namespace HKSH.Common.File
 {
     /// <summary>
     /// UploadFileStreamRequest
@@ -26,11 +29,11 @@
         /// <value>
         /// The stream.
         /// </value>
-        public Stream Stream 
+        public Stream? Stream 
         {
             get 
             {
-                return new MemoryStream(Bytes);
+                return JsonConvert.DeserializeObject<MemoryStream>(Json, new MemoryStreamJsonConverter())!;
             }
         }
 
@@ -40,7 +43,7 @@
         /// <value>
         /// The bytes.
         /// </value>
-        public byte[] Bytes { get; set; } = null!;
+        public string Json { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the name of the file.
