@@ -45,6 +45,15 @@
         /// </value>
         public string Function { get; set; } = null!;
 
+
+        /// <summary>
+        /// Gets or sets the function identifier.
+        /// </summary>
+        /// <value>
+        /// The function identifier.
+        /// </value>
+        public string FunctionId { get; set; } = null!;
+
         /// <summary>
         /// Gets or sets the sub function.
         /// </summary>
