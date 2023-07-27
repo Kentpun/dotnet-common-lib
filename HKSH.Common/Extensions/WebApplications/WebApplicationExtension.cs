@@ -1,6 +1,7 @@
 ﻿using Elastic.Apm.NetCoreAll;
 using HKSH.Common.Base;
 using HKSH.Common.File;
+using HKSH.Common.Middlewares;
 using HKSH.Common.ShareModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -148,6 +149,8 @@ namespace HKSH.Common.Extensions.WebApplications
         {
             var configuration = builder.Configuration;
             var app = builder.Build();
+
+            app.UseMiddleware(typeof(ExceptionHandleMiddleware));
 
             if (programConfigure.EnableCors)
             {

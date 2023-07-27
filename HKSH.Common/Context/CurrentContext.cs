@@ -1,5 +1,6 @@
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
+using HKSH.Common.Exceptions;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;
 using HKSH.Common.Repository.Database.Privileges;
@@ -92,7 +93,7 @@ namespace HKSH.Common.Context
 
                 if (string.IsNullOrEmpty(reallyUserId))
                 {
-                    throw new Exception("Error access token");
+                    throw new UnAuthorizedException("Error access token");
                 }
 
                 int providerIndex = reallyUserId.IndexOf(':', 2);
@@ -100,7 +101,7 @@ namespace HKSH.Common.Context
 
                 if (!long.TryParse(externalId, out var userId))
                 {
-                    throw new Exception("Error access token");
+                    throw new UnAuthorizedException("Error access token");
                 }
 
                 _currentUserId = userId;
@@ -128,7 +129,7 @@ namespace HKSH.Common.Context
                     var claimCurrentUser = _redisRepository.HashGet<ClaimCurrentUser>(ContextConst.KEY_PATTERN + userId, ContextConst.USER_INFO);
                     if (claimCurrentUser == null || claimCurrentUser.Id != userId)
                     {
-                        throw new Exception("You are not logged in yet");
+                        throw new UnAuthorizedException("You are not logged in yet");
                     }
 
                     _currentUser = claimCurrentUser;
