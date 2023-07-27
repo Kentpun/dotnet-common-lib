@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.4.2</Version>
+		<Version>4.4.3</Version>
 		<Description>Add DownloadFileRequest</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
