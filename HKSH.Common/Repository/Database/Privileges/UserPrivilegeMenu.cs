@@ -26,6 +26,16 @@ namespace HKSH.Common.Repository.Database.Privileges
         /// menu name
         /// </summary>
         public string MenuName { get; set; } = String.Empty;
+        
+        /// <summary>
+        /// icon
+        /// </summary>
+        public string? Icon { get; set; }
+
+        /// <summary>
+        /// url
+        /// </summary>
+        public string? Url { get; set; }
 
         /// <summary>
         /// sub menus
