@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Text;
 
-namespace ABI.Artwork.Utils.Extensions
+namespace HKSH.Common.Extensions
 {
     /// <summary>
     /// IEnumerable Extension
