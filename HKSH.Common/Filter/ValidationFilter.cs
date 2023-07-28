@@ -25,7 +25,7 @@ namespace HKSH.Common.Filter
             if (!isAllowAnonymous)
             {
                 ICurrentContext? currentContext = context.HttpContext.RequestServices.GetService<ICurrentContext>();
-                if (currentContext == null || currentContext.CurrentUserId == 0)
+                if (currentContext == null || currentContext.CurrentUser.Id == 0)
                 {
                     context.Result = new UnauthorizedObjectResult(MessageResult.FailureResult());
                     return;
