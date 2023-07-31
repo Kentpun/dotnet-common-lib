@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.4.6</Version>
-		<Description>Add module icon</Description>
+		<Version>4.4.7</Version>
+		<Description>update menu</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

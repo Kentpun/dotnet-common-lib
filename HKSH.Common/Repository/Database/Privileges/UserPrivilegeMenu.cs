@@ -36,6 +36,16 @@ namespace HKSH.Common.Repository.Database.Privileges
         /// url
         /// </summary>
         public string? Url { get; set; }
+        
+        /// <summary>
+        /// show on menu
+        /// </summary>
+        public bool? ShowOnMenu { get; set; }
+
+        /// <summary>
+        /// component
+        /// </summary>
+        public string? Component { get; set; }
 
         /// <summary>
         /// sub menus
