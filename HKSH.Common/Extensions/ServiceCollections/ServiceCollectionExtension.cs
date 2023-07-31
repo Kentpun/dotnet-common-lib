@@ -2,6 +2,7 @@ using HKSH.Common.AuditLogs;
 using HKSH.Common.AutoMapper;
 using HKSH.Common.Base;
 using HKSH.Common.Caching.Redis;
+using HKSH.Common.Constants;
 using HKSH.Common.Elastic;
 using HKSH.Common.File;
 using HKSH.Common.Filter;
@@ -14,6 +15,7 @@ using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -417,6 +419,17 @@ public static class ServiceCollectionExtension
             services.RegisterDbContextRelated<TContext>(configuration);
         }
 
+        //Api Version
+        services.AddApiVersioning(opt =>
+        {
+            opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(ApiVersionConstant.VERSION_ONE, ApiVersionConstant.VERSION_ZERO);
+            opt.AssumeDefaultVersionWhenUnspecified = true;
+            opt.ReportApiVersions = true;
+            opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
+                new HeaderApiVersionReader("x-api-version"),
+                new MediaTypeApiVersionReader("x-api-version"));
+        });
+
         return services;
     }
 
@@ -512,6 +525,17 @@ public static class ServiceCollectionExtension
                 });
             });
         }
+
+        //Api Version
+        services.AddApiVersioning(opt =>
+        {
+            opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(ApiVersionConstant.ONE, ApiVersionConstant.ZERO);
+            opt.AssumeDefaultVersionWhenUnspecified = true;
+            opt.ReportApiVersions = true;
+            opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
+                new HeaderApiVersionReader("x-api-version"),
+                new MediaTypeApiVersionReader("x-api-version"));
+        });
 
         return services;
     }
