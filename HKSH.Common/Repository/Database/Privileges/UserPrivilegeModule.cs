@@ -36,6 +36,11 @@ namespace HKSH.Common.Repository.Database.Privileges
         /// location name
         /// </summary>
         public string LocationName { get; set; } = String.Empty;
+        
+        /// <summary>
+        /// icon
+        /// </summary>
+        public string Icon { get; set; } = string.Empty;
 
         /// <summary>
         /// centre menus

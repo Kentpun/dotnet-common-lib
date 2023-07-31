@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.4.5</Version>
-		<Description>Memu add field</Description>
+		<Version>4.4.6</Version>
+		<Description>Add module icon</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
