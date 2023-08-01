@@ -13,42 +13,47 @@ public class VariableOptions
     /// <summary>
     /// The eform host
     /// </summary>
-    public const string EFORM_HOST = "EForm";
+    public const string EFORM_HOST = "EFormService";
 
     /// <summary>
     /// The acm host
     /// </summary>
-    public const string ACM_HOST = "Acm";
+    public const string ACM_HOST = "AcmService";
 
     /// <summary>
     /// The alert host
     /// </summary>
-    public const string ALERT_HOST = "Alert";
+    public const string ALERT_HOST = "AlertService";
 
     /// <summary>
     /// The MDM host
     /// </summary>
-    public const string MDM_HOST = "Mdm";
+    public const string MDM_HOST = "MdmService";
 
     /// <summary>
     /// The notification host
     /// </summary>
-    public const string NOTIFICATION_HOST = "Notification";
+    public const string NOTIFICATION_HOST = "NotificationService";
 
     /// <summary>
-    /// The notification inbox function host
+    /// The utility file
     /// </summary>
-    public const string NOTIFICATION_INBOX_FUNCTION_HOST = "NotificationInboxFunction";
+    public const string UTILITY_FILE = "UtilityFile";
 
     /// <summary>
-    /// The notification SMS function host
+    /// The utility notification inbox host
     /// </summary>
-    public const string NOTIFICATION_SMS_FUNCTION_HOST = "NotificationSmsFunction";
+    public const string UTILITY_NOTIFICATION_INBOX_HOST = "UtilityNotificationInbox";
 
     /// <summary>
-    /// The notification email function host
+    /// The utility notification SMS host
     /// </summary>
-    public const string NOTIFICATION_EMAIL_FUNCTION_HOST = "NotificationEmailFunction";
+    public const string UTILITY_NOTIFICATION_SMS_HOST = "UtilityNotificationSms";
+
+    /// <summary>
+    /// The utility notification email host
+    /// </summary>
+    public const string UTILITY_NOTIFICATION_EMAIL_HOST = "UtilityNotificationEmail";
 
     /// <summary>
     /// The organization daas host
@@ -61,9 +66,14 @@ public class VariableOptions
     public const string PATIENT_DAAS_HOST = "PatientDaas";
 
     /// <summary>
-    /// The file function
+    /// The doctor daas host
     /// </summary>
-    public const string FILE_FUNCTION = "fileFunction";
+    public const string DOCTOR_DAAS_HOST = "DoctorDaas";
+
+    /// <summary>
+    /// The price daas host
+    /// </summary>
+    public const string PRICE_DAAS_HOST = "PriceDaas";
 
     /// <summary>
     /// Gets or sets the key.

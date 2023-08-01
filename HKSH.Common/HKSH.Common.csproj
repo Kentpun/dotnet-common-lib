@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.5.0</Version>
+		<Version>4.5.1</Version>
 		<Description>Update ServiceInvoker</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
