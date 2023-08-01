@@ -11,29 +11,29 @@ public class VariableOptions
     public const string SECTION = "VariableOptions";
 
     /// <summary>
-    /// The acm master core host
+    /// The eform host
     /// </summary>
-    public const string ACM_MASTER_CORE_HOST = "AcmMasterCore";
+    public const string EFORM_HOST = "EForm";
 
     /// <summary>
-    /// The e form master core host
+    /// The acm host
     /// </summary>
-    public const string EFORM_MASTER_CORE_HOST = "EFormMasterCore";
+    public const string ACM_HOST = "Acm";
 
     /// <summary>
-    /// The MDM master core host
+    /// The alert host
     /// </summary>
-    public const string MDM_MASTER_CORE_HOST = "MdmMasterCore";
+    public const string ALERT_HOST = "Alert";
 
     /// <summary>
-    /// The alert master core host
+    /// The MDM host
     /// </summary>
-    public const string ALERT_MASTER_CORE_HOST = "AlertMasterCore";
+    public const string MDM_HOST = "Mdm";
 
     /// <summary>
-    /// The alert master core host
+    /// The notification host
     /// </summary>
-    public const string NOTIFICATION_MASTER_CORE_HOST = "NotificationMasterCore";
+    public const string NOTIFICATION_HOST = "Notification";
 
     /// <summary>
     /// The notification inbox function host
