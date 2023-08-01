@@ -37,7 +37,7 @@ namespace HKSH.Common.ServiceInvoker
             factory.ConfigureHttpApiConfig(options =>
             {
                 //重新拼接HttpHost
-                options.HttpHost = string.IsNullOrEmpty(hostPrefix) ? options.HttpHost : new Uri(hostPrefix, UriKind.RelativeOrAbsolute);
+                options.HttpHost = string.IsNullOrEmpty(hostPrefix) ? options.HttpHost : new Uri($"{hostPrefix}/v{ApiVersionConstant.VERSION_ONE}.{ApiVersionConstant.VERSION_ZERO}", UriKind.RelativeOrAbsolute);
 
                 //Add token
                 var headers = _httpContextAccessor.HttpContext?.Request.Headers;
@@ -75,7 +75,7 @@ namespace HKSH.Common.ServiceInvoker
             factory.ConfigureHttpApiConfig(options =>
             {
                 //重新拼接HttpHost
-                options.HttpHost = string.IsNullOrEmpty(hostPrefix) ? options.HttpHost : new Uri(hostPrefix, UriKind.RelativeOrAbsolute);
+                options.HttpHost = string.IsNullOrEmpty(hostPrefix) ? options.HttpHost : new Uri($"{hostPrefix}/v{ApiVersionConstant.VERSION_ONE}.{ApiVersionConstant.VERSION_ZERO}", UriKind.RelativeOrAbsolute);
 
                 //Add token
                 var headers = _httpContextAccessor.HttpContext?.Request.Headers;

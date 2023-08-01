@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.4.9</Version>
-		<Description>Add NameCodeResponse</Description>
+		<Version>4.5.0</Version>
+		<Description>Update ServiceInvoker</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
