@@ -49,5 +49,20 @@
         /// The key alert import data MSG
         /// </summary>
         public const string KEY_ALERT_IMPORT_DATA_MSG = "key_alert_import_data_msg";
+
+        /// <summary>
+        /// The export file type text
+        /// </summary>
+        public const string EXPORT_FILE_TYPE_TEXT = "application/octet-stream";
+
+        /// <summary>
+        /// The export file type XLSX
+        /// </summary>
+        public const string EXPORT_FILE_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+        /// <summary>
+        /// The export file type CSV
+        /// </summary>
+        public const string EXPORT_FILE_TYPE_CSV = "application/csv";
     }
 }

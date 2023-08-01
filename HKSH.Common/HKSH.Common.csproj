@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.5.1</Version>
-		<Description>Update ServiceInvoker</Description>
+		<Version>4.5.2</Version>
+		<Description>CommonImportConstant Add Export File Type</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
