@@ -20,11 +20,11 @@
         /// The index of the page.
         /// </value>
         public int PageIndex
-        { 
-            get 
-            { 
-                return Page < 1 ? 0 : Page - 1; 
-            } 
+        {
+            get
+            {
+                return Page < 1 ? 0 : Page - 1;
+            }
         }
 
         /// <summary>

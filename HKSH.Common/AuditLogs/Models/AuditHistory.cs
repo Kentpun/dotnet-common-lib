@@ -175,7 +175,7 @@ namespace HKSH.Common.AuditLogs.Models
 
                         if (i == _rows.Count - 1)
                         {
-                            sqlDataBuilder.AppendLine(@$"(N'{log.TableName}',{long.Parse(log.RowId ?? "0")},N'{log.Action}',N'{log.Row.Replace("'","\"\"")}','{DateTime.Now.GetStringTypeTimeStamp()}',N'{log.UpdateBy}',GETDATE());");
+                            sqlDataBuilder.AppendLine(@$"(N'{log.TableName}',{long.Parse(log.RowId ?? "0")},N'{log.Action}',N'{log.Row.Replace("'", "\"\"")}','{DateTime.Now.GetStringTypeTimeStamp()}',N'{log.UpdateBy}',GETDATE());");
                         }
                         else
                         {

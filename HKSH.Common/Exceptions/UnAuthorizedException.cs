@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace HKSH.Common.Exceptions
+﻿namespace HKSH.Common.Exceptions
 {
     /// <summary>
     /// UnAuthorizedException

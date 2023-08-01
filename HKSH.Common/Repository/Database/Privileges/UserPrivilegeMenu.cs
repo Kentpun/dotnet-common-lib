@@ -26,7 +26,7 @@ namespace HKSH.Common.Repository.Database.Privileges
         /// menu name
         /// </summary>
         public string MenuName { get; set; } = String.Empty;
-        
+
         /// <summary>
         /// icon
         /// </summary>
@@ -36,7 +36,7 @@ namespace HKSH.Common.Repository.Database.Privileges
         /// url
         /// </summary>
         public string? Url { get; set; }
-        
+
         /// <summary>
         /// show on menu
         /// </summary>

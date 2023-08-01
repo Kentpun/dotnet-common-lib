@@ -65,11 +65,11 @@ namespace HKSH.Common.Helper
         /// The workbook.
         /// </value>
         public IWorkbook Workbook
-        { 
-            get 
-            { 
+        {
+            get
+            {
                 return workbook ??= ReadExcelFile(FilePath);
-            } 
+            }
         }
 
         /// <summary>
@@ -109,9 +109,9 @@ namespace HKSH.Common.Helper
         /// </value>
         public List<string> SheetNames
         {
-            get 
-            { 
-                return sheetNames ??= GetSheetNames(Workbook); 
+            get
+            {
+                return sheetNames ??= GetSheetNames(Workbook);
             }
         }
 

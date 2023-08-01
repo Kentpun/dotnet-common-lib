@@ -529,7 +529,7 @@ public static class ServiceCollectionExtension
         //Api Version
         services.AddApiVersioning(opt =>
         {
-            opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(ApiVersionConstant.ONE, ApiVersionConstant.ZERO);
+            opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(ApiVersionConstant.VERSION_ONE, ApiVersionConstant.VERSION_ZERO);
             opt.AssumeDefaultVersionWhenUnspecified = true;
             opt.ReportApiVersions = true;
             opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),

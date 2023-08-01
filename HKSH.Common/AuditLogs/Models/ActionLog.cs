@@ -45,7 +45,6 @@
         /// </value>
         public string Function { get; set; } = null!;
 
-
         /// <summary>
         /// Gets or sets the function identifier.
         /// </summary>
