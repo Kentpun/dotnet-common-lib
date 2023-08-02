@@ -64,5 +64,10 @@
         /// The export file type CSV
         /// </summary>
         public const string EXPORT_FILE_TYPE_CSV = "application/csv";
+
+        /// <summary>
+        /// The asyntask table name
+        /// </summary>
+        public const string ASYNTASK_TABLE_NAME = "common_asyn_task";
     }
 }
