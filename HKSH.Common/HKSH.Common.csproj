@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.5.6</Version>
+		<Version>4.5.7</Version>
 		<Description>add uri invoke for dynamic host</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>

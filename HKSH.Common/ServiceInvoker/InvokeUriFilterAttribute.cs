@@ -19,7 +19,11 @@ namespace HKSH.Common.ServiceInvoker
 
         public override Task OnBeginRequestAsync(ApiActionContext context)
         {
-            context.RequestMessage.RequestUri = new Uri($"{context.RequestMessage.RequestUri?.Scheme}://{context.RequestMessage.RequestUri?.Host}/{_version}{context.RequestMessage.RequestUri?.LocalPath}");
+            if (context.RequestMessage.RequestUri != null)
+            {
+                context.RequestMessage.RequestUri = new Uri(context.RequestMessage.RequestUri.OriginalString.Replace(context.RequestMessage.RequestUri.Host, $"{context.RequestMessage.RequestUri?.Host}/{_version}" ?? string.Empty));
+
+            }
             return base.OnBeginRequestAsync(context);
         }
     }
