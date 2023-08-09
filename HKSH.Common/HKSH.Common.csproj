@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.6.1</Version>
-		<Description>Add MdmExtension</Description>
+		<Version>4.6.2</Version>
+		<Description>Add PaginationRequest</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
