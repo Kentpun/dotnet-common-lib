@@ -81,6 +81,11 @@ public class VariableOptions
     public const string ACTION_LOG_EXPORT_COUNT = "ActionLogExportCount";
 
     /// <summary>
+    /// The action log export notification template
+    /// </summary>
+    public const string ACTION_LOG_EXPORT_NOTIFICATION_TEMPLATE = "ActionLogExportNotificationTemplate";
+
+    /// <summary>
     /// Gets or sets the key.
     /// </summary>
     /// <value>
