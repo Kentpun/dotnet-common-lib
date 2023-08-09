@@ -76,6 +76,11 @@ public class VariableOptions
     public const string PRICE_DAAS_HOST = "PriceDaas";
 
     /// <summary>
+    /// The action log export count
+    /// </summary>
+    public const string ACTION_LOG_EXPORT_COUNT = "ActionLogExportCount";
+
+    /// <summary>
     /// Gets or sets the key.
     /// </summary>
     /// <value>

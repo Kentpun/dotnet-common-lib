@@ -1,4 +1,4 @@
-﻿namespace HKSH.Common.ShareModel
+﻿namespace HKSH.Common.ShareModel.Mdm
 {
     /// <summary>
     /// Dictionary
