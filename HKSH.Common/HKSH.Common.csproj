@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.5.7</Version>
-		<Description>add uri invoke for dynamic host</Description>
+		<Version>4.5.8</Version>
+		<Description>fix invoke life time</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

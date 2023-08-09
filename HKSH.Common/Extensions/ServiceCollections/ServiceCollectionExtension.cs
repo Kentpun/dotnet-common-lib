@@ -354,7 +354,7 @@ public static class ServiceCollectionExtension
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
         services.AddEndpointsApiExplorer();
-        services.AddTransient<IServiceInvoker, ServiceInvoker.ServiceInvoker>();
+        services.AddScoped<IServiceInvoker, ServiceInvoker.ServiceInvoker>();
         services.AddScoped<ITypeAdapter, AutomapperTypeAdapter>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
@@ -467,7 +467,7 @@ public static class ServiceCollectionExtension
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
         services.AddEndpointsApiExplorer();
-        services.AddTransient<IServiceInvoker, ServiceInvoker.ServiceInvoker>();
+        services.AddScoped<IServiceInvoker, ServiceInvoker.ServiceInvoker>();
         services.AddScoped<ITypeAdapter, AutomapperTypeAdapter>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
