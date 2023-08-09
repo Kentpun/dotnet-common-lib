@@ -1,6 +1,4 @@
-﻿using HKSH.Common.ShareModel;
-
-namespace HKSH.Common.ShareModel
+﻿namespace HKSH.Common.ShareModel
 {
     /// <summary>
     /// KeywordPageRequest
