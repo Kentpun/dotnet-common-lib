@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.5.9</Version>
-		<Description>Format Code And Add Some ShareModel</Description>
+		<Version>4.6.0</Version>
+		<Description>Add VariableOptions ACTION_LOG_EXPORT_COUNT</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
