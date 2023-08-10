@@ -39,5 +39,10 @@
         /// The dictioary redis field
         /// </summary>
         public const string DICTIOARY_REDIS_FIELD = "Dictionary";
+
+        /// <summary>
+        /// The dictioary redis field
+        /// </summary>
+        public const string SYSTEM_MESSAGE_PREFIX = "BSYS";
     }
 }
