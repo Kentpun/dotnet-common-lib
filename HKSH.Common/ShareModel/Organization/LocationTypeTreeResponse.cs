@@ -11,7 +11,7 @@
         /// <value>
         /// The location type code.
         /// </value>
-        public string LocationTypeCode { get; set; } = string.Empty;
+        public string LocationTypeCode { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location type description en.
@@ -19,7 +19,7 @@
         /// <value>
         /// The location type description en.
         /// </value>
-        public string LocationTypeDescriptionEn { get; set; } = string.Empty;
+        public string LocationTypeDescriptionEn { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location type description tc.
@@ -27,7 +27,7 @@
         /// <value>
         /// The location type description tc.
         /// </value>
-        public string LocationTypeDescriptionTc { get; set; } = string.Empty;
+        public string LocationTypeDescriptionTc { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location type alias.
@@ -35,7 +35,7 @@
         /// <value>
         /// The location type alias.
         /// </value>
-        public string LocationTypeAlias { get; set; } = string.Empty;
+        public string LocationTypeAlias { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the locations.
@@ -57,7 +57,7 @@
         /// <value>
         /// The location code.
         /// </value>
-        public string? LocationCode { get; set; } = string.Empty;
+        public string LocationCode { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location full name en.
@@ -65,7 +65,7 @@
         /// <value>
         /// The location full name en.
         /// </value>
-        public string? LocationFullNameEn { get; set; } = string.Empty;
+        public string? LocationFullNameEn { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location full name tc.
@@ -73,7 +73,7 @@
         /// <value>
         /// The location full name tc.
         /// </value>
-        public string? LocationFullNameTc { get; set; } = string.Empty;
+        public string? LocationFullNameTc { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location short name en.
@@ -81,7 +81,7 @@
         /// <value>
         /// The location short name en.
         /// </value>
-        public string? LocationShortNameEn { get; set; } = string.Empty;
+        public string? LocationShortNameEn { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location alias.
@@ -89,6 +89,6 @@
         /// <value>
         /// The location alias.
         /// </value>
-        public string? LocationAlias { get; set; } = string.Empty;
+        public string? LocationAlias { get; set; } = null!;
     }
 }

@@ -19,15 +19,7 @@
         /// <value>
         /// The location code.
         /// </value>
-        public string? LocationCode { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the location sort order.
-        /// </summary>
-        /// <value>
-        /// The location sort order.
-        /// </value>
-        public decimal? LocationSortOrder { get; set; }
+        public string LocationCode { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the location full name en.
@@ -35,7 +27,7 @@
         /// <value>
         /// The location full name en.
         /// </value>
-        public string? LocationFullNameEn { get; set; } = string.Empty;
+        public string? LocationFullNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the location full name tc.
@@ -43,7 +35,7 @@
         /// <value>
         /// The location full name tc.
         /// </value>
-        public string? LocationFullNameTc { get; set; } = string.Empty;
+        public string? LocationFullNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the location short name en.
@@ -51,7 +43,7 @@
         /// <value>
         /// The location short name en.
         /// </value>
-        public string? LocationShortNameEn { get; set; } = string.Empty;
+        public string? LocationShortNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
@@ -59,7 +51,7 @@
         /// <value>
         /// The description.
         /// </value>
-        public string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         /// <summary>
         /// Gets or sets the location alias.
@@ -67,7 +59,7 @@
         /// <value>
         /// The location alias.
         /// </value>
-        public string? LocationAlias { get; set; } = string.Empty;
+        public string? LocationAlias { get; set; }
 
         /// <summary>
         /// Gets or sets the correspondence address en.
@@ -75,7 +67,7 @@
         /// <value>
         /// The correspondence address en.
         /// </value>
-        public string? CorrespondenceAddressEn { get; set; } = string.Empty;
+        public string? CorrespondenceAddressEn { get; set; }
 
         /// <summary>
         /// Gets or sets the correspondence address tc.
@@ -83,7 +75,7 @@
         /// <value>
         /// The correspondence address tc.
         /// </value>
-        public string? CorrespondenceAddressTc { get; set; } = string.Empty;
+        public string? CorrespondenceAddressTc { get; set; }
 
         /// <summary>
         /// Gets or sets the address.
@@ -91,7 +83,7 @@
         /// <value>
         /// The address.
         /// </value>
-        public string? Address { get; set; } = string.Empty;
+        public string? Address { get; set; }
 
         /// <summary>
         /// Gets or sets the organization.
@@ -108,13 +100,5 @@
         /// The department.
         /// </value>
         public DepartmentResponse? Department { get; set; }
-
-        /// <summary>
-        /// Gets or sets the site.
-        /// </summary>
-        /// <value>
-        /// The site.
-        /// </value>
-        public SiteResponse? Site { get; set; }
     }
 }

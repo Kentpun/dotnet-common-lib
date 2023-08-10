@@ -19,15 +19,7 @@
         /// <value>
         /// The committee code.
         /// </value>
-        public string? CommitteeCode { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the committee sort order.
-        /// </summary>
-        /// <value>
-        /// The committee sort order.
-        /// </value>
-        public decimal? CommitteeSortOrder { get; set; }
+        public string CommitteeCode { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the committee full name en.
@@ -35,7 +27,7 @@
         /// <value>
         /// The committee full name en.
         /// </value>
-        public string? CommitteeFullNameEn { get; set; } = string.Empty;
+        public string? CommitteeFullNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the committee full name tc.
@@ -43,7 +35,7 @@
         /// <value>
         /// The committee full name tc.
         /// </value>
-        public string? CommitteeFullNameTc { get; set; } = string.Empty;
+        public string? CommitteeFullNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the committee short name en.
@@ -51,7 +43,7 @@
         /// <value>
         /// The committee short name en.
         /// </value>
-        public string? CommitteeShortNameEn { get; set; } = string.Empty;
+        public string? CommitteeShortNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the committee short name tc.
@@ -59,7 +51,7 @@
         /// <value>
         /// The committee short name tc.
         /// </value>
-        public string? CommitteeShortNameTc { get; set; } = string.Empty;
+        public string? CommitteeShortNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the correspondence address en.
@@ -67,7 +59,7 @@
         /// <value>
         /// The correspondence address en.
         /// </value>
-        public string? CorrespondenceAddressEn { get; set; } = string.Empty;
+        public string? CorrespondenceAddressEn { get; set; }
 
         /// <summary>
         /// Gets or sets the correspondence address tc.
@@ -75,7 +67,7 @@
         /// <value>
         /// The correspondence address tc.
         /// </value>
-        public string? CorrespondenceAddressTc { get; set; } = string.Empty;
+        public string? CorrespondenceAddressTc { get; set; }
 
         /// <summary>
         /// Gets or sets the committee alias.
@@ -83,7 +75,7 @@
         /// <value>
         /// The committee alias.
         /// </value>
-        public string? CommitteeAlias { get; set; } = string.Empty;
+        public string? CommitteeAlias { get; set; }
 
         /// <summary>
         /// Gets or sets the location full name en.
@@ -91,7 +83,7 @@
         /// <value>
         /// The location full name en.
         /// </value>
-        public string? LocationFullNameEn { get; set; } = string.Empty;
+        public string? LocationFullNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the location full name tc.
@@ -99,7 +91,7 @@
         /// <value>
         /// The location full name tc.
         /// </value>
-        public string? LocationFullNameTc { get; set; } = string.Empty;
+        public string? LocationFullNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the committee.
@@ -107,7 +99,7 @@
         /// <value>
         /// The type of the committee.
         /// </value>
-        public string? CommitteeType { get; set; } = string.Empty;
+        public string? CommitteeType { get; set; }
 
         /// <summary>
         /// Gets or sets the phone.
