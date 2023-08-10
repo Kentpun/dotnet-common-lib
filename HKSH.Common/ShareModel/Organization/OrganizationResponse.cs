@@ -11,15 +11,7 @@
         /// <value>
         /// The organization code.
         /// </value>
-        public string? OrganizationCode { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the organization sort order.
-        /// </summary>
-        /// <value>
-        /// The organization sort order.
-        /// </value>
-        public decimal? OrganizationSortOrder { get; set; }
+        public string OrganizationCode { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the organization name en.
@@ -27,7 +19,7 @@
         /// <value>
         /// The organization name en.
         /// </value>
-        public string? OrganizationNameEn { get; set; } = string.Empty;
+        public string OrganizationNameEn { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the organization name tc.
@@ -35,7 +27,7 @@
         /// <value>
         /// The organization name tc.
         /// </value>
-        public string? OrganizationNameTc { get; set; } = string.Empty;
+        public string OrganizationNameTc { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the organization short name en.
@@ -43,7 +35,7 @@
         /// <value>
         /// The organization short name en.
         /// </value>
-        public string? OrganizationShortNameEn { get; set; } = string.Empty;
+        public string OrganizationShortNameEn { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the organization short name tc.
@@ -51,7 +43,7 @@
         /// <value>
         /// The organization short name tc.
         /// </value>
-        public string? OrganizationShortNameTc { get; set; } = string.Empty;
+        public string OrganizationShortNameTc { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the logos.

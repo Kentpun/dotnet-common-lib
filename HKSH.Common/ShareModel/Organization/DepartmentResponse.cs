@@ -19,15 +19,7 @@
         /// <value>
         /// The department code.
         /// </value>
-        public string? DepartmentCode { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the department sort order.
-        /// </summary>
-        /// <value>
-        /// The department sort order.
-        /// </value>
-        public decimal? DepartmentSortOrder { get; set; }
+        public string DepartmentCode { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the department full name en.
@@ -35,7 +27,7 @@
         /// <value>
         /// The department full name en.
         /// </value>
-        public string? DepartmentFullNameEn { get; set; } = string.Empty;
+        public string? DepartmentFullNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the department full name tc.
@@ -43,7 +35,7 @@
         /// <value>
         /// The department full name tc.
         /// </value>
-        public string? DepartmentFullNameTc { get; set; } = string.Empty;
+        public string? DepartmentFullNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the department short name en.
@@ -51,7 +43,7 @@
         /// <value>
         /// The department short name en.
         /// </value>
-        public string? DepartmentShortNameEn { get; set; } = string.Empty;
+        public string? DepartmentShortNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the department short name tc.
@@ -59,7 +51,7 @@
         /// <value>
         /// The department short name tc.
         /// </value>
-        public string? DepartmentShortNameTc { get; set; } = string.Empty;
+        public string? DepartmentShortNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the correspondence address en.
@@ -67,7 +59,7 @@
         /// <value>
         /// The correspondence address en.
         /// </value>
-        public string? CorrespondenceAddressEn { get; set; } = string.Empty;
+        public string? CorrespondenceAddressEn { get; set; }
 
         /// <summary>
         /// Gets or sets the correspondence address tc.
@@ -75,7 +67,7 @@
         /// <value>
         /// The correspondence address tc.
         /// </value>
-        public string? CorrespondenceAddressTc { get; set; } = string.Empty;
+        public string? CorrespondenceAddressTc { get; set; }
 
         /// <summary>
         /// Gets or sets the department alias.
@@ -83,7 +75,7 @@
         /// <value>
         /// The department alias.
         /// </value>
-        public string? DepartmentAlias { get; set; } = string.Empty;
+        public string? DepartmentAlias { get; set; }
 
         /// <summary>
         /// Gets or sets the location full name en.
@@ -91,7 +83,7 @@
         /// <value>
         /// The location full name en.
         /// </value>
-        public string? LocationFullNameEn { get; set; } = string.Empty;
+        public string? LocationFullNameEn { get; set; }
 
         /// <summary>
         /// Gets or sets the location full name tc.
@@ -99,7 +91,7 @@
         /// <value>
         /// The location full name tc.
         /// </value>
-        public string? LocationFullNameTc { get; set; } = string.Empty;
+        public string? LocationFullNameTc { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the department.
@@ -107,7 +99,7 @@
         /// <value>
         /// The type of the department.
         /// </value>
-        public string? DepartmentType { get; set; } = string.Empty;
+        public string? DepartmentType { get; set; }
 
         /// <summary>
         /// Gets or sets the phone.

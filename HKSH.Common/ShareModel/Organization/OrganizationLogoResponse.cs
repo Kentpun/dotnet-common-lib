@@ -11,7 +11,7 @@
         /// <value>
         /// The type of the logo.
         /// </value>
-        public string? LogoType { get; set; } = string.Empty;
+        public string LogoType { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the logo.
@@ -19,6 +19,6 @@
         /// <value>
         /// The logo.
         /// </value>
-        public string? Logo { get; set; } = string.Empty;
+        public string Logo { get; set; } = null!;
     }
 }

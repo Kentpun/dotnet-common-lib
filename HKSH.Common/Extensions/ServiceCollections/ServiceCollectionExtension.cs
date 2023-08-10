@@ -1,3 +1,4 @@
+using HKSH.Common.Adapter;
 using HKSH.Common.AuditLogs;
 using HKSH.Common.AutoMapper;
 using HKSH.Common.Base;
@@ -24,6 +25,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Extensions.Logging;
+using RestSharp;
 using System.Reflection;
 
 namespace HKSH.Common.Extensions.ServiceCollections;
@@ -357,6 +359,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IServiceInvoker, ServiceInvoker.ServiceInvoker>();
         services.AddScoped<ITypeAdapter, AutomapperTypeAdapter>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddTransient<RestClient>();
+        services.AddTransient<IHKSHClient, HKSHClient>();
         services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
         services.AddAutoMapper(Assembly.GetExecutingAssembly(), Assembly.GetEntryAssembly());
 
@@ -470,6 +474,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IServiceInvoker, ServiceInvoker.ServiceInvoker>();
         services.AddScoped<ITypeAdapter, AutomapperTypeAdapter>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddTransient<RestClient>();
+        services.AddTransient<IHKSHClient, HKSHClient>();
         services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
         services.AddAutoMapper(Assembly.GetExecutingAssembly(), Assembly.GetEntryAssembly());
 

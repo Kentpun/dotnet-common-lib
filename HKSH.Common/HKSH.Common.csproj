@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.6.2</Version>
-		<Description>Add PaginationRequest</Description>
+		<Version>4.6.5</Version>
+		<Description>Add IHKSHClient and Format Organization Model</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
@@ -59,8 +59,8 @@
 		<PackageReference Include="NLog.Extensions.Logging" Version="5.2.2" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.2.2" />
 		<PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
-		<PackageReference Include="RestSharp" Version="109.0.1" />
-		<PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="109.0.1" />
+		<PackageReference Include="RestSharp" Version="108.0.1" />
+		<PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="108.0.1" />
 		<PackageReference Include="StackExchange.Redis" Version="2.6.96" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
