@@ -3,18 +3,18 @@
 namespace HKSH.Common.Enums
 {
     /// <summary>
-    /// Language
+    /// LockStatus
     /// </summary>
-    public enum Language
+    public enum LockStatus
     {
         /// <summary>
-        /// The english
+        /// The no
         /// </summary>
-        [Description("English")] English = 1001,
+        [Description("No")] No = 1001,
 
         /// <summary>
-        /// The chinese
+        /// The yes
         /// </summary>
-        [Description("Chinese")] Chinese = 1002
+        [Description("Yes")] Yes = 1002
     }
 }

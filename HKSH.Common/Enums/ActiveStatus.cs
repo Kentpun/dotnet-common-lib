@@ -3,18 +3,18 @@
 namespace HKSH.Common.Enums
 {
     /// <summary>
-    /// Language
+    /// Active Status
     /// </summary>
-    public enum Language
+    public enum ActiveStatus
     {
         /// <summary>
-        /// The english
+        /// The active
         /// </summary>
-        [Description("English")] English = 1001,
+        [Description("Active")] Active = 1001,
 
         /// <summary>
-        /// The chinese
+        /// The inactive
         /// </summary>
-        [Description("Chinese")] Chinese = 1002
+        [Description(" Inactive")] Inactive = 1002
     }
 }
