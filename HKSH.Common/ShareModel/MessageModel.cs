@@ -11,7 +11,7 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// return message code to client
     /// </summary>
-    public class MessageModel
+    public abstract class MessageModel
     {
         /// <summary>
         /// MessageModel
