@@ -146,7 +146,7 @@
             return new MessageResult
             {
                 Data = data,
-                Success = true,
+                Success = false,
                 Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
                 Code = messageModel?.Code ?? SystemMessage.Success.Code
