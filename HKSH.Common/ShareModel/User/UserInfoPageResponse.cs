@@ -13,7 +13,7 @@ namespace HKSH.Common.ShareModel.User
         /// <value>
         /// The user identifier.
         /// </value>
-        public string UserId { get; set; } = string.Empty;
+        public string UserId { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the user name en.
