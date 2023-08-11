@@ -57,7 +57,7 @@
                 Success = true,
                 Message = "Operation successful",
                 Module = "System",
-                Code = SystemMessage.Success.Code
+                Code = MessageModel.Success.Code
             };
         }
 
@@ -76,7 +76,7 @@
                 Success = true,
                 Message = string.IsNullOrEmpty(message) ? "Operation successful" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
-                Code = messageModel?.Code ?? SystemMessage.Success.Code
+                Code = messageModel?.Code ?? MessageModel.Success.Code
             };
         }
 
@@ -96,7 +96,7 @@
                 Success = true,
                 Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
-                Code = messageModel?.Code ?? SystemMessage.Success.Code
+                Code = messageModel?.Code ?? MessageModel.Success.Code
             };
         }
 
@@ -109,7 +109,7 @@
             return new MessageResult
             {
                 Success = false,
-                Code = SystemMessage.Failure.Code,
+                Code = MessageModel.Failure.Code,
                 Message = "Operation failed",
                 Module = string.IsNullOrEmpty(module) ? "System" : module
             };
@@ -149,7 +149,7 @@
                 Success = false,
                 Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
-                Code = messageModel?.Code ?? SystemMessage.Success.Code
+                Code = messageModel?.Code ?? MessageModel.Success.Code
             };
         }
 
@@ -185,7 +185,7 @@
                 Data = data,
                 Message = string.IsNullOrEmpty(message) ? "Operation successful" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
-                Code = messageModel?.Code ?? SystemMessage.Success.Code
+                Code = messageModel?.Code ?? MessageModel.Success.Code
             };
         }
 
@@ -205,7 +205,7 @@
                 Data = data ?? default,
                 Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
-                Code = messageModel?.Code ?? SystemMessage.Failure.Code,
+                Code = messageModel?.Code ?? MessageModel.Failure.Code,
             };
         }
     }
