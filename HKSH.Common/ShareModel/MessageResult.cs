@@ -104,14 +104,14 @@
         /// Failures the result.
         /// </summary>
         /// <returns></returns>
-        public static MessageResult FailureResult()
+        public static MessageResult FailureResult(string? module = "")
         {
             return new MessageResult
             {
                 Success = false,
                 Code = SystemMessage.Failure.Code,
                 Message = "Operation failed",
-                Module = "System"
+                Module = string.IsNullOrEmpty(module) ? "System" : module
             };
         }
 
@@ -197,7 +197,7 @@
         /// <param name="module">The module.</param>
         /// <param name="messageModel">The message model.</param>
         /// <returns></returns>
-        public static MessageResult<T> FailureResult(T? data = default, MessageModel? messageModel = null, string? message = "", string? module = "")
+        public static MessageResult<T> FailureResult(T? data = default, MessageModel? messageModel = null, string? module = "", string? message = "")
         {
             return new MessageResult<T>
             {

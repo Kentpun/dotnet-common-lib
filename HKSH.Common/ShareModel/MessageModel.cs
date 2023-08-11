@@ -21,7 +21,7 @@ namespace HKSH.Common.ShareModel
         /// <param name="ModuleCode"></param>
         public MessageModel(string code, string ModuleCode = GlobalConstant.SYSTEM_MESSAGE_PREFIX)
         {
-            Code = $"{ModuleCode}{code}";
+            Code = $"B{ModuleCode}{code}";
         }
 
         /// <summary>
