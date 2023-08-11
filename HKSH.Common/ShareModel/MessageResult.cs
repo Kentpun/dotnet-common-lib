@@ -94,7 +94,7 @@
             {
                 Data = data,
                 Success = true,
-                Message = string.IsNullOrEmpty(message) ? "Operation failed" : message,
+                Message = string.IsNullOrEmpty(message) ? "Operation successful" : message,
                 Module = string.IsNullOrEmpty(module) ? "System" : module,
                 Code = messageModel?.Code ?? SystemMessage.Success.Code
             };
