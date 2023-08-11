@@ -5,7 +5,7 @@ using HKSH.Common.Repository.Database.Privileges;
 namespace HKSH.Common.ShareModel.User
 {
     /// <summary>
-    /// UserInfoResponse
+    /// UserInfo Response
     /// </summary>
     public class UserInfoResponse
     {
