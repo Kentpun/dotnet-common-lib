@@ -64,10 +64,9 @@
         /// <summary>
         /// Successes the result.
         /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="messageModel">The message model.</param>
         /// <param name="module">The module.</param>
-        /// <param name="code">The code.</param>
+        /// <param name="message">The message.</param>
         /// <returns></returns>
         public static MessageResult SuccessResult(MessageModel messageModel, string? module = "", string message = "")
         {
@@ -84,9 +83,9 @@
         /// Successes the result.
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="messageModel">The message model.</param>
         /// <param name="module">The module.</param>
-        /// <param name="code">The code.</param>
+        /// <param name="message">The message.</param>
         /// <returns></returns>
         public static MessageResult SuccessResult(object? data, MessageModel? messageModel = null, string? module = "", string message = "")
         {
@@ -103,6 +102,7 @@
         /// <summary>
         /// Failures the result.
         /// </summary>
+        /// <param name="module">The module.</param>
         /// <returns></returns>
         public static MessageResult FailureResult(string? module = "")
         {
@@ -118,9 +118,9 @@
         /// <summary>
         /// Failures the result.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="messageModel">The message model.</param>
         /// <param name="module">The module.</param>
-        /// <param name="code">The code.</param>
+        /// <param name="message">The message.</param>
         /// <returns></returns>
         public static MessageResult FailureResult(MessageModel messageModel, string? module = "", string message = "")
         {
@@ -155,7 +155,7 @@
     }
 
     /// <summary>
-    /// MessageResult
+    /// MessageResult<T>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class MessageResult<T> : MessageResult
@@ -172,9 +172,9 @@
         /// Successes the result.
         /// </summary>
         /// <param name="data">The data.</param>
+        /// <param name="messageModel">The message model.</param>
         /// <param name="message">The message.</param>
         /// <param name="module">The module.</param>
-        /// <param name="code">The code.</param>
         /// <returns></returns>
         public static MessageResult<T> SuccessResult(T? data = default, MessageModel? messageModel = null, string? message = "", string? module = "")
         {
@@ -192,9 +192,9 @@
         /// Failures the result.
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="module">The module.</param>
         /// <param name="messageModel">The message model.</param>
+        /// <param name="module">The module.</param>
+        /// <param name="message">The message.</param>
         /// <returns></returns>
         public static MessageResult<T> FailureResult(T? data = default, MessageModel? messageModel = null, string? module = "", string? message = "")
         {

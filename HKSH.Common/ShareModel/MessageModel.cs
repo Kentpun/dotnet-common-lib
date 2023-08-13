@@ -3,16 +3,15 @@
 namespace HKSH.Common.ShareModel
 {
     /// <summary>
-    /// return message code to client
+    /// MessageModel
     /// </summary>
     public abstract class MessageModel
     {
         /// <summary>
-        /// MessageModel
+        /// Initializes a new instance of the <see cref="MessageModel"/> class.
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="message"></param>
-        /// <param name="ModuleCode"></param>
+        /// <param name="code">The code.</param>
+        /// <param name="ModuleCode">The module code.</param>
         public MessageModel(string code, string ModuleCode = GlobalConstant.SYSTEM_MESSAGE_PREFIX)
         {
             Code = $"B{ModuleCode}{code}";
@@ -21,6 +20,9 @@ namespace HKSH.Common.ShareModel
         /// <summary>
         /// Gets or sets the code.
         /// </summary>
+        /// <value>
+        /// The code.
+        /// </value>
         public string Code { get; set; }
     }
 }
