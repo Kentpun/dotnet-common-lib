@@ -1,10 +1,4 @@
 ﻿using HKSH.Common.Constants;
-using NPOI.SS.Formula.Functions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HKSH.Common.ShareModel
 {
@@ -28,6 +22,5 @@ namespace HKSH.Common.ShareModel
         /// Gets or sets the code.
         /// </summary>
         public string Code { get; set; }
-
     }
 }

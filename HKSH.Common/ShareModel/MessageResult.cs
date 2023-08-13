@@ -152,7 +152,6 @@
                 Code = messageModel?.Code ?? SystemMessage.Success.Code
             };
         }
-
     }
 
     /// <summary>

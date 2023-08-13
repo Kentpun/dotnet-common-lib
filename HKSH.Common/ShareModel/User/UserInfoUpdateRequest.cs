@@ -22,6 +22,7 @@ namespace HKSH.Common.ShareModel.User
         /// The language.
         /// </value>
         public Language? Language { get; set; }
+
         /// <summary>
         /// Gets or sets the location code.
         /// </summary>

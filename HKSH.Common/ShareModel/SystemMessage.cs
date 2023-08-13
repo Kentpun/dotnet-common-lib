@@ -1,11 +1,4 @@
-﻿using Amazon.Runtime;
-using HKSH.Common.Constants;
-using NPOI.SS.Formula.Functions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HKSH.Common.Constants;
 
 namespace HKSH.Common.ShareModel
 {
@@ -41,7 +34,7 @@ namespace HKSH.Common.ShareModel
         /// </value>
         public static MessageModel Failure => new SystemMessage("999999");
 
-        #endregion
+        #endregion Common
 
         #region Permission
 
@@ -61,7 +54,9 @@ namespace HKSH.Common.ShareModel
         /// </value>
         public static MessageModel ActionsAreTooFrequent => new SystemMessage("000062");
 
-        #endregion 
+        #endregion Permission
+
+
 
         #region Param
 
@@ -121,10 +116,12 @@ namespace HKSH.Common.ShareModel
         /// </value>
         public static MessageModel TheRequestParameterIsIncorrect => new SystemMessage("000046");
 
+        #endregion Param
 
-        #endregion 
+
 
         #region System
+
         /// <summary>
         /// Gets the user does not have permission to do this.
         /// </summary>
@@ -180,7 +177,7 @@ namespace HKSH.Common.ShareModel
         /// The unknown exception.
         /// </value>
         public static MessageModel UnknownException => new SystemMessage("000099");
-        #endregion
 
+        #endregion System
     }
 }
