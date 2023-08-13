@@ -17,8 +17,6 @@ namespace HKSH.Common.Repository.Database
     /// <summary>
     /// Repository
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="IRepository&lt;T&gt;" />
     internal class Repository<T> : IRepository<T> where T : class
     {
         /// <summary>
@@ -74,7 +72,7 @@ namespace HKSH.Common.Repository.Database
             {
                 if (string.IsNullOrEmpty(_currentUserId))
                 {
-                    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? "";
+                    _currentUserId = _currentContext.CurrentUser?.UserId ?? string.Empty;
                 }
                 return _currentUserId;
             }

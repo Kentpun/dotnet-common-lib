@@ -4,6 +4,7 @@ using HKSH.Common.Exceptions;
 using HKSH.Common.Extensions;
 using HKSH.Common.Repository.Database;
 using HKSH.Common.Repository.Database.Privileges;
+using HKSH.Common.ShareModel.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
@@ -33,17 +34,14 @@ namespace HKSH.Common.Context
         private readonly ILogger<CurrentContext> _logger;
 
         /// <summary>
-        /// Gets or sets the current user.
+        /// The current user
         /// </summary>
-        /// <value>
-        /// The current user.
-        /// </value>
-        private ClaimCurrentUser? _currentUser;
+        private UserInfoResponse? _currentUser;
 
         /// <summary>
         /// current user id
         /// </summary>
-        private long? _currentUserId;
+        private string? _currentUserId;
 
         /// <summary>
         /// user permissions
@@ -72,13 +70,13 @@ namespace HKSH.Common.Context
         /// <summary>
         /// current user id
         /// </summary>
-        public long CurrentUserId
+        public string CurrentUserId
         {
             get
             {
                 if (_currentUserId != null)
                 {
-                    return _currentUserId.Value;
+                    return _currentUserId;
                 }
 
                 var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -97,23 +95,18 @@ namespace HKSH.Common.Context
                 }
 
                 int providerIndex = reallyUserId.IndexOf(':', 2);
-                string externalId = reallyUserId.Substring(providerIndex + 1);
+                string externalId = reallyUserId[(providerIndex + 1)..];
 
-                if (!long.TryParse(externalId, out var userId))
-                {
-                    throw new UnAuthorizedException("Error access token");
-                }
+                _currentUserId = externalId;
 
-                _currentUserId = userId;
-
-                return _currentUserId.Value;
+                return _currentUserId;
             }
         }
 
         /// <summary>
         /// current user
         /// </summary>
-        public ClaimCurrentUser CurrentUser
+        public UserInfoResponse CurrentUser
         {
             get
             {
@@ -122,12 +115,12 @@ namespace HKSH.Common.Context
                     return _currentUser;
                 }
 
-                long userId = CurrentUserId;
+                string userId = CurrentUserId;
 
                 try
                 {
-                    var claimCurrentUser = _redisRepository.HashGet<ClaimCurrentUser>(ContextConst.KEY_PATTERN + userId, ContextConst.USER_INFO);
-                    if (claimCurrentUser == null || claimCurrentUser.Id != userId)
+                    var claimCurrentUser = _redisRepository.HashGet<UserInfoResponse>(ContextConst.KEY_PATTERN + userId, ContextConst.USER_INFO);
+                    if (claimCurrentUser == null || claimCurrentUser.UserId != userId)
                     {
                         throw new UnAuthorizedException("You are not logged in yet");
                     }
@@ -140,7 +133,7 @@ namespace HKSH.Common.Context
                 catch (Exception e)
                 {
                     _logger.LogExc(e, "Get user info from cache err ");
-                    throw e;
+                    throw;
                 }
             }
         }
@@ -157,7 +150,7 @@ namespace HKSH.Common.Context
                     return _currentLocation;
                 }
 
-                long userId = CurrentUserId;
+                string userId = CurrentUserId;
 
                 try
                 {
@@ -167,7 +160,7 @@ namespace HKSH.Common.Context
                 catch (Exception e)
                 {
                     _logger.LogExc(e, "Get user location info from cache err ");
-                    throw e;
+                    throw;
                 }
             }
         }
@@ -184,7 +177,7 @@ namespace HKSH.Common.Context
                     return _userPermissions;
                 }
 
-                long userId = CurrentUserId;
+                string userId = CurrentUserId;
 
                 try
                 {
@@ -194,7 +187,7 @@ namespace HKSH.Common.Context
                 catch (Exception e)
                 {
                     _logger.LogExc(e, "Get user privilege info from cache err ");
-                    throw e;
+                    throw;
                 }
             }
         }

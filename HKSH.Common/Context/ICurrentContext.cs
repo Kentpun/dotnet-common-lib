@@ -1,5 +1,5 @@
-﻿using HKSH.Common.Repository.Database;
-using HKSH.Common.Repository.Database.Privileges;
+﻿using HKSH.Common.Repository.Database.Privileges;
+using HKSH.Common.ShareModel.User;
 
 namespace HKSH.Common.Context
 {
@@ -11,7 +11,7 @@ namespace HKSH.Common.Context
         /// <summary>
         /// current user id
         /// </summary>
-        long CurrentUserId { get; }
+        string CurrentUserId { get; }
 
         /// <summary>
         /// Gets the current user.
@@ -19,7 +19,7 @@ namespace HKSH.Common.Context
         /// <value>
         /// The current user.
         /// </value>
-        ClaimCurrentUser CurrentUser { get; }
+        UserInfoResponse CurrentUser { get; }
 
         /// <summary>
         /// current location
