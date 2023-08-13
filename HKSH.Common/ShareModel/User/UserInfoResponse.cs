@@ -34,6 +34,21 @@ namespace HKSH.Common.ShareModel.User
         public string UserNameTc { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets the name of the combo.
+        /// UserNameEn (StaffId) 
+        /// </summary>
+        /// <value>
+        /// The name of the combo.
+        /// </value>
+        public string ComboName
+        {
+            get
+            {
+                return $"{UserNameEn} ({StaffId})";
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>
