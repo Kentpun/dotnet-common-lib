@@ -14,6 +14,14 @@
         public string? Keyword { get; set; }
 
         /// <summary>
+        /// Gets or sets the user ids.
+        /// </summary>
+        /// <value>
+        /// The user ids.
+        /// </value>
+        public List<string>? UserIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the group.
         /// </summary>
         /// <value>
