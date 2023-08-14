@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.7.4</Version>
-		<Description>UserInfoListRequest add staffIds</Description>
+		<Version>4.7.5</Version>
+		<Description>Update LocationTypeTreeResponse And UserInfoPageResponse</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
