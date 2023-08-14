@@ -22,6 +22,14 @@
         public List<string>? UserIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the staff ids.
+        /// </summary>
+        /// <value>
+        /// The staff ids.
+        /// </value>
+        public List<string>? StaffIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the group.
         /// </summary>
         /// <value>
