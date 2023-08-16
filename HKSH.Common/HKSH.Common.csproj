@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.7.7</Version>
-		<Description>UserInfoUpdateRequest Update UserId Nullable</Description>
+		<Version>4.7.8</Version>
+		<Description>Add ExcludeUserIds</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

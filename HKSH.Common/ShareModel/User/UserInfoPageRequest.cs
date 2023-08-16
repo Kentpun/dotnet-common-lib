@@ -15,6 +15,14 @@
         public string? Group { get; set; }
 
         /// <summary>
+        /// Gets or sets the exclude user ids.
+        /// </summary>
+        /// <value>
+        /// The exclude user ids.
+        /// </value>
+        public List<string>? ExcludeUserIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the location code.
         /// </summary>
         /// <value>
