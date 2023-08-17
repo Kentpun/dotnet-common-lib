@@ -100,5 +100,13 @@
         /// The department.
         /// </value>
         public DepartmentResponse? Department { get; set; }
+
+        /// <summary>
+        /// Gets or sets the site.
+        /// </summary>
+        /// <value>
+        /// The site.
+        /// </value>
+        public SiteResponse? Site { get; set; }
     }
 }

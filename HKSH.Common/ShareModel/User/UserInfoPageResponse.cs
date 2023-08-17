@@ -231,6 +231,54 @@ namespace HKSH.Common.ShareModel.User
         public string? OrganizationShortNameTc { get; set; }
 
         /// <summary>
+        /// Gets or sets the site code.
+        /// </summary>
+        /// <value>
+        /// The site code.
+        /// </value>
+        public string SiteCode { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the site full name en.
+        /// </summary>
+        /// <value>
+        /// The site full name en.
+        /// </value>
+        public string SiteFullNameEn { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the site full name tc.
+        /// </summary>
+        /// <value>
+        /// The site full name tc.
+        /// </value>
+        public string SiteFullNameTc { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the site short name en.
+        /// </summary>
+        /// <value>
+        /// The site short name en.
+        /// </value>
+        public string SiteShortNameEn { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the site short name tc.
+        /// </summary>
+        /// <value>
+        /// The site short name tc.
+        /// </value>
+        public string SiteShortNameTc { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the site alias.
+        /// </summary>
+        /// <value>
+        /// The site alias.
+        /// </value>
+        public string SiteAlias { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the status.
         /// </summary>
         /// <value>
