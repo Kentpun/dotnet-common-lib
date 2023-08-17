@@ -1,7 +1,9 @@
-﻿namespace HKSH.Common.Repository.Database
+﻿using HKSH.Common.ShareModel.User;
+
+namespace HKSH.Common.Repository.Database
 {
     /// <summary>
-    /// ICurrentContext
+    /// IRepositoryCurrentContext
     /// </summary>
     public interface IRepositoryCurrentContext
     {
@@ -11,6 +13,6 @@
         /// <value>
         /// The current user.
         /// </value>
-        ClaimCurrentUser CurrentUser { get; }
+        UserInfoResponse CurrentUser { get; }
     }
 }

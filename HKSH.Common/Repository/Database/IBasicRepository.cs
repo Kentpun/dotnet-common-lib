@@ -1,10 +1,8 @@
 ﻿namespace HKSH.Common.Repository.Database
 {
     /// <summary>
-    /// IRepository
+    /// IBasicRepository
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="System.IDisposable" />
     public interface IBasicRepository<T> : IDisposable where T : class
     {
         /// <summary>

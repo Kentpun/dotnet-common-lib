@@ -17,8 +17,6 @@ namespace HKSH.Common.Repository.Database
     /// <summary>
     /// Repository
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="IRepository&lt;T&gt;" />
     internal class Repository<T> : IRepository<T> where T : class
     {
         /// <summary>
@@ -74,7 +72,7 @@ namespace HKSH.Common.Repository.Database
             {
                 if (string.IsNullOrEmpty(_currentUserId))
                 {
-                    _currentUserId = _currentContext.CurrentUser?.Id.ToString() ?? "";
+                    _currentUserId = _currentContext.CurrentUser?.UserId ?? string.Empty;
                 }
                 return _currentUserId;
             }
@@ -86,8 +84,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Add(T entity)
         {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
+            if (entity is IEntityTracker tracker)
             {
                 tracker.CreatedAt = DateTime.Now;
                 tracker.ModifiedAt = DateTime.Now;
@@ -107,8 +104,7 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public T AddSaveChange(T entity)
         {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
+            if (entity is IEntityTracker tracker)
             {
                 tracker.CreatedAt = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
@@ -165,8 +161,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Modify(T entity)
         {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
+            if (entity is IEntityTracker tracker)
             {
                 tracker.ModifiedAt = DateTime.Now;
                 tracker.ModifiedBy = CurrentUserId;
@@ -212,8 +207,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Delete(T entity)
         {
-            var tracker = entity as IEntityDelTracker;
-            if (tracker != null)
+            if (entity is IEntityDelTracker tracker)
             {
                 tracker.DeletedAt = DateTime.Now;
                 tracker.IsDeleted = true;
@@ -326,8 +320,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="userId">The user identifier.</param>
         public void Add(T entity, string userId)
         {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
+            if (entity is IEntityTracker tracker)
             {
                 tracker.CreatedAt = DateTime.Now;
                 tracker.ModifiedAt = DateTime.Now;
@@ -360,8 +353,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="userId">The user identifier.</param>
         public void Modify(T entity, string userId)
         {
-            var tracker = entity as IEntityTracker;
-            if (tracker != null)
+            if (entity is IEntityTracker tracker)
             {
                 tracker.ModifiedAt = DateTime.Now;
                 tracker.ModifiedBy = userId;
@@ -395,8 +387,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="userId">The user identifier.</param>
         public void Delete(T entity, string userId)
         {
-            var tracker = entity as IEntityDelTracker;
-            if (tracker != null)
+            if (entity is IEntityDelTracker tracker)
             {
                 tracker.DeletedAt = DateTime.Now;
                 tracker.IsDeleted = true;

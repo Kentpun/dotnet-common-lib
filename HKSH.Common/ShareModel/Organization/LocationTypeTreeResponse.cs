@@ -6,6 +6,14 @@
     public class LocationTypeTreeResponse
     {
         /// <summary>
+        /// Gets or sets the location type identifier.
+        /// </summary>
+        /// <value>
+        /// The location type identifier.
+        /// </value>
+        public int LocationTypeId { get; set; }
+
+        /// <summary>
         /// Gets or sets the location type code.
         /// </summary>
         /// <value>
@@ -51,6 +59,14 @@
     /// </summary>
     public class LocationTypeTreeLocationResponse
     {
+        /// <summary>
+        /// Gets or sets the location identifier.
+        /// </summary>
+        /// <value>
+        /// The location identifier.
+        /// </value>
+        public int LocationId { get; set; }
+
         /// <summary>
         /// Gets or sets the location code.
         /// </summary>

@@ -13,7 +13,7 @@ namespace HKSH.Common.ShareModel.User
         /// <value>
         /// The user identifier.
         /// </value>
-        public string UserId { get; set; } = null!;
+        public string? UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the language.
@@ -22,6 +22,7 @@ namespace HKSH.Common.ShareModel.User
         /// The language.
         /// </value>
         public Language? Language { get; set; }
+
         /// <summary>
         /// Gets or sets the location code.
         /// </summary>

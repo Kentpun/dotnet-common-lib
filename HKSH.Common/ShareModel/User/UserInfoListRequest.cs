@@ -14,6 +14,30 @@
         public string? Keyword { get; set; }
 
         /// <summary>
+        /// Gets or sets the user ids.
+        /// </summary>
+        /// <value>
+        /// The user ids.
+        /// </value>
+        public List<string>? UserIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the exclude user ids.
+        /// </summary>
+        /// <value>
+        /// The exclude user ids.
+        /// </value>
+        public List<string>? ExcludeUserIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the staff ids.
+        /// </summary>
+        /// <value>
+        /// The staff ids.
+        /// </value>
+        public List<string>? StaffIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the group.
         /// </summary>
         /// <value>

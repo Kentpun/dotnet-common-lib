@@ -34,6 +34,21 @@ namespace HKSH.Common.ShareModel.User
         public string UserNameTc { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets the name of the combo.
+        /// UserNameEn (StaffId) 
+        /// </summary>
+        /// <value>
+        /// The name of the combo.
+        /// </value>
+        public string ComboName
+        {
+            get
+            {
+                return $"{UserNameEn} ({StaffId})";
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>
@@ -152,6 +167,14 @@ namespace HKSH.Common.ShareModel.User
         /// The type of the role.
         /// </value>
         public string RoleType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the type of the location.
+        /// </summary>
+        /// <value>
+        /// The type of the location.
+        /// </value>
+        public string? LocationType { get; set; }
 
         /// <summary>
         /// Gets or sets the location full name en.

@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 namespace HKSH.Common.Repository.Database
 {
     /// <summary>
-    /// Repository
+    /// BasicRepository
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <seealso cref="MicroService.Repository.IRepository{T}" />
     internal class BasicRepository<T> : IBasicRepository<T> where T : class
     {
         /// <summary>
@@ -37,18 +35,24 @@ namespace HKSH.Common.Repository.Database
         /// <param name="currentContext">The current context.</param>
         public BasicRepository(IBasicDbContext dbContext, IRepositoryCurrentContext currentContext)
         {
-            _dbContext = dbContext as DbContext;
+            _dbContext = (dbContext as DbContext)!;
             _currentContext = currentContext;
-            _dbSet = _dbContext.Set<T>();
+            _dbSet = _dbContext!.Set<T>();
         }
 
+        /// <summary>
+        /// Gets the current user identifier.
+        /// </summary>
+        /// <value>
+        /// The current user identifier.
+        /// </value>
         public string? CurrentUserId
         {
             get
             {
                 if (string.IsNullOrEmpty(_currentUserId))
                 {
-                    _currentUserId = _currentContext?.CurrentUser?.Id.ToString() ?? "";
+                    _currentUserId = _currentContext?.CurrentUser?.UserId;
                 }
                 return _currentUserId;
             }
@@ -106,7 +110,7 @@ namespace HKSH.Common.Repository.Database
             {
                 var existedEntity = item as IEntityIdentify<long>;
                 var currentEntity = entity as IEntityIdentify<long>;
-                if (existedEntity?.Id == currentEntity.Id)
+                if (existedEntity?.Id == currentEntity!.Id)
                 {
                     _dbSet.Local.Remove(item);
                     break;
