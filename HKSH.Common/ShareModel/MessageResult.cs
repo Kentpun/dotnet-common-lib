@@ -120,6 +120,22 @@
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="module">The module.</param>
+        /// <returns></returns>
+        public static MessageResult FailureResult(string message, string? module = "")
+        {
+            return new MessageResult
+            {
+                Success = false,
+                Code = SystemMessage.Failure.Code,
+                Message = message,
+                Module = string.IsNullOrEmpty(module) ? "System" : module
+            };
+        }
+        /// <summary>
+        /// Failures the result.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="module">The module.</param>
         /// <param name="code">The code.</param>
         /// <returns></returns>
         public static MessageResult FailureResult(MessageModel messageModel, string? module = "", string message = "")

@@ -46,12 +46,12 @@ namespace HKSH.Common.ShareModel
         #region Permission
 
         /// <summary>
-        /// Gets the system is busy.
+        /// Gets the user does not have permission to do this.
         /// </summary>
         /// <value>
-        /// The system is busy.
+        /// The user does not have permission to do this.
         /// </value>
-        public static MessageModel TheSystemIsBusy => new SystemMessage("000061");
+        public static MessageModel TheUserDoesNotHavePermissionToDoThis => new SystemMessage("000061");
 
         /// <summary>
         /// Gets the actions are too frequent.
@@ -126,12 +126,12 @@ namespace HKSH.Common.ShareModel
 
         #region System
         /// <summary>
-        /// Gets the user does not have permission to do this.
+        /// Gets the system is busy.
         /// </summary>
         /// <value>
-        /// The user does not have permission to do this.
+        /// The system is busy.
         /// </value>
-        public static MessageModel TheUserDoesNotHavePermissionToDoThis => new SystemMessage("000090");
+        public static MessageModel TheSystemIsBusy => new SystemMessage("000090");
 
         /// <summary>
         /// Gets the downstream system response timed out.
@@ -181,6 +181,5 @@ namespace HKSH.Common.ShareModel
         /// </value>
         public static MessageModel UnknownException => new SystemMessage("000099");
         #endregion
-
     }
 }
