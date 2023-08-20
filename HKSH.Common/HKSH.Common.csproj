@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.7.9</Version>
-		<Description>Location Add Site</Description>
+		<Version>4.8.0</Version>
+		<Description>Add Constant CultureInfoNameConstant</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

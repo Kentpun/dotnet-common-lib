@@ -3,7 +3,7 @@
     /// <summary>
     /// Common AuditLog Constants
     /// </summary>
-    public class CommonAuditLogConstants
+    public static class CommonAuditLogConstants
     {
         /// <summary>
         /// The audit log action
