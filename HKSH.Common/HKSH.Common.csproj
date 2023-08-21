@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.8.1</Version>
-		<Description>Add Minio Options</Description>
+		<Version>4.8.2</Version>
+		<Description>Add GetContentType</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
