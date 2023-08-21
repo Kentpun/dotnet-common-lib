@@ -1,4 +1,4 @@
-﻿namespace HKSH.Common.File
+﻿namespace HKSH.Common.ShareModel.File
 {
     /// <summary>
     /// UploadFileRequest

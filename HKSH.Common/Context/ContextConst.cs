@@ -1,8 +1,9 @@
-﻿//  Mou,Xiaohua 2023/05/22 11:39
-
-namespace HKSH.Common.Context
+﻿namespace HKSH.Common.Context
 {
-    public class ContextConst
+    /// <summary>
+    /// ContextConst
+    /// </summary>
+    public static class ContextConst
     {
         /// <summary>
         /// session key prefix

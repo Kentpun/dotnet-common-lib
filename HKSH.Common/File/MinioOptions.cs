@@ -41,5 +41,13 @@
         /// The name of the bucket.
         /// </value>
         public string BucketName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the presigned expires.
+        /// </summary>
+        /// <value>
+        /// The presigned expires.
+        /// </value>
+        public int PresignedExpires { get; set; }
     }
 }

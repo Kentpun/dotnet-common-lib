@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.8.2</Version>
-		<Description>Add GetContentType</Description>
+		<Version>4.8.3</Version>
+		<Description>Update File Share Model</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
