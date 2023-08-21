@@ -36,6 +36,65 @@ namespace HKSH.Common.ShareModel
 
         #endregion Common
 
+        #region System
+
+        /// <summary>
+        /// Gets the system is busy.
+        /// </summary>
+        /// <value>
+        /// The system is busy.
+        /// </value>
+        public static MessageModel TheSystemIsBusy => new SystemMessage("000100");
+
+        /// <summary>
+        /// Gets the downstream system response timed out.
+        /// </summary>
+        /// <value>
+        /// The downstream system response timed out.
+        /// </value>
+        public static MessageModel TheDownstreamSystemResponseTimedOut => new SystemMessage("000101");
+
+        /// <summary>
+        /// Gets the downstream system cannot find or cannot reach.
+        /// </summary>
+        /// <value>
+        /// The downstream system cannot find or cannot reach.
+        /// </value>
+        public static MessageModel TheDownstreamSystemCannotFindOrCannotReach => new SystemMessage("000102");
+
+        /// <summary>
+        /// Gets the database connection error.
+        /// </summary>
+        /// <value>
+        /// The database connection error.
+        /// </value>
+        public static MessageModel DatabaseConnectionError => new SystemMessage("000103");
+
+        /// <summary>
+        /// Gets the database operation exception.
+        /// </summary>
+        /// <value>
+        /// The database operation exception.
+        /// </value>
+        public static MessageModel DatabaseOperationException => new SystemMessage("000104");
+
+        /// <summary>
+        /// Gets the calling downstream system is unresponsive.
+        /// </summary>
+        /// <value>
+        /// The calling downstream system is unresponsive.
+        /// </value>
+        public static MessageModel TheCallingDownstreamSystemIsUnresponsive => new SystemMessage("000105");
+
+        /// <summary>
+        /// Gets the unknown exception.
+        /// </summary>
+        /// <value>
+        /// The unknown exception.
+        /// </value>
+        public static MessageModel UnknownException => new SystemMessage("000106");
+        #endregion
+
         #region Permission
 
         /// <summary>
@@ -44,7 +103,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The user does not have permission to do this.
         /// </value>
-        public static MessageModel TheUserDoesNotHavePermissionToDoThis => new SystemMessage("000061");
+        public static MessageModel TheUserDoesNotHavePermissionToDoThis => new SystemMessage("000200");
 
         /// <summary>
         /// Gets the actions are too frequent.
@@ -52,11 +111,9 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The actions are too frequent.
         /// </value>
-        public static MessageModel ActionsAreTooFrequent => new SystemMessage("000062");
+        public static MessageModel ActionsAreTooFrequent => new SystemMessage("000201");
 
         #endregion Permission
-
-
 
         #region Param
 
@@ -66,7 +123,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The required parameter is empty.
         /// </value>
-        public static MessageModel TheRequiredParameterIsEmpty => new SystemMessage("000040");
+        public static MessageModel TheRequiredParameterIsEmpty => new SystemMessage("000300");
 
         /// <summary>
         /// Gets the required parameter is invalid.
@@ -74,7 +131,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The required parameter is invalid.
         /// </value>
-        public static MessageModel TheRequiredParameterIsInvalid => new SystemMessage("000041");
+        public static MessageModel TheRequiredParameterIsInvalid => new SystemMessage("000301");
 
         /// <summary>
         /// Gets the data is invalid.
@@ -82,7 +139,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The data is invalid.
         /// </value>
-        public static MessageModel TheDataIsInvalid => new SystemMessage("000042");
+        public static MessageModel TheDataIsInvalid => new SystemMessage("000302");
 
         /// <summary>
         /// Gets the signature verification failed.
@@ -90,7 +147,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The signature verification failed.
         /// </value>
-        public static MessageModel SignatureVerificationFailed => new SystemMessage("000043");
+        public static MessageModel SignatureVerificationFailed => new SystemMessage("000303");
 
         /// <summary>
         /// Gets the token mismatch.
@@ -98,7 +155,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The token mismatch.
         /// </value>
-        public static MessageModel TokenMismatch => new SystemMessage("000044");
+        public static MessageModel TokenMismatch => new SystemMessage("000304");
 
         /// <summary>
         /// Gets the token has lapsed.
@@ -106,7 +163,7 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The token has lapsed.
         /// </value>
-        public static MessageModel TheTokenHasLapsed => new SystemMessage("000045");
+        public static MessageModel TheTokenHasLapsed => new SystemMessage("000305");
 
         /// <summary>
         /// Gets the request parameter is incorrect.
@@ -114,69 +171,12 @@ namespace HKSH.Common.ShareModel
         /// <value>
         /// The request parameter is incorrect.
         /// </value>
-        public static MessageModel TheRequestParameterIsIncorrect => new SystemMessage("000046");
+        public static MessageModel TheRequestParameterIsIncorrect => new SystemMessage("000306");
 
         #endregion Param
 
 
 
-        #region System
 
-        /// <summary>
-        /// Gets the system is busy.
-        /// </summary>
-        /// <value>
-        /// The system is busy.
-        /// </value>
-        public static MessageModel TheSystemIsBusy => new SystemMessage("000090");
-
-        /// <summary>
-        /// Gets the downstream system response timed out.
-        /// </summary>
-        /// <value>
-        /// The downstream system response timed out.
-        /// </value>
-        public static MessageModel TheDownstreamSystemResponseTimedOut => new SystemMessage("000091");
-
-        /// <summary>
-        /// Gets the downstream system cannot find or cannot reach.
-        /// </summary>
-        /// <value>
-        /// The downstream system cannot find or cannot reach.
-        /// </value>
-        public static MessageModel TheDownstreamSystemCannotFindOrCannotReach => new SystemMessage("000092");
-
-        /// <summary>
-        /// Gets the database connection error.
-        /// </summary>
-        /// <value>
-        /// The database connection error.
-        /// </value>
-        public static MessageModel DatabaseConnectionError => new SystemMessage("000093");
-
-        /// <summary>
-        /// Gets the database operation exception.
-        /// </summary>
-        /// <value>
-        /// The database operation exception.
-        /// </value>
-        public static MessageModel DatabaseOperationException => new SystemMessage("000094");
-
-        /// <summary>
-        /// Gets the calling downstream system is unresponsive.
-        /// </summary>
-        /// <value>
-        /// The calling downstream system is unresponsive.
-        /// </value>
-        public static MessageModel TheCallingDownstreamSystemIsUnresponsive => new SystemMessage("000095");
-
-        /// <summary>
-        /// Gets the unknown exception.
-        /// </summary>
-        /// <value>
-        /// The unknown exception.
-        /// </value>
-        public static MessageModel UnknownException => new SystemMessage("000099");
-        #endregion
     }
 }
