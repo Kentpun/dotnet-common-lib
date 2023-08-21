@@ -3,7 +3,7 @@
     /// <summary>
     /// Common import constant
     /// </summary>
-    public class CommonImportConstant
+    public static class CommonImportConstant
     {
         /// <summary>
         /// The ex acm import data MSG
