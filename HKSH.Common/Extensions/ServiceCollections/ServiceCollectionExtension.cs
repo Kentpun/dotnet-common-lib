@@ -207,6 +207,19 @@ public static class ServiceCollectionExtension
     }
 
     /// <summary>
+    /// Adds the minio options.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration">The configuration.</param>
+    /// <returns></returns>
+    public static IServiceCollection AddMinioOptions(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        services.Configure<MinioOptions>(configuration.GetSection(MinioOptions.SECTION));
+        services.AddTransient<MinioOptions>();
+        return services;
+    }
+
+    /// <summary>
     /// Adds the enable audit log options.
     /// </summary>
     /// <param name="services">The services.</param>
@@ -373,6 +386,9 @@ public static class ServiceCollectionExtension
         //Variable Options
         services.AddVariableOptions(configuration);
 
+        //Minio Options
+        services.AddMinioOptions(configuration);
+
         //Enable AuditLog Options
         services.AddEnableAuditLogOptions(configuration);
 
@@ -487,6 +503,9 @@ public static class ServiceCollectionExtension
 
         //Variable Options
         services.AddVariableOptions(configuration);
+
+        //Minio Options
+        services.AddMinioOptions(configuration);
 
         //Enable AuditLog Options
         services.AddEnableAuditLogOptions(configuration);
