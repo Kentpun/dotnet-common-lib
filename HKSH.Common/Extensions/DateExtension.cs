@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using MongoDB.Driver.Linq;
+using System.Globalization;
 
 namespace HKSH.Common.Extensions
 {
@@ -89,9 +90,13 @@ namespace HKSH.Common.Extensions
         /// </summary>
         /// <param name="dt">The dt.</param>
         /// <returns></returns>
-        public static string To8601String(DateTime dt)
+        public static string To8601String(this DateTime? dt)
         {
-            return dt.ToString("yyyy-MM-dd'T'HH:mm:ssZ", CultureInfo.InvariantCulture);
+            if (dt.HasValue)
+            {
+                return dt.Value.ToString("yyyy-MM-dd'T'HH:mm:ssZ", CultureInfo.InvariantCulture);
+            }
+            return string.Empty;
         }
     }
 }

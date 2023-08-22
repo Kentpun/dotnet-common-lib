@@ -7,7 +7,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
 		<Version>4.8.6</Version>
-		<Description>Add Minio RetainUntilDate</Description>
+		<Description>Add Minio RetainUntilDate And To8601String</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
