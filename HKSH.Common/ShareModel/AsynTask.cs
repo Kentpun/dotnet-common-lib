@@ -9,6 +9,7 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// 数据导入异步任务
     /// </summary>
+    /// <seealso cref="HKSH.Common.Base.BaseTrackedEntity" />
     /// <seealso cref="BaseTrackedEntity" />
     public class AsynTask : BaseTrackedEntity
     {
@@ -54,16 +55,38 @@ namespace HKSH.Common.ShareModel
         [MaxLength(200)]
         public string FileName { get; set; } = string.Empty;
 
+        ///// <summary>
+        ///// 文件路径
+        ///// </summary>
+        ///// <value>
+        ///// The file URL.
+        ///// </value>
+        //[Column("file_url")]
+        //[Comment("file url")]
+        //[MaxLength(500)]
+        //public string FileUrl { get; set; } = string.Empty;
+
         /// <summary>
-        /// 文件路径
+        /// Gets or sets the name of the bucket.
         /// </summary>
         /// <value>
-        /// The file URL.
+        /// The name of the bucket.
         /// </value>
-        [Column("file_url")]
-        [Comment("file url")]
+        [Column("bucket_name")]
+        [Comment("bucket name")]
         [MaxLength(500)]
-        public string FileUrl { get; set; } = string.Empty;
+        public string BucketName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the name of the object.
+        /// </summary>
+        /// <value>
+        /// The name of the object.
+        /// </value>
+        [Column("object_name")]
+        [Comment("object name")]
+        [MaxLength(1000)]
+        public string ObjectName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the status.
