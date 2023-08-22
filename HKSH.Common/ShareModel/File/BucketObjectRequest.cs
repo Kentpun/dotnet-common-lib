@@ -20,5 +20,13 @@
         /// The name of the object.
         /// </value>
         public string ObjectName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Minio测试保留至日期
+        /// </summary>
+        /// <value>
+        /// The retain until date.
+        /// </value>
+        public DateTime? RetainUntilDate { get; set; }
     }
 }

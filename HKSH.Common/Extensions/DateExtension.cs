@@ -1,4 +1,6 @@
-﻿namespace HKSH.Common.Extensions
+﻿using System.Globalization;
+
+namespace HKSH.Common.Extensions
 {
     /// <summary>
     /// Date Extension
@@ -80,6 +82,16 @@
         {
             DateTime? date = dateString.GetDateRangeMin();
             return date.HasValue ? date.Value.AddDays(1) : null;
+        }
+
+        /// <summary>
+        /// Converts to 8601string.
+        /// </summary>
+        /// <param name="dt">The dt.</param>
+        /// <returns></returns>
+        public static string To8601String(DateTime dt)
+        {
+            return dt.ToString("yyyy-MM-dd'T'HH:mm:ssZ", CultureInfo.InvariantCulture);
         }
     }
 }
