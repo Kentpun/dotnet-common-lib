@@ -8,6 +8,7 @@ using HKSH.Common.ShareModel.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace HKSH.Common.Context
 {
@@ -98,7 +99,7 @@ namespace HKSH.Common.Context
                     }
                     else
                     {
-                        _logger.LogExc($"header {_httpContextAccessor?.HttpContext?.Request.Headers}");
+                        _logger.LogExc($"header {JsonSerializer.Serialize(_httpContextAccessor?.HttpContext?.Request.Headers)}");
                     }
 
                     throw new UnAuthorizedException("Error access token");
