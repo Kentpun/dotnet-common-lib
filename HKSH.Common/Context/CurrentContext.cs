@@ -91,6 +91,16 @@ namespace HKSH.Common.Context
 
                 if (string.IsNullOrEmpty(reallyUserId))
                 {
+                    var header = _httpContextAccessor?.HttpContext?.Request.Headers;
+                    if (header == null)
+                    {
+                        _logger.LogExc($"header is null ");
+                    }
+                    else
+                    {
+                        _logger.LogExc($"header {_httpContextAccessor?.HttpContext?.Request.Headers}");
+                    }
+
                     throw new UnAuthorizedException("Error access token");
                 }
 
