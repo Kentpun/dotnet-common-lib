@@ -84,19 +84,5 @@ namespace HKSH.Common.Extensions
             DateTime? date = dateString.GetDateRangeMin();
             return date.HasValue ? date.Value.AddDays(1) : null;
         }
-
-        /// <summary>
-        /// Converts to 8601string.
-        /// </summary>
-        /// <param name="dt">The dt.</param>
-        /// <returns></returns>
-        public static string To8601String(this DateTime? dt)
-        {
-            if (dt.HasValue)
-            {
-                return dt.Value.ToString("yyyy-MM-dd'T'HH:mm:ssZ", CultureInfo.InvariantCulture);
-            }
-            return string.Empty;
-        }
     }
 }

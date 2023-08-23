@@ -1,4 +1,6 @@
-﻿namespace HKSH.Common.ShareModel.File
+﻿using HKSH.Common.Enums;
+
+namespace HKSH.Common.ShareModel.File
 {
     /// <summary>
     /// UploadFileRequest
@@ -14,11 +16,19 @@
         public string Key { get; set; } = string.Empty;
 
         /// <summary>
-        /// Minio测试保留至日期
+        /// Gets or sets the expire in.
         /// </summary>
         /// <value>
-        /// The retain until date.
+        /// The expire in.
         /// </value>
-        public DateTime? RetainUntilDate { get; set; }
+        public int? ExpireIn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expiry time unit.
+        /// </summary>
+        /// <value>
+        /// The expiry time unit.
+        /// </value>
+        public TimeUnit ExpiryTimeUnit { get; set; } = TimeUnit.Minute;
     }
 }
