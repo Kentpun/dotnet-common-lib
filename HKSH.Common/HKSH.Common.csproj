@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.9.1</Version>
+		<Version>4.9.2</Version>
 		<Description>update Access Token log</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
