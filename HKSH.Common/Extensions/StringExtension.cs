@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace HKSH.Common.Extensions
@@ -347,6 +348,28 @@ namespace HKSH.Common.Extensions
             }
 
             if (DateTime.TryParse(strDatetime, out DateTime dt))
+            {
+                return dt;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Converts to datetime.
+        /// </summary>
+        /// <param name="strDatetime">The string datetime.</param>
+        /// <param name="format">The format.</param>
+        /// <returns></returns>
+        public static DateTime? ToDateTimeWithFormat(this string? strDatetime, string[] formats)
+        {
+            CultureInfo cultureInfo = new CultureInfo("zh-HK", true);
+
+            if ((strDatetime ?? string.Empty).IsMissing())
+            {
+                return null;
+            }
+
+            if (DateTime.TryParseExact(strDatetime, formats, cultureInfo, DateTimeStyles.None, out DateTime dt))
             {
                 return dt;
             }
