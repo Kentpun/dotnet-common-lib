@@ -167,9 +167,9 @@ public static class ServiceCollectionExtension
             }
         }
 
-        configuration.AddJsonFile("./Configmap/appsettings.configmap.common.json", true, true);
-        configuration.AddJsonFile("./Configmap/appsettings.configmap.nlogs.json", true, true);
-        configuration.AddJsonFile("./Secret/appsettings.secret.common.json", true, true);
+        configuration.AddJsonFile("./Configmap/appsettings.configmap.common.json", optional: true, reloadOnChange: true);
+        configuration.AddJsonFile("./Configmap/appsettings.configmap.nlogs.json", optional: true, reloadOnChange: true);
+        configuration.AddJsonFile("./Secret/appsettings.secret.common.json", optional: true, reloadOnChange: true);
         configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         configuration.AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
 

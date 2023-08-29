@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.Constants
 {
     /// <summary>
-    /// 区域性名称	
+    /// 区域性名称
     /// </summary>
     public static class CultureInfoNameConstant
     {

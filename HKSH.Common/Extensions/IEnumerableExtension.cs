@@ -1,4 +1,5 @@
-﻿using HKSH.Common.Helper;
+﻿using HKSH.Common.Constants;
+using HKSH.Common.Helper;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static IOrderedEnumerable<T> OrderByCN<T>(this IEnumerable<T> source, Expression<Func<T, string>> field)
         {
-            var encoding = Encoding.GetEncoding("gb2312");
+            var encoding = Encoding.GetEncoding(GlobalConstant.CHINESE_ENCODING_NAME);
             var propertyName = ExpressionHelpers.GetExpressionName(field);
             var property = typeof(T).GetProperty(propertyName);
             return source.OrderBy(o => BitConverter.ToString(encoding.GetBytes(Convert.ToString(property?.GetValue(o))!)));

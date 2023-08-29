@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using HKSH.Common.Constants;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -43,7 +44,7 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static string GetContentType(this string fileExt)
         {
-            return fileExt switch
+            return fileExt.ToLower() switch
             {
                 ".doc" => "application/msword",
                 ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -242,7 +243,7 @@ namespace HKSH.Common.Extensions
             {
                 return input;
             }
-            return input.Substring(0, input.LastIndexOf(unitOld, comparison)) + unitNew;
+            return input[..input.LastIndexOf(unitOld, comparison)] + unitNew;
         }
 
         /// <summary>
@@ -277,31 +278,6 @@ namespace HKSH.Common.Extensions
                 tmp.Append(@"\u" + uxc.ToString("x4"));
             }
             return (tmp.ToString());
-        }
-
-        /// <summary>
-        /// Determines whether the specified sub item contains any.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <param name="subItem">The sub item.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified sub item contains any; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool ContainsAny(this List<string> input, List<string> subItem)
-        {
-            if (input == null || subItem == null ||
-                !input.Any() || !subItem.Any())
-            {
-                return false;
-            }
-            foreach (var item in subItem)
-            {
-                if (input.Contains(item))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>
@@ -347,7 +323,7 @@ namespace HKSH.Common.Extensions
                 return null;
             }
 
-            if (DateTime.TryParse(strDatetime, out DateTime dt))
+            if (DateTime.TryParse(strDatetime, new CultureInfo(CultureInfoNameConstant.HK, true), DateTimeStyles.None, out DateTime dt))
             {
                 return dt;
             }
@@ -362,7 +338,7 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static DateTime? ToDateTimeWithFormat(this string? strDatetime, string[] formats)
         {
-            CultureInfo cultureInfo = new CultureInfo("zh-HK", true);
+            CultureInfo cultureInfo = new(CultureInfoNameConstant.HK, true);
 
             if ((strDatetime ?? string.Empty).IsMissing())
             {
@@ -373,6 +349,7 @@ namespace HKSH.Common.Extensions
             {
                 return dt;
             }
+
             return null;
         }
     }

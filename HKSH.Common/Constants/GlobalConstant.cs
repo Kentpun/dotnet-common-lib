@@ -44,5 +44,10 @@
         /// The dictioary redis field
         /// </summary>
         public const string SYSTEM_MESSAGE_PREFIX = "SYS";
+
+        /// <summary>
+        /// The chinese encoding name
+        /// </summary>
+        public const string CHINESE_ENCODING_NAME = "gb2312";
     }
 }
