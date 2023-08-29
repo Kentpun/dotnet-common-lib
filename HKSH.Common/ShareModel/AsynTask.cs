@@ -9,7 +9,6 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// 数据导入异步任务
     /// </summary>
-    /// <seealso cref="HKSH.Common.Base.BaseTrackedEntity" />
     /// <seealso cref="BaseTrackedEntity" />
     public class AsynTask : BaseTrackedEntity
     {
