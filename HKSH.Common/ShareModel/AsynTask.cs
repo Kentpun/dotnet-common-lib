@@ -54,17 +54,6 @@ namespace HKSH.Common.ShareModel
         [MaxLength(200)]
         public string FileName { get; set; } = string.Empty;
 
-        ///// <summary>
-        ///// 文件路径
-        ///// </summary>
-        ///// <value>
-        ///// The file URL.
-        ///// </value>
-        //[Column("file_url")]
-        //[Comment("file url")]
-        //[MaxLength(500)]
-        //public string FileUrl { get; set; } = string.Empty;
-
         /// <summary>
         /// Gets or sets the name of the bucket.
         /// </summary>
