@@ -133,7 +133,7 @@ namespace HKSH.Common.Repository
         /// </summary>
         public QueryCollection()
         {
-            Add(new Query { Name = "IsDeleted", Operator = Query.Operators.Equal, Value = false });
+            Add(new Query { Name = "RecordStatus", Operator = Query.Operators.Equal, Value = 0 });
         }
 
         /// <summary>

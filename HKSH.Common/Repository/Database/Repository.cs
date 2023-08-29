@@ -210,7 +210,7 @@ namespace HKSH.Common.Repository.Database
             if (entity is IEntityDelTracker tracker)
             {
                 tracker.DeletedAt = DateTime.Now;
-                tracker.IsDeleted = true;
+                tracker.RecordStatus = 1;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
                     tracker.DeletedBy = CurrentUserId;
@@ -390,7 +390,7 @@ namespace HKSH.Common.Repository.Database
             if (entity is IEntityDelTracker tracker)
             {
                 tracker.DeletedAt = DateTime.Now;
-                tracker.IsDeleted = true;
+                tracker.RecordStatus = 1;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
                     tracker.DeletedBy = userId;
@@ -464,7 +464,7 @@ namespace HKSH.Common.Repository.Database
             var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLogDocument>();
+                List<RowAuditLogDocument> rows = new();
                 var auditEntries = OnBeforeSaveChanges(request);
                 var result = _dbContext.SaveChangesAsync();
                 result.Wait();
@@ -516,7 +516,7 @@ namespace HKSH.Common.Repository.Database
                     BusinessType = request.BusinessType,
                     BusinessTypeJoinPrimaryKey = request.BusinessTypeJoinPrimaryKey,
                     Section = request.Section,
-                    Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
+                    Action = (entityDelTracker?.RecordStatus ?? 0) == 1 ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);
 

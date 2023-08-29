@@ -66,8 +66,8 @@ namespace HKSH.Common.Base
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        [Column("is_deleted")]
-        public bool IsDeleted { get; set; }
+        [Column("record_status")]
+        public byte RecordStatus { get; set; }
 
         /// <summary>
         /// Gets or sets the deleted at.

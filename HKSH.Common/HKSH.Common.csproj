@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.9.2</Version>
-		<Description>update Access Token log</Description>
+		<Version>4.9.3</Version>
+		<Description>Update IsDeleted To RecordStatus</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 

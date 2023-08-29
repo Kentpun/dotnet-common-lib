@@ -150,7 +150,7 @@ namespace HKSH.Common.Repository.Database
             if (tracker != null)
             {
                 tracker.DeletedAt = DateTime.Now;
-                tracker.IsDeleted = true;
+                tracker.RecordStatus = 1;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
                     tracker.DeletedBy = CurrentUserId;

@@ -16,7 +16,7 @@ namespace HKSH.Common.Configurations
         /// <param name="modelBuilder">The model builder.</param>
         public static void SetQueryFilter(ModelBuilder modelBuilder)
         {
-            var valueExpr = Expression.Constant(false);
+            var valueExpr = Expression.Constant(0);
             var allEntities = Assembly.GetEntryAssembly()?.DefinedTypes.Where(a => typeof(IEntityDelTracker).IsAssignableFrom(a));
             if (allEntities != null)
             {
@@ -25,7 +25,7 @@ namespace HKSH.Common.Configurations
                     if (item.BaseType == typeof(BaseTrackedEntity) || item.BaseType == typeof(BaseTrackedEntity<long>))
                     {
                         var typeExpr = Expression.Parameter(item, "entity");
-                        var propertyExpr = Expression.Property(typeExpr, "IsDeleted");
+                        var propertyExpr = Expression.Property(typeExpr, "RecordStatus");
                         var equalExpr = Expression.Equal(propertyExpr, valueExpr);
                         var expression = Expression.Lambda(equalExpr, typeExpr);
                         modelBuilder.Entity(item).HasQueryFilter(expression);

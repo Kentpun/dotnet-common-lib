@@ -255,7 +255,7 @@ namespace HKSH.Common.Repository.Database
                     BusinessType = request.BusinessType,
                     BusinessTypeJoinPrimaryKey = request.BusinessTypeJoinPrimaryKey,
                     Section = request.Section,
-                    Action = entityDelTracker?.IsDeleted ?? false ? EntityState.Deleted.ToString() : entry.State.ToString()
+                    Action = (entityDelTracker?.RecordStatus ?? 0) == 1 ? EntityState.Deleted.ToString() : entry.State.ToString()
                 };
                 auditEntries.Add(auditEntry);
 
