@@ -16,7 +16,7 @@ namespace HKSH.Common.Configurations
         /// <param name="modelBuilder">The model builder.</param>
         public static void SetQueryFilter(ModelBuilder modelBuilder)
         {
-            var valueExpr = Expression.Constant(0);
+            var valueExpr = Expression.Constant((byte)0);
             var allEntities = Assembly.GetEntryAssembly()?.DefinedTypes.Where(a => typeof(IEntityDelTracker).IsAssignableFrom(a));
             if (allEntities != null)
             {
