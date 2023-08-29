@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.9.3</Version>
+		<Version>4.9.4</Version>
 		<Description>Update RecordStatus</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
