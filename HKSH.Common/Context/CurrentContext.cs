@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using System.Text.Json;
+using HKSH.Common.Helper;
 
 namespace HKSH.Common.Context
 {
@@ -80,35 +81,34 @@ namespace HKSH.Common.Context
                     return _currentUserId;
                 }
 
-                var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (string.IsNullOrEmpty(reallyUserId))
+                var userId = "";
+                
+                var token = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER][0] ?? "";
+                if (!string.IsNullOrEmpty(token))
                 {
-                    var containsUserId = _httpContextAccessor?.HttpContext?.Request.Headers.ContainsKey(GlobalConstant.CURRENT_USER_CODE) ?? false;
+                    userId = JwtHelper.GetUserId(token);
+                }
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    var containsUserId =
+                        _httpContextAccessor?.HttpContext?.Request.Headers.ContainsKey(GlobalConstant.CURRENT_USER_CODE) ??
+                        false;
                     if (containsUserId)
                     {
-                        reallyUserId = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.CURRENT_USER_CODE];
+                        userId = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.CURRENT_USER_CODE];
                     }
                 }
 
-                if (string.IsNullOrEmpty(reallyUserId))
+                if (string.IsNullOrEmpty(userId))
                 {
-                    var header = _httpContextAccessor?.HttpContext?.Request.Headers;
-                    if (header == null)
-                    {
-                        _logger.LogExc($"header is null ");
-                    }
-                    else
-                    {
-                        _logger.LogExc($"header {JsonSerializer.Serialize(_httpContextAccessor?.HttpContext?.Request.Headers)}");
-                    }
+                    _logger.LogExc(
+                        $"request headers {JsonSerializer.Serialize(_httpContextAccessor?.HttpContext?.Request.Headers)}");
 
                     throw new UnAuthorizedException("Error access token");
                 }
 
-                int providerIndex = reallyUserId.IndexOf(':', 2);
-                string externalId = reallyUserId[(providerIndex + 1)..];
-
-                _currentUserId = externalId;
+                _currentUserId = userId;
 
                 return _currentUserId;
             }
@@ -130,7 +130,8 @@ namespace HKSH.Common.Context
 
                 try
                 {
-                    var claimCurrentUser = _redisRepository.HashGet<UserInfoResponse>(ContextConst.KEY_PATTERN + userId, ContextConst.USER_INFO);
+                    var claimCurrentUser = _redisRepository.HashGet<UserInfoResponse>(ContextConst.KEY_PATTERN + userId,
+                        ContextConst.USER_INFO);
                     if (claimCurrentUser == null || claimCurrentUser.UserId != userId)
                     {
                         throw new UnAuthorizedException("You are not logged in yet");
@@ -165,7 +166,8 @@ namespace HKSH.Common.Context
 
                 try
                 {
-                    _currentLocation = _redisRepository.HashGet<string>(ContextConst.KEY_PATTERN + userId, ContextConst.LOCATION_INFO);
+                    _currentLocation = _redisRepository.HashGet<string>(ContextConst.KEY_PATTERN + userId,
+                        ContextConst.LOCATION_INFO);
                     return _currentLocation;
                 }
                 catch (Exception e)
@@ -192,7 +194,9 @@ namespace HKSH.Common.Context
 
                 try
                 {
-                    _userPermissions = _redisRepository.HashGet<List<UserPrivilegeModule>>(ContextConst.KEY_PATTERN + userId, ContextConst.PRIVILEGE_INFO);
+                    _userPermissions =
+                        _redisRepository.HashGet<List<UserPrivilegeModule>>(ContextConst.KEY_PATTERN + userId,
+                            ContextConst.PRIVILEGE_INFO);
                     return _userPermissions;
                 }
                 catch (Exception e)

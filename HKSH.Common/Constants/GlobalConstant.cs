@@ -49,5 +49,10 @@
         /// The chinese encoding name
         /// </summary>
         public const string CHINESE_ENCODING_NAME = "gb2312";
+
+        /// <summary>
+        /// auth header
+        /// </summary>
+        public const string AUTH_HEADER = "Authorization";
     }
 }
