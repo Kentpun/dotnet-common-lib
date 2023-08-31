@@ -82,11 +82,15 @@ namespace HKSH.Common.Context
                 }
 
                 var userId = "";
-                
-                var token = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER][0] ?? "";
-                if (!string.IsNullOrEmpty(token))
+
+                var tokens = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER];
+                if (tokens.HasValue)
                 {
-                    userId = JwtHelper.GetUserId(token);
+                    var token = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER][0] ?? "";
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        userId = JwtHelper.GetUserId(token);
+                    }
                 }
 
                 if (string.IsNullOrEmpty(userId))
