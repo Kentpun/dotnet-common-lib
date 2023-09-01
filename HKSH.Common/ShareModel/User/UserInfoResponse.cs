@@ -386,7 +386,7 @@ namespace HKSH.Common.ShareModel.User
         /// <returns></returns>
         public bool IsAdminUser()
         {
-            return HasRole(CommonRoleConstants.ADMIN_ROLE_CODE);
+            return HasRole(CommonRoleConstants.ADMIN_ROLE_CODE) || HasRole(CommonRoleConstants.ADMIN_ROLE_CODE1);
         }
     }
 }
