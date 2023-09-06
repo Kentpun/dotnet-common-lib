@@ -19,5 +19,10 @@
         /// The action logs
         /// </summary>
         public const string ACTION_LOGS = "HKSH.Logs.Row.ActionLogs";
+
+        /// <summary>
+        /// The print logs
+        /// </summary>
+        public const string PRINT_LOGS = "HKSH.Logs.Row.PrintLogs";
     }
 }
