@@ -3,7 +3,7 @@
     /// <summary>
     /// ActivityLog
     /// </summary>
-    public class ActivityLog
+    public class ActivityLog : BaseLogModel
     {
         /// <summary>
         /// Gets or sets the identifier.

@@ -3,7 +3,7 @@
     /// <summary>
     /// Field AuditLog Document
     /// </summary>
-    public class FieldAuditLogDocument
+    public class FieldAuditLogDocument : BaseLogModel
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -68,22 +68,6 @@
         /// The update to.
         /// </value>
         public string UpdateTo { get; set; } = null!;
-
-        /// <summary>
-        /// Gets or sets the update time.
-        /// </summary>
-        /// <value>
-        /// The update time.
-        /// </value>
-        public DateTime UpdateTime { get; set; }
-
-        /// <summary>
-        /// Gets or sets the update by.
-        /// </summary>
-        /// <value>
-        /// The update by.
-        /// </value>
-        public string UpdateBy { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the action.

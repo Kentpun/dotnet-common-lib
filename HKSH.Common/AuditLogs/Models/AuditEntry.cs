@@ -137,7 +137,7 @@ namespace HKSH.Common.AuditLogs.Models
                 BusinessType = BusinessTypeJoinPrimaryKey.HasValue && BusinessTypeJoinPrimaryKey.Value ? $"{BusinessType}_{Entry.PrimaryKey()}" : BusinessType,
                 Section = Section,
                 Version = DateTime.Now.GetStringTypeTimeStamp(),
-                UpdateBy = UpdateBy,
+                UpdatedBy = UpdateBy ?? string.Empty,
                 Row = JsonConvert.SerializeObject(Entry.Entity, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore })
             };
 

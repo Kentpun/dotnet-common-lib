@@ -1,9 +1,9 @@
 ﻿namespace HKSH.Common.AuditLogs.Models
 {
     /// <summary>
-    ///
+    ///RowAuditLogDocument
     /// </summary>
-    public class RowAuditLogDocument
+    public class RowAuditLogDocument : BaseLogModel
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -68,14 +68,6 @@
         /// The version.
         /// </value>
         public string Version { get; set; } = null!;
-
-        /// <summary>
-        /// Gets or sets the update by.
-        /// </summary>
-        /// <value>
-        /// The update by.
-        /// </value>
-        public string? UpdateBy { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets the row.
