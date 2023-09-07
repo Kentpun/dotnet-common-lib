@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using System.Text.Json;
 using HKSH.Common.Helper;
+using Microsoft.Extensions.Primitives;
 
 namespace HKSH.Common.Context
 {
@@ -83,10 +84,10 @@ namespace HKSH.Common.Context
 
                 var userId = "";
 
-                var tokens = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER];
-                if (tokens.HasValue)
+                var hasValue = _httpContextAccessor?.HttpContext?.Request.Headers.TryGetValue(GlobalConstant.AUTH_HEADER, out StringValues tokenValues);
+                if (hasValue != null && hasValue.Value && tokenValues.Count > 0)
                 {
-                    var token = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER][0] ?? "";
+                    var token = tokenValues[0] ?? "";
                     if (!string.IsNullOrEmpty(token))
                     {
                         userId = JwtHelper.GetUserId(token);

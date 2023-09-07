@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.9.8</Version>
-		<Description>add print log cap topic</Description>
+		<Version>4.9.9</Version>
+		<Description>update auth header</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
