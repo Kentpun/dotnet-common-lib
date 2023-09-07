@@ -1,4 +1,5 @@
 ﻿using HKSH.Common.Constants;
+using HKSH.Common.Context;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using WebApiClient;
@@ -17,12 +18,19 @@ namespace HKSH.Common.ServiceInvoker
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
+        /// The current context
+        /// </summary>
+        private readonly ICurrentContext _currentContext;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ServiceInvoker"/> class.
         /// </summary>
         /// <param name="httpContextAccessor">The HTTP context accessor.</param>
-        public ServiceInvoker(IHttpContextAccessor httpContextAccessor)
+        /// <param name="currentContext">The current context.</param>
+        public ServiceInvoker(IHttpContextAccessor httpContextAccessor, ICurrentContext currentContext)
         {
             _httpContextAccessor = httpContextAccessor;
+            _currentContext = currentContext;
         }
 
         /// <summary>
@@ -45,15 +53,15 @@ namespace HKSH.Common.ServiceInvoker
 
                 if (headers != null)
                 {
-                    var authentication = headers[HttpRequestHeader.Authorization.ToString()];
+                    var authentication = headers[GlobalConstant.AUTH_HEADER];
                     if (!string.IsNullOrEmpty(authentication))
                     {
-                        options.HttpClient.DefaultRequestHeaders.Add(HttpRequestHeader.Authorization.ToString(),
+                        options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.AUTH_HEADER,
                             authentication.ToString());
                     }
                 }
 
-                var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var reallyUserId = _currentContext.CurrentUser?.UserId;
                 if (!string.IsNullOrEmpty(reallyUserId))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
@@ -82,10 +90,10 @@ namespace HKSH.Common.ServiceInvoker
                 //Add token
                 var headers = _httpContextAccessor.HttpContext?.Request.Headers;
 
-                var authentication = headers?[HttpRequestHeader.Authorization.ToString()];
+                var authentication = headers?[GlobalConstant.AUTH_HEADER];
                 if (!string.IsNullOrEmpty(authentication))
                 {
-                    options.HttpClient.DefaultRequestHeaders.Add(HttpRequestHeader.Authorization.ToString(),
+                    options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.AUTH_HEADER,
                         authentication.ToString());
                 }
 
@@ -97,7 +105,7 @@ namespace HKSH.Common.ServiceInvoker
                     }
                 }
 
-                var reallyUserId = _httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var reallyUserId = _currentContext.CurrentUser?.UserId;
                 if (!string.IsNullOrEmpty(reallyUserId))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);

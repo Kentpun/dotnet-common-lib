@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>4.9.9</Version>
-		<Description>update auth header</Description>
+		<Version>5.0.0</Version>
+		<Description>Update Service Invoker</Description>
 		<Authors>Liu, Leo Feihong</Authors>
 	</PropertyGroup>
 
