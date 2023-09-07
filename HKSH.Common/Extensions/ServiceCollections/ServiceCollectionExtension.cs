@@ -360,6 +360,7 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
+        services.AddControllers();
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
@@ -474,6 +475,7 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
+        services.AddControllers();
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
