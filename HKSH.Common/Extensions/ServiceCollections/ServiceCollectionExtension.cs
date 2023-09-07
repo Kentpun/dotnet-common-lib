@@ -6,6 +6,7 @@ using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.Elastic;
 using HKSH.Common.File;
+using HKSH.Common.Filter;
 using HKSH.Common.RabbitMQ;
 using HKSH.Common.Repository;
 using HKSH.Common.ServiceInvoker;
@@ -360,6 +361,10 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<ValidationFilter>();
+        });
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
@@ -474,6 +479,10 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<ValidationFilter>();
+        });
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();

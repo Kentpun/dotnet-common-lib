@@ -61,7 +61,7 @@ namespace HKSH.Common.ServiceInvoker
                     }
                 }
 
-                var reallyUserId = _currentContext.CurrentUserId;
+                var reallyUserId = _currentContext.CurrentUser?.UserId;
                 if (!string.IsNullOrEmpty(reallyUserId))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
@@ -105,7 +105,7 @@ namespace HKSH.Common.ServiceInvoker
                     }
                 }
 
-                var reallyUserId = _currentContext.CurrentUserId;
+                var reallyUserId = _currentContext.CurrentUser?.UserId;
                 if (!string.IsNullOrEmpty(reallyUserId))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
