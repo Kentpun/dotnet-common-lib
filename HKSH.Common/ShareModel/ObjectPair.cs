@@ -85,11 +85,11 @@
         }
 
         /// <summary>
-        /// find key match value and delete from list
+        /// Finds the key match value and delete.
         /// </summary>
-        /// <param name="valueSet"></param>
-        /// <param name="key"></param>
-        /// <param name="matcher"></param>
+        /// <param name="valueSet">The value set.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="matcher">The matcher.</param>
         /// <returns></returns>
         private static TValue? FindAndDelete(List<TValue> valueSet, TKey key, Func<TKey, TValue, bool> matcher)
         {
