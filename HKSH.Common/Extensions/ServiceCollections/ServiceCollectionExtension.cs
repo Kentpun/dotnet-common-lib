@@ -20,7 +20,6 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NLog;
@@ -108,7 +107,8 @@ public static class ServiceCollectionExtension
             services.AddScoped<TContext, TContext>();
             services.AddDatabase<TContext>();
             services.AddHealthChecks().AddCheck<DatabaseConnectionHealthCheck<TContext>>("SqlDatabase");
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Console.WriteLine("DB Connection failed: ", e);
         }
@@ -290,13 +290,15 @@ public static class ServiceCollectionExtension
                     options.Enable = bool.Parse(section["Enable"] ?? "false");
                     options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
                 });
-            }else
-            {
-                services.AddRabbitMQ(rabbitMqOptions => { options.Enable = false});
             }
-        } catch (Exception e)
+            else
+            {
+                services.AddRabbitMQ(options => { options.Enable = false; });
+            }
+        }
+        catch (Exception ex)
         {
-            Console.WriteLine("RabbitMQ Connection failed: ", e);
+            Console.WriteLine($"RabbitMQ Connection failed: {ex.Message}", ex);
         }
 
         return services;
@@ -346,7 +348,7 @@ public static class ServiceCollectionExtension
                 options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
             }
         });
-        
+
         return services;
     }
 

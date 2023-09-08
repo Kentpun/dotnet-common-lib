@@ -22,7 +22,6 @@
 //                // Replace this with the appropriate method from your Redis repository
 //                //bool isRedisConnectionHealthy = _redisRepository.Database();
 
-
 //                //if (isRedisConnectionHealthy)
 //                //{
 //                //    return Task.FromResult(HealthCheckResult.Healthy());
@@ -39,4 +38,3 @@
 //        }
 //    }
 //}
-
