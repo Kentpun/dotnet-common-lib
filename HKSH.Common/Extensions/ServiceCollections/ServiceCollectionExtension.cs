@@ -292,7 +292,7 @@ public static class ServiceCollectionExtension
                 });
             }else
             {
-                options.Enable = false;
+                services.AddRabbitMQ(rabbitMqOptions => { options.Enable = false});
             }
         } catch (Exception e)
         {
