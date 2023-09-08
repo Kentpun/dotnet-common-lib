@@ -4,6 +4,7 @@ using HKSH.Common.AutoMapper;
 using HKSH.Common.Base;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
+using HKSH.Common.CustomHealthChecks;
 using HKSH.Common.Elastic;
 using HKSH.Common.File;
 using HKSH.Common.Filter;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NLog;
@@ -102,10 +104,16 @@ public static class ServiceCollectionExtension
     public static IServiceCollection RegisterDbContextRelated<TContext>(this IServiceCollection services, ConfigurationManager configuration) where TContext : DbContext, IBasicDbContext
     {
         //add default database
-        services.AddDbContextPool<TContext>(option => option.UseSqlServer(configuration.GetConnectionString("SqlServer")), poolSize: 64);
-
-        services.AddScoped<TContext, TContext>();
-        services.AddDatabase<TContext>();
+        try
+        {
+            services.AddDbContextPool<TContext>(option => option.UseSqlServer(configuration.GetConnectionString("SqlServer")), poolSize: 64);
+            services.AddScoped<TContext, TContext>();
+            services.AddDatabase<TContext>();
+            services.AddHealthChecks().AddCheck<DatabaseConnectionHealthCheck<TContext>>("SqlDatabase");
+        } catch (Exception e)
+        {
+            Console.WriteLine("DB Connection failed: ", e);
+        }
 
         return services;
     }
@@ -270,19 +278,28 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection RegisterRabbitMQ(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddRabbitMQ(options =>
+        try
         {
-            var section = configuration.GetSection("RabbitMQ");
-            if (section != null)
+            services.AddRabbitMQ(options =>
             {
-                options.UserName = section["UserName"];
-                options.Password = section["Password"];
-                options.Port = int.Parse(section["Port"] ?? string.Empty);
-                options.HostName = section["HostName"];
-                options.Enable = bool.Parse(section["Enable"] ?? "0");
-                options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
-            }
-        });
+                var section = configuration.GetSection("RabbitMQ");
+                if (section != null)
+                {
+                    options.UserName = section["UserName"];
+                    options.Password = section["Password"];
+                    options.Port = int.Parse(section["Port"] ?? "0");
+                    options.HostName = section["HostName"];
+                    options.Enable = bool.Parse(section["Enable"] ?? "false");
+                    options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
+                } else
+                {
+                    options.Enable = false;
+                }
+            });
+        } catch (Exception e)
+        {
+            Console.WriteLine("RabbitMQ Connection failed: ", e);
+        }
 
         return services;
     }
@@ -331,7 +348,7 @@ public static class ServiceCollectionExtension
                 options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
             }
         });
-
+        
         return services;
     }
 

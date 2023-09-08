@@ -154,8 +154,8 @@ namespace HKSH.Common.Extensions.WebApplications
 
             if (programConfigure.EnableCors)
             {
-                app.UseCors("Cors");
             }
+                app.UseCors("Cors");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
