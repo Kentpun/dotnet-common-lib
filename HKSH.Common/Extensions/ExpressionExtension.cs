@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -266,35 +265,6 @@ namespace HKSH.Common.Extensions
                 }
             }
             return expression == null ? null : (Expression<Func<T, bool>>)Expression.Lambda(expression, parameter);
-        }
-    }
-
-    /// <summary>
-    /// Query Extensions
-    /// </summary>
-    public static class QueryExtensions
-    {
-        /// <summary>
-        /// Orders the specified order.
-        /// </summary>
-        /// <typeparam name="TSource">The type of the source.</typeparam>
-        /// <param name="query">The query.</param>
-        /// <param name="order">The order.fow example:order="age asc,name desc" or order="age desc"</param>
-        /// <returns></returns>
-        public static IQueryable<TSource> DynamicOrder<TSource>(this IQueryable<TSource> query, string order) where TSource : class
-        {
-            if (string.IsNullOrEmpty(order))
-            {
-                return query;
-            }
-
-            // Verify that the field is inside
-            string l = order.ToLower();
-            if (query.Expression.Type.GetProperties().Any(p => l.Contains(p.Name.ToLower())))
-            {
-                return query;
-            }
-            return query.OrderBy(order);
         }
     }
 }
