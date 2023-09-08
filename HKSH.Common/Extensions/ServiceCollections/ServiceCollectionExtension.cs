@@ -278,15 +278,10 @@ public static class ServiceCollectionExtension
     {
         try
         {
-<<<<<<< HEAD
-            services.AddRabbitMQ(options =>
-=======
             IConfigurationSection section = configuration.GetSection("RabbitMQ");
             if (section != null)
->>>>>>> 6e312e4450ae0a53c9332d589ee25a617d37a2ff
             {
-                var section = configuration.GetSection("RabbitMQ");
-                if (section != null)
+                services.AddRabbitMQ(options =>
                 {
                     options.UserName = section["UserName"];
                     options.Password = section["Password"];
@@ -294,11 +289,11 @@ public static class ServiceCollectionExtension
                     options.HostName = section["HostName"];
                     options.Enable = bool.Parse(section["Enable"] ?? "false");
                     options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
-                } else
-                {
-                    options.Enable = false;
-                }
-            });
+                });
+            }else
+            {
+                options.Enable = false;
+            }
         } catch (Exception e)
         {
             Console.WriteLine("RabbitMQ Connection failed: ", e);
