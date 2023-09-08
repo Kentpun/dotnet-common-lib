@@ -85,7 +85,7 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static string RemoveSymbol(this string input)
         {
-            var regex = new Regex(@"((?=[\x21-\x7e\s]+)[^A-Za-z0-9])");
+            Regex regex = new Regex(@"((?=[\x21-\x7e\s]+)[^A-Za-z0-9])");
             return regex.Replace(input.ToDBC(), "");
         }
 

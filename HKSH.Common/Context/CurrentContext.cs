@@ -2,14 +2,14 @@ using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.Exceptions;
 using HKSH.Common.Extensions;
+using HKSH.Common.Helper;
 using HKSH.Common.Repository.Database;
-using HKSH.Common.Repository.Database.Privileges;
 using HKSH.Common.ShareModel.User;
+using HKSH.Common.ShareModel.User.Privileges;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
+using Microsoft.Extensions.Primitives;
 using System.Text.Json;
-using HKSH.Common.Helper;
 
 namespace HKSH.Common.Context
 {
@@ -81,12 +81,12 @@ namespace HKSH.Common.Context
                     return _currentUserId;
                 }
 
-                var userId = "";
+                string? userId = "";
 
-                var tokens = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER];
-                if (tokens.HasValue)
+                bool? hasValue = _httpContextAccessor?.HttpContext?.Request.Headers.TryGetValue(GlobalConstant.AUTH_HEADER, out StringValues tokenValues);
+                if (hasValue != null && hasValue.Value && tokenValues.Count > 0)
                 {
-                    var token = _httpContextAccessor?.HttpContext?.Request.Headers[GlobalConstant.AUTH_HEADER][0] ?? "";
+                    string token = tokenValues[0] ?? "";
                     if (!string.IsNullOrEmpty(token))
                     {
                         userId = JwtHelper.GetUserId(token);
@@ -95,7 +95,7 @@ namespace HKSH.Common.Context
 
                 if (string.IsNullOrEmpty(userId))
                 {
-                    var containsUserId =
+                    bool containsUserId =
                         _httpContextAccessor?.HttpContext?.Request.Headers.ContainsKey(GlobalConstant.CURRENT_USER_CODE) ??
                         false;
                     if (containsUserId)
@@ -134,7 +134,7 @@ namespace HKSH.Common.Context
 
                 try
                 {
-                    var claimCurrentUser = _redisRepository.HashGet<UserInfoResponse>(ContextConst.KEY_PATTERN + userId,
+                    UserInfoResponse claimCurrentUser = _redisRepository.HashGet<UserInfoResponse>(ContextConst.KEY_PATTERN + userId,
                         ContextConst.USER_INFO);
                     if (claimCurrentUser == null || claimCurrentUser.UserId != userId)
                     {

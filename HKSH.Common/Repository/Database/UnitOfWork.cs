@@ -1,10 +1,10 @@
 ﻿using DotNetCore.CAP;
-using HKSH.Common.AuditLogs;
-using HKSH.Common.AuditLogs.Models;
-using HKSH.Common.Base;
+using HKSH.Common.AuditLog;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.Extensions;
+using HKSH.Common.ShareModel.AduitLog;
+using HKSH.Common.ShareModel.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,19 +71,19 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         public void Commit()
         {
-            var transaction = DbContext.Database.CurrentTransaction;
+            Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = DbContext.Database.CurrentTransaction;
             if (transaction != null)
             {
                 try
                 {
                     transaction.Commit();
 
-                    var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                    IRedisRepository? redisRepository = _serviceProvider.GetService<IRedisRepository>();
 
-                    var fields = redisRepository?.HashFields(CommonAuditLogConstants.TRANSACTION_REDIS_KEY);
-                    var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
+                    IEnumerable<string>? fields = redisRepository?.HashFields(CommonAuditLogConstants.TRANSACTION_REDIS_KEY);
+                    List<string>? currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
 
-                    var rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{transaction.TransactionId}-*").SelectMany(row => row).ToList();
+                    List<RowAuditLogDocument>? rows = redisRepository?.HashScan<List<RowAuditLogDocument>>(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{transaction.TransactionId}-*").SelectMany(row => row).ToList();
 
                     if (rows != null && rows.Any())
                     {
@@ -111,16 +111,16 @@ namespace HKSH.Common.Repository.Database
         /// </summary>
         public void Rollback()
         {
-            var transaction = DbContext.Database.CurrentTransaction;
+            Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = DbContext.Database.CurrentTransaction;
 
             if (transaction != null)
             {
                 transaction.Rollback();
 
-                var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                IRedisRepository? redisRepository = _serviceProvider.GetService<IRedisRepository>();
 
-                var fields = redisRepository?.HashFields(CommonAuditLogConstants.TRANSACTION_REDIS_KEY);
-                var currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
+                IEnumerable<string>? fields = redisRepository?.HashFields(CommonAuditLogConstants.TRANSACTION_REDIS_KEY);
+                List<string>? currentTransitionFields = fields?.Where(s => s.Contains($"{transaction.TransactionId}")).ToList();
 
                 if (currentTransitionFields != null && currentTransitionFields.Any())
                 {
@@ -162,12 +162,12 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public int SaveChanges(AuditLogParams request)
         {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            IOptions<EnableAuditLogOptions>? dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(request);
-                var result = DbContext.SaveChangesAsync();
+                List<RowAuditLogDocument> rows = new List<RowAuditLogDocument>();
+                List<AuditEntry> auditEntries = OnBeforeSaveChanges(request);
+                Task<int> result = DbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
@@ -181,7 +181,7 @@ namespace HKSH.Common.Repository.Database
                     }
                     else
                     {
-                        var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                        IRedisRepository? redisRepository = _serviceProvider.GetService<IRedisRepository>();
                         redisRepository?.HashSet(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
                     }
                 }
@@ -200,12 +200,12 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public Task<int> SaveChangesAsync(AuditLogParams request)
         {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            IOptions<EnableAuditLogOptions>? dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(request);
-                var result = DbContext.SaveChangesAsync();
+                List<RowAuditLogDocument> rows = new List<RowAuditLogDocument>();
+                List<AuditEntry> auditEntries = OnBeforeSaveChanges(request);
+                Task<int> result = DbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
@@ -219,7 +219,7 @@ namespace HKSH.Common.Repository.Database
                     }
                     else
                     {
-                        var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                        IRedisRepository? redisRepository = _serviceProvider.GetService<IRedisRepository>();
                         redisRepository?.HashSet(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{DbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
                     }
                 }
@@ -239,16 +239,16 @@ namespace HKSH.Common.Repository.Database
         private List<AuditEntry> OnBeforeSaveChanges(AuditLogParams request)
         {
             DbContext.ChangeTracker.DetectChanges();
-            var auditEntries = new List<AuditEntry>();
-            foreach (var entry in DbContext.ChangeTracker.Entries())
+            List<AuditEntry> auditEntries = new List<AuditEntry>();
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry entry in DbContext.ChangeTracker.Entries())
             {
                 if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
-                var entityTracker = entry.Entity as IEntityTracker;
-                var entityDelTracker = entry.Entity as IEntityDelTracker;
+                IEntityTracker? entityTracker = entry.Entity as IEntityTracker;
+                IEntityDelTracker? entityDelTracker = entry.Entity as IEntityDelTracker;
 
-                var auditEntry = new AuditEntry(entry)
+                AuditEntry auditEntry = new AuditEntry(entry)
                 {
                     TableName = entry.Metadata.GetTableName() ?? string.Empty,
                     Module = request.Module,
@@ -259,7 +259,7 @@ namespace HKSH.Common.Repository.Database
                 };
                 auditEntries.Add(auditEntry);
 
-                foreach (var property in entry.Properties)
+                foreach (Microsoft.EntityFrameworkCore.ChangeTracking.PropertyEntry property in entry.Properties)
                 {
                     if (property.IsTemporary)
                     {
@@ -311,9 +311,9 @@ namespace HKSH.Common.Repository.Database
             if (auditEntries == null || auditEntries.Count == 0)
                 return Task.CompletedTask;
 
-            foreach (var auditEntry in auditEntries)
+            foreach (AuditEntry auditEntry in auditEntries)
             {
-                foreach (var prop in auditEntry.TemporaryProperties)
+                foreach (Microsoft.EntityFrameworkCore.ChangeTracking.PropertyEntry prop in auditEntry.TemporaryProperties)
                 {
                     if (prop.Metadata.IsPrimaryKey())
                     {
@@ -335,11 +335,11 @@ namespace HKSH.Common.Repository.Database
         /// <param name="rows">The rows.</param>
         public void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
         {
-            var configuration = _serviceProvider.GetService<IConfiguration>();
+            IConfiguration? configuration = _serviceProvider.GetService<IConfiguration>();
 
-            var connectionString = configuration?.GetConnectionString(AuditHistory.CHANGE_LOG_CONNECTION_STRING) ?? string.Empty;
+            string connectionString = configuration?.GetConnectionString(AuditHistory.CHANGE_LOG_CONNECTION_STRING) ?? string.Empty;
 
-            var auditHistory = new AuditHistory(rows);
+            AuditHistory auditHistory = new AuditHistory(rows);
 
             if (!string.IsNullOrEmpty(AuditHistory.CreateAuditLogTableSql))
             {
@@ -358,13 +358,13 @@ namespace HKSH.Common.Repository.Database
         /// <param name="rows">The rows.</param>
         private void PublishAuditLogIntoEs(List<RowAuditLogDocument> rows)
         {
-            var message = new LogMqRequest
+            LogMqRequest message = new LogMqRequest
             {
                 Uuid = Guid.NewGuid(),
                 Action = CommonAuditLogConstants.AUDIT_LOG_ACTION,
                 Log = JsonConvert.SerializeObject(rows)
             };
-            var publisher = _serviceProvider.GetService<ICapPublisher>();
+            ICapPublisher? publisher = _serviceProvider.GetService<ICapPublisher>();
             publisher?.Publish(CapTopic.AUDIT_LOGS, message);
         }
 

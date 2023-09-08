@@ -55,9 +55,9 @@ namespace HKSH.Common.RabbitMQ
         /// </summary>
         public void Subscribe()
         {
-            using var scope = _serviceProvider.CreateScope();
-            var options = scope.ServiceProvider.GetService<IOptionsSnapshot<RabbitMQOptions>>()?.Value;
-            var factory = new ConnectionFactory()
+            using IServiceScope scope = _serviceProvider.CreateScope();
+            RabbitMQOptions? options = scope.ServiceProvider.GetService<IOptionsSnapshot<RabbitMQOptions>>()?.Value;
+            ConnectionFactory factory = new ConnectionFactory()
             {
                 //HostName = options?.HostName,
                 UserName = options?.UserName,
@@ -67,7 +67,7 @@ namespace HKSH.Common.RabbitMQ
             {
                 factory.Port = options.Port;
             }
-            var connection = factory.CreateConnection(options.EndPoints);
+            IConnection connection = factory.CreateConnection(options.EndPoints);
             IModel _channel = connection.CreateModel();
             //分發模式
             _channel.ExchangeDeclare(Context?.ExchangeName, ExchangeType.Direct, true, false, null);
@@ -77,13 +77,13 @@ namespace HKSH.Common.RabbitMQ
                                         autoDelete: false,
                                         arguments: null);
             _channel.QueueBind(Context?.QueueName, Context?.ExchangeName, Context?.RoutingKey);
-            var consumer = new EventingBasicConsumer(_channel);
+            EventingBasicConsumer consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (model, ea) =>
             {
                 try
                 {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
+                    byte[] body = ea.Body.ToArray();
+                    string message = Encoding.UTF8.GetString(body);
                     Process(message).ConfigureAwait(false).GetAwaiter().GetResult();
                     _channel.BasicAck(ea.DeliveryTag, true);
                 }

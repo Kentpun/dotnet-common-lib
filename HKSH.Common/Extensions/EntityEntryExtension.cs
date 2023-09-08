@@ -15,12 +15,12 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static string PrimaryKey(this EntityEntry entry)
         {
-            var key = entry.Metadata.FindPrimaryKey();
+            Microsoft.EntityFrameworkCore.Metadata.IKey? key = entry.Metadata.FindPrimaryKey();
 
-            var values = new List<object>();
-            foreach (var property in key?.Properties ?? new List<Property>())
+            List<object> values = new List<object>();
+            foreach (Microsoft.EntityFrameworkCore.Metadata.IProperty property in key?.Properties ?? new List<Property>())
             {
-                var value = entry.Property(property.Name).CurrentValue;
+                object? value = entry.Property(property.Name).CurrentValue;
                 if (value != null)
                 {
                     values.Add(value);

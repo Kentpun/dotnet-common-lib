@@ -29,14 +29,14 @@ namespace HKSH.Common.Extensions
             }
 
             List<T> datas = new();
-            foreach (var item in masters)
+            foreach (DictMasterResponse item in masters)
             {
                 if (string.IsNullOrEmpty(item.DataJson))
                 {
                     continue;
                 }
 
-                var obj = JsonSerializer.Deserialize<T>(item.DataJson);
+                T? obj = JsonSerializer.Deserialize<T>(item.DataJson);
                 if (obj == null)
                 {
                     continue;

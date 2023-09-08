@@ -1,9 +1,9 @@
 ﻿using DotNetCore.CAP;
-using HKSH.Common.AuditLogs;
-using HKSH.Common.AuditLogs.Models;
-using HKSH.Common.Base;
+using HKSH.Common.AuditLog;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
+using HKSH.Common.ShareModel.AduitLog;
+using HKSH.Common.ShareModel.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
@@ -136,10 +136,10 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public IEnumerable<T> AddRangeSaveChange(IEnumerable<T> entities)
         {
-            var newItemList = new List<T>();
+            List<T> newItemList = new List<T>();
             foreach (T item in entities)
             {
-                var newItem = AddSaveChange(item);
+                T newItem = AddSaveChange(item);
                 newItemList.Add(newItem);
             }
             return newItemList;
@@ -167,10 +167,10 @@ namespace HKSH.Common.Repository.Database
                 tracker.ModifiedBy = CurrentUserId;
             }
             //tracked already
-            foreach (var item in _dbSet.Local)
+            foreach (T item in _dbSet.Local)
             {
-                var existedEntity = item as IEntityIdentify<long>;
-                var currentEntity = entity as IEntityIdentify<long>;
+                IEntityIdentify<long>? existedEntity = item as IEntityIdentify<long>;
+                IEntityIdentify<long>? currentEntity = entity as IEntityIdentify<long>;
                 if (existedEntity?.Id == currentEntity?.Id)
                 {
                     _dbSet.Local.Remove(item);
@@ -359,10 +359,10 @@ namespace HKSH.Common.Repository.Database
                 tracker.ModifiedBy = userId;
             }
             //tracked already
-            foreach (var item in _dbSet.Local)
+            foreach (T item in _dbSet.Local)
             {
-                var existedEntity = item as IEntityIdentify<long>;
-                var currentEntity = entity as IEntityIdentify<long>;
+                IEntityIdentify<long>? existedEntity = item as IEntityIdentify<long>;
+                IEntityIdentify<long>? currentEntity = entity as IEntityIdentify<long>;
                 if (existedEntity?.Id == currentEntity?.Id)
                 {
                     _dbSet.Local.Remove(item);
@@ -423,12 +423,12 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public int SaveChanges(AuditLogParams request)
         {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            IOptions<EnableAuditLogOptions>? dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
-                var rows = new List<RowAuditLogDocument>();
-                var auditEntries = OnBeforeSaveChanges(request);
-                var result = _dbContext.SaveChangesAsync();
+                List<RowAuditLogDocument> rows = new List<RowAuditLogDocument>();
+                List<AuditEntry> auditEntries = OnBeforeSaveChanges(request);
+                Task<int> result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
@@ -442,7 +442,7 @@ namespace HKSH.Common.Repository.Database
                     }
                     else
                     {
-                        var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                        IRedisRepository? redisRepository = _serviceProvider.GetService<IRedisRepository>();
                         redisRepository?.HashSet(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{_dbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
                     }
                 }
@@ -461,12 +461,12 @@ namespace HKSH.Common.Repository.Database
         /// <returns></returns>
         public Task<int> SaveChangesAsync(AuditLogParams request)
         {
-            var dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
+            IOptions<EnableAuditLogOptions>? dbLogSettings = _serviceProvider.GetService<IOptions<EnableAuditLogOptions>>();
             if (dbLogSettings?.Value?.IsEnabled == true)
             {
                 List<RowAuditLogDocument> rows = new();
-                var auditEntries = OnBeforeSaveChanges(request);
-                var result = _dbContext.SaveChangesAsync();
+                List<AuditEntry> auditEntries = OnBeforeSaveChanges(request);
+                Task<int> result = _dbContext.SaveChangesAsync();
                 result.Wait();
                 OnAfterSaveChanges(auditEntries).Wait();
                 rows = auditEntries.Select(s => s.ToAudit()).ToList();
@@ -480,7 +480,7 @@ namespace HKSH.Common.Repository.Database
                     }
                     else
                     {
-                        var redisRepository = _serviceProvider.GetService<IRedisRepository>();
+                        IRedisRepository? redisRepository = _serviceProvider.GetService<IRedisRepository>();
                         redisRepository?.HashSet(CommonAuditLogConstants.TRANSACTION_REDIS_KEY, $"{_dbContext.Database.CurrentTransaction.TransactionId}-{Guid.NewGuid()}", rows);
                     }
                 }
@@ -500,16 +500,16 @@ namespace HKSH.Common.Repository.Database
         private List<AuditEntry> OnBeforeSaveChanges(AuditLogParams request)
         {
             _dbContext.ChangeTracker.DetectChanges();
-            var auditEntries = new List<AuditEntry>();
-            foreach (var entry in _dbContext.ChangeTracker.Entries())
+            List<AuditEntry> auditEntries = new List<AuditEntry>();
+            foreach (EntityEntry entry in _dbContext.ChangeTracker.Entries())
             {
                 if (entry.Entity is not IAuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
-                var entityTracker = entry.Entity as IEntityTracker;
-                var entityDelTracker = entry.Entity as IEntityDelTracker;
+                IEntityTracker? entityTracker = entry.Entity as IEntityTracker;
+                IEntityDelTracker? entityDelTracker = entry.Entity as IEntityDelTracker;
 
-                var auditEntry = new AuditEntry(entry)
+                AuditEntry auditEntry = new AuditEntry(entry)
                 {
                     TableName = entry.Metadata.GetTableName() ?? string.Empty,
                     Module = request.Module,
@@ -520,7 +520,7 @@ namespace HKSH.Common.Repository.Database
                 };
                 auditEntries.Add(auditEntry);
 
-                foreach (var property in entry.Properties)
+                foreach (PropertyEntry property in entry.Properties)
                 {
                     if (property.IsTemporary)
                     {
@@ -572,9 +572,9 @@ namespace HKSH.Common.Repository.Database
             if (auditEntries == null || auditEntries.Count == 0)
                 return Task.CompletedTask;
 
-            foreach (var auditEntry in auditEntries)
+            foreach (AuditEntry auditEntry in auditEntries)
             {
-                foreach (var prop in auditEntry.TemporaryProperties)
+                foreach (PropertyEntry prop in auditEntry.TemporaryProperties)
                 {
                     if (prop.Metadata.IsPrimaryKey())
                     {
@@ -596,11 +596,11 @@ namespace HKSH.Common.Repository.Database
         /// <param name="rows">The rows.</param>
         public void WriteAuditLogIntoDB(List<RowAuditLogDocument> rows)
         {
-            var configuration = _serviceProvider.GetService<IConfiguration>();
+            IConfiguration? configuration = _serviceProvider.GetService<IConfiguration>();
 
-            var connectionString = configuration?.GetConnectionString(AuditHistory.CHANGE_LOG_CONNECTION_STRING) ?? string.Empty;
+            string connectionString = configuration?.GetConnectionString(AuditHistory.CHANGE_LOG_CONNECTION_STRING) ?? string.Empty;
 
-            var auditHistory = new AuditHistory(rows);
+            AuditHistory auditHistory = new AuditHistory(rows);
 
             if (!string.IsNullOrEmpty(AuditHistory.CreateAuditLogTableSql))
             {
@@ -619,13 +619,13 @@ namespace HKSH.Common.Repository.Database
         /// <param name="rows">The rows.</param>
         private void PublishAuditLogIntoEs(List<RowAuditLogDocument> rows)
         {
-            var message = new LogMqRequest
+            LogMqRequest message = new LogMqRequest
             {
                 Uuid = Guid.NewGuid(),
                 Action = CommonAuditLogConstants.AUDIT_LOG_ACTION,
                 Log = JsonConvert.SerializeObject(rows)
             };
-            var publisher = _serviceProvider.GetService<ICapPublisher>();
+            ICapPublisher? publisher = _serviceProvider.GetService<ICapPublisher>();
             publisher?.Publish(CapTopic.AUDIT_LOGS, message);
         }
 

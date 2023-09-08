@@ -20,9 +20,9 @@ namespace HKSH.Common.Extensions
                 return string.Empty;
             }
 
-            using var sha = SHA256.Create();
-            var bytes = Encoding.UTF8.GetBytes(input);
-            var hash = sha.ComputeHash(bytes);
+            using SHA256 sha = SHA256.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(input);
+            byte[] hash = sha.ComputeHash(bytes);
 
             return Convert.ToBase64String(hash);
         }
@@ -39,7 +39,7 @@ namespace HKSH.Common.Extensions
                 return Array.Empty<byte>();
             }
 
-            using var sha = SHA256.Create();
+            using SHA256 sha = SHA256.Create();
             return sha.ComputeHash(input);
         }
 
@@ -55,9 +55,9 @@ namespace HKSH.Common.Extensions
                 return string.Empty;
             }
 
-            using var sha = SHA512.Create();
-            var bytes = Encoding.UTF8.GetBytes(input);
-            var hash = sha.ComputeHash(bytes);
+            using SHA512 sha = SHA512.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(input);
+            byte[] hash = sha.ComputeHash(bytes);
 
             return Convert.ToBase64String(hash);
         }

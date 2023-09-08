@@ -1,6 +1,6 @@
 ﻿using HKSH.Common.Constants;
 using HKSH.Common.Enums;
-using HKSH.Common.Repository.Database.Privileges;
+using HKSH.Common.ShareModel.User.Privileges;
 
 namespace HKSH.Common.ShareModel.User
 {
@@ -35,7 +35,7 @@ namespace HKSH.Common.ShareModel.User
 
         /// <summary>
         /// Gets the name of the combo.
-        /// UserNameEn (StaffId) 
+        /// UserNameEn (StaffId)
         /// </summary>
         /// <value>
         /// The name of the combo.

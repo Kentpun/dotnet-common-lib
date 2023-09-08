@@ -93,7 +93,8 @@ namespace HKSH.Common.ShareModel
         /// The unknown exception.
         /// </value>
         public static MessageModel UnknownException => new SystemMessage("000106");
-        #endregion
+
+        #endregion System
 
         #region Permission
 
@@ -174,9 +175,5 @@ namespace HKSH.Common.ShareModel
         public static MessageModel TheRequestParameterIsIncorrect => new SystemMessage("000306");
 
         #endregion Param
-
-
-
-
     }
 }

@@ -1,17 +1,15 @@
 using HKSH.Common.Adapter;
-using HKSH.Common.AuditLogs;
+using HKSH.Common.AuditLog;
 using HKSH.Common.AutoMapper;
-using HKSH.Common.Base;
 using HKSH.Common.Caching.Redis;
 using HKSH.Common.Constants;
 using HKSH.Common.CustomHealthChecks;
 using HKSH.Common.Elastic;
 using HKSH.Common.File;
-using HKSH.Common.Filter;
 using HKSH.Common.RabbitMQ;
-using HKSH.Common.Repository;
 using HKSH.Common.ServiceInvoker;
 using HKSH.Common.ShareModel;
+using HKSH.Common.ShareModel.Base;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,7 +44,7 @@ public static class ServiceCollectionExtension
     {
         services.AddSwaggerGen(c =>
         {
-            var securityScheme = new OpenApiSecurityScheme
+            OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme
             {
                 Name = "JWT Authentication",
                 Description = "Enter JWT Bearer token **_only_**",
@@ -66,8 +64,8 @@ public static class ServiceCollectionExtension
                 {securityScheme, Array.Empty<string>()}
             });
 
-            var allDocPaths = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
-            foreach (var item in allDocPaths)
+            string[] allDocPaths = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
+            foreach (string item in allDocPaths)
             {
                 c.IncludeXmlComments(item, true);
             }
@@ -125,10 +123,10 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection InjectIService(this IServiceCollection services)
     {
-        var types = Assembly.GetEntryAssembly()?.DefinedTypes.Where(a => typeof(IService).IsAssignableFrom(a));
+        IEnumerable<TypeInfo>? types = Assembly.GetEntryAssembly()?.DefinedTypes.Where(a => typeof(IService).IsAssignableFrom(a));
         if (types != null)
         {
-            foreach (var type in types)
+            foreach (TypeInfo? type in types)
             {
                 if (type.IsAbstract || type.IsInterface)
                 {
@@ -150,24 +148,24 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static ConfigurationManager AddAllJsonFiles(this ConfigurationManager configuration, string env)
     {
-        var executingAssembly = Assembly.GetExecutingAssembly();
-        var jsonConfigs = executingAssembly.GetManifestResourceNames().Where(a => a.EndsWith(".json"));
-        foreach (var json in jsonConfigs)
+        Assembly executingAssembly = Assembly.GetExecutingAssembly();
+        IEnumerable<string> jsonConfigs = executingAssembly.GetManifestResourceNames().Where(a => a.EndsWith(".json"));
+        foreach (string? json in jsonConfigs)
         {
-            var stream = executingAssembly.GetManifestResourceStream(json);
+            Stream? stream = executingAssembly.GetManifestResourceStream(json);
             if (stream != null && stream.Length > 0)
             {
                 configuration.AddJsonStream(stream);
             }
         }
 
-        var entryAssembly = Assembly.GetEntryAssembly();
-        var entryJsonConfigs = entryAssembly?.GetManifestResourceNames().Where(a => a.EndsWith(".json"));
+        Assembly? entryAssembly = Assembly.GetEntryAssembly();
+        IEnumerable<string>? entryJsonConfigs = entryAssembly?.GetManifestResourceNames().Where(a => a.EndsWith(".json"));
         if (entryJsonConfigs != null && entryJsonConfigs.Any())
         {
-            foreach (var json in entryJsonConfigs)
+            foreach (string? json in entryJsonConfigs)
             {
-                var stream = entryAssembly?.GetManifestResourceStream(json);
+                Stream? stream = entryAssembly?.GetManifestResourceStream(json);
                 if (stream != null && stream.Length > 0)
                 {
                     configuration.AddJsonStream(stream);
@@ -192,10 +190,10 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection AddKeyCloak(this IServiceCollection services, ConfigurationManager configuration)
     {
-        var authenticationOptions = configuration.GetSection(KeycloakAuthenticationOptions.Section).Get<KeycloakAuthenticationOptions>();
+        KeycloakAuthenticationOptions authenticationOptions = configuration.GetSection(KeycloakAuthenticationOptions.Section).Get<KeycloakAuthenticationOptions>();
         services.AddKeycloakAuthentication(authenticationOptions);
 
-        var authorizationOptions = configuration.GetSection(KeycloakProtectionClientOptions.Section).Get<KeycloakProtectionClientOptions>();
+        KeycloakProtectionClientOptions authorizationOptions = configuration.GetSection(KeycloakProtectionClientOptions.Section).Get<KeycloakProtectionClientOptions>();
         services.AddAuthorization().AddKeycloakAuthorization(authorizationOptions);
 
         return services;
@@ -280,7 +278,12 @@ public static class ServiceCollectionExtension
     {
         try
         {
+<<<<<<< HEAD
             services.AddRabbitMQ(options =>
+=======
+            IConfigurationSection section = configuration.GetSection("RabbitMQ");
+            if (section != null)
+>>>>>>> 6e312e4450ae0a53c9332d589ee25a617d37a2ff
             {
                 var section = configuration.GetSection("RabbitMQ");
                 if (section != null)
@@ -314,7 +317,7 @@ public static class ServiceCollectionExtension
     {
         services.AddElasticSearch(options =>
         {
-            var section = configuration.GetSection("ElasticSearch");
+            IConfigurationSection section = configuration.GetSection("ElasticSearch");
             if (section != null)
             {
                 options.Url = section["Url"];
@@ -338,7 +341,7 @@ public static class ServiceCollectionExtension
     {
         services.AddRedis(options =>
         {
-            var section = configuration.GetSection("Redis");
+            IConfigurationSection section = configuration.GetSection("Redis");
             if (section != null)
             {
                 options.UserName = section["UserName"];
@@ -360,8 +363,8 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection AddServiceCollection<TContext>(this WebApplicationBuilder builder, ProgramConfigure programConfigure) where TContext : DbContext, IBasicDbContext
     {
-        var services = builder.Services;
-        var configuration = builder.Configuration;
+        IServiceCollection services = builder.Services;
+        ConfigurationManager configuration = builder.Configuration;
 
         //Environment Name
         string env = builder.Environment.EnvironmentName;
@@ -378,10 +381,7 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
-        services.AddControllers(options =>
-        {
-            options.Filters.Add<ValidationFilter>();
-        });
+        services.AddControllers();
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
@@ -390,7 +390,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<ITypeAdapter, AutomapperTypeAdapter>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<RestClient>();
-        services.AddTransient<IHKSHClient, HKSHClient>();
+        services.AddTransient<IHkshClient, HkshClient>();
         services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
         services.AddAutoMapper(Assembly.GetExecutingAssembly(), Assembly.GetEntryAssembly());
 
@@ -478,8 +478,8 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection AddServiceCollection(this WebApplicationBuilder builder, ProgramConfigure programConfigure)
     {
-        var services = builder.Services;
-        var configuration = builder.Configuration;
+        IServiceCollection services = builder.Services;
+        ConfigurationManager configuration = builder.Configuration;
 
         //Environment Name
         string env = builder.Environment.EnvironmentName;
@@ -496,10 +496,7 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
-        services.AddControllers(options =>
-        {
-            options.Filters.Add<ValidationFilter>();
-        });
+        services.AddControllers();
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
@@ -508,7 +505,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<ITypeAdapter, AutomapperTypeAdapter>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<RestClient>();
-        services.AddTransient<IHKSHClient, HKSHClient>();
+        services.AddTransient<IHkshClient, HkshClient>();
         services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
         services.AddAutoMapper(Assembly.GetExecutingAssembly(), Assembly.GetEntryAssembly());
 

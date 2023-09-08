@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.ServiceInvoker;
 
 /// <summary>
-/// VariableOptions
+/// Variable Options
 /// </summary>
 public class VariableOptions
 {
@@ -34,6 +34,16 @@ public class VariableOptions
     /// The notification host
     /// </summary>
     public const string NOTIFICATION_HOST = "NotificationService";
+
+    /// <summary>
+    /// The drugdb host
+    /// </summary>
+    public const string DRUGDB_HOST = "DrugDBService";
+
+    /// <summary>
+    /// The general host
+    /// </summary>
+    public const string GENERAL_HOST = "GeneralService";
 
     /// <summary>
     /// The utility file

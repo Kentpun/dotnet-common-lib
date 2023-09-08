@@ -8,7 +8,8 @@
 		<Title>HKSH.Common</Title>
 		<Version>5.0.1</Version>
 		<Description>catch db connection set up error and include health check</Description>
-		<Authors>Liu, Leo Feihong</Authors>
+		<Version>5.0.003</Version>
+		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>

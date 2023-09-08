@@ -19,7 +19,7 @@
         /// <value>
         /// The site full name en.
         /// </value>
-        public string SiteFullNameEn { get; set;} = string.Empty;
+        public string SiteFullNameEn { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the site full name tc.
@@ -35,7 +35,7 @@
         /// <value>
         /// The site short name en.
         /// </value>
-        public string SiteShortNameEn { get; set;} = string.Empty;
+        public string SiteShortNameEn { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the site short name tc.
