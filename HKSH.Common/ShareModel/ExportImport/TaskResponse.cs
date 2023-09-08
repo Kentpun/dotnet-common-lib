@@ -37,7 +37,6 @@
         /// </value>
         public string FileName { get; set; } = String.Empty;
 
-
         /// <summary>
         /// Gets or sets the name of the bucket.
         /// </summary>

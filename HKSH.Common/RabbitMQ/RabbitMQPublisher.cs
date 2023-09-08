@@ -20,14 +20,14 @@ namespace HKSH.Common.RabbitMQ
         /// <param name="options">The options.</param>
         public RabbitMQPublisher(IOptions<RabbitMQOptions> options)
         {
-            var factory = new ConnectionFactory()
+            ConnectionFactory factory = new ConnectionFactory()
             {
                 //HostName = options.Value.HostName,
                 UserName = options.Value.UserName,
                 Password = options.Value.Password,
                 Port = options.Value.Port,
             };
-            var connection = factory.CreateConnection(options.Value.EndPoints);
+            IConnection connection = factory.CreateConnection(options.Value.EndPoints);
             Channel = connection.CreateModel();
         }
 
@@ -48,7 +48,7 @@ namespace HKSH.Common.RabbitMQ
                                         autoDelete: false,
                                         arguments: null);
             Channel.QueueBind(context.QueueName, context.ExchangeName, context.RoutingKey);
-            var body = Encoding.UTF8.GetBytes(context.Message ?? string.Empty);
+            byte[] body = Encoding.UTF8.GetBytes(context.Message ?? string.Empty);
             Channel.BasicPublish(exchange: context.ExchangeName,
                                     routingKey: context.RoutingKey,
                                     basicProperties: null,

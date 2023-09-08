@@ -49,7 +49,7 @@ namespace HKSH.Common.Elastic
         /// </summary>
         private void InitClient()
         {
-            var node = new Uri(_options.Value.Url ?? string.Empty);
+            Uri node = new Uri(_options.Value.Url ?? string.Empty);
 
             _client = new ElasticClient(new ConnectionSettings(node).DefaultIndex(_options.Value.DefaultIndex ?? "default").CertificateFingerprint(_options.Value.CertificateFingerprint).BasicAuthentication(_options.Value.UserName, _options.Value.Password));
         }

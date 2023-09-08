@@ -70,7 +70,7 @@
             keySet = new List<TKey>(keySet);
             valueSet = new List<TValue>(valueSet);
 
-            var pairs1 = keySet.Select(key => new ObjectPair<TKey, TValue>
+            IEnumerable<ObjectPair<TKey, TValue>> pairs1 = keySet.Select(key => new ObjectPair<TKey, TValue>
             {
                 PairKey = key,
                 PairValue = FindAndDelete(valueSet, key, matcher)
@@ -93,9 +93,9 @@
         /// <returns></returns>
         private static TValue? FindAndDelete(List<TValue> valueSet, TKey key, Func<TKey, TValue, bool> matcher)
         {
-            for (var i = valueSet.Count - 1; i > -1; i--)
+            for (int i = valueSet.Count - 1; i > -1; i--)
             {
-                var value = valueSet[i];
+                TValue? value = valueSet[i];
                 if (matcher.Invoke(key, value))
                 {
                     valueSet.RemoveAt(i);

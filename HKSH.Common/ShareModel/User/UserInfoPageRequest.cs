@@ -1,4 +1,6 @@
-﻿namespace HKSH.Common.ShareModel.User
+﻿using HKSH.Common.ShareModel.Request;
+
+namespace HKSH.Common.ShareModel.User
 {
     /// <summary>
     /// UserInfo Page Request

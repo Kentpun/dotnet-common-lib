@@ -8,10 +8,10 @@ using System.Text;
 namespace HKSH.Common.Adapter
 {
     /// <summary>
-    /// IHKSHClient
+    /// HkshClient
     /// </summary>
-    /// <seealso cref="IHKSHClient" />
-    public class HKSHClient : IHKSHClient
+    /// <seealso cref="IHkshClient" />
+    public class HkshClient : IHkshClient
     {
         /// <summary>
         /// The rest client
@@ -21,14 +21,14 @@ namespace HKSH.Common.Adapter
         /// <summary>
         /// The logger
         /// </summary>
-        private readonly ILogger<HKSHClient> _logger;
+        private readonly ILogger<IHkshClient> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HKSHClient"/> class.
         /// </summary>
         /// <param name="restClient">The rest client.</param>
         /// <param name="logger">The logger.</param>
-        public HKSHClient(RestClient restClient, ILogger<HKSHClient> logger)
+        public HkshClient(RestClient restClient, ILogger<IHkshClient> logger)
         {
             _restClient = restClient;
             _restClient.UseNewtonsoftJson();
@@ -51,7 +51,7 @@ namespace HKSH.Common.Adapter
                     _restClient.AddDefaultHeader(header.Key, header.Value);
                 }
             }
-            var webRequest = new RestRequest(new Uri(url), Method.Get);
+            RestRequest webRequest = new RestRequest(new Uri(url), Method.Get);
             if (parameters.Count > 0)
             {
                 foreach (KeyValuePair<string, string> para in parameters)
@@ -88,7 +88,7 @@ namespace HKSH.Common.Adapter
                     _restClient.AddDefaultHeader(header.Key, header.Value);
                 }
             }
-            var webRequest = new RestRequest(new Uri(url), Method.Get)
+            RestRequest webRequest = new RestRequest(new Uri(url), Method.Get)
             {
                 Timeout = 300 * 1000//默认设置超时5分钟
             };
@@ -123,7 +123,7 @@ namespace HKSH.Common.Adapter
         {
             AddHeaders(headers);
 
-            var webRequest = new RestRequest(new Uri(url), Method.Post);
+            RestRequest webRequest = new RestRequest(new Uri(url), Method.Post);
 
             if (parameters.Count > 0)
             {
@@ -156,7 +156,7 @@ namespace HKSH.Common.Adapter
         {
             AddHeaders(headers);
 
-            var webRequest = new RestRequest(new Uri(url), Method.Post);
+            RestRequest webRequest = new RestRequest(new Uri(url), Method.Post);
             webRequest.AddJsonBody<T>(parameters);
             try
             {
@@ -184,7 +184,7 @@ namespace HKSH.Common.Adapter
         {
             AddHeaders(headers);
 
-            var webRequest = new RestRequest(new Uri(url), Method.Post);
+            RestRequest webRequest = new RestRequest(new Uri(url), Method.Post);
 
             webRequest.AddJsonBody(parameters);
             try
@@ -206,7 +206,7 @@ namespace HKSH.Common.Adapter
         private void AddHeaders(Dictionary<string, string>? headers)
         {
             //Default Header
-            var defaultHeader = new Dictionary<string, string>
+            Dictionary<string, string> defaultHeader = new Dictionary<string, string>
             {
                 { "Content-Type", "application/json" },
                 { "charset", "utf-8" }

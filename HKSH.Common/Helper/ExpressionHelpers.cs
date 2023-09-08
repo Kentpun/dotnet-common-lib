@@ -17,7 +17,7 @@ namespace HKSH.Common.Helper
         /// <returns>property name</returns>
         public static string GetExpressionName<T, TProp>(Expression<Func<T, TProp>> expression)
         {
-            var propertyInfo = GetExpressionProperty(expression);
+            PropertyInfo propertyInfo = GetExpressionProperty(expression);
             return propertyInfo.Name;
         }
 
@@ -46,7 +46,7 @@ namespace HKSH.Common.Helper
                 throw new ArgumentException("Not a member access", nameof(expression));
             }
 
-            var propertyInfo = (PropertyInfo)memberExpression.Member;
+            PropertyInfo propertyInfo = (PropertyInfo)memberExpression.Member;
             return propertyInfo;
         }
     }

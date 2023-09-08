@@ -1,4 +1,4 @@
-﻿using HKSH.Common.Base;
+﻿using HKSH.Common.ShareModel.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -16,18 +16,18 @@ namespace HKSH.Common.Configurations
         /// <param name="modelBuilder">The model builder.</param>
         public static void SetQueryFilter(ModelBuilder modelBuilder)
         {
-            var valueExpr = Expression.Constant((byte)0);
-            var allEntities = Assembly.GetEntryAssembly()?.DefinedTypes.Where(a => typeof(IEntityDelTracker).IsAssignableFrom(a));
+            ConstantExpression valueExpr = Expression.Constant((byte)0);
+            IEnumerable<TypeInfo>? allEntities = Assembly.GetEntryAssembly()?.DefinedTypes.Where(a => typeof(IEntityDelTracker).IsAssignableFrom(a));
             if (allEntities != null)
             {
-                foreach (var item in allEntities)
+                foreach (TypeInfo? item in allEntities)
                 {
                     if (item.BaseType == typeof(BaseTrackedEntity) || item.BaseType == typeof(BaseTrackedEntity<long>))
                     {
-                        var typeExpr = Expression.Parameter(item, "entity");
-                        var propertyExpr = Expression.Property(typeExpr, "RecordStatus");
-                        var equalExpr = Expression.Equal(propertyExpr, valueExpr);
-                        var expression = Expression.Lambda(equalExpr, typeExpr);
+                        ParameterExpression typeExpr = Expression.Parameter(item, "entity");
+                        MemberExpression propertyExpr = Expression.Property(typeExpr, "RecordStatus");
+                        BinaryExpression equalExpr = Expression.Equal(propertyExpr, valueExpr);
+                        LambdaExpression expression = Expression.Lambda(equalExpr, typeExpr);
                         modelBuilder.Entity(item).HasQueryFilter(expression);
                     }
                 }

@@ -142,7 +142,7 @@ namespace HKSH.Common.Helper
                             string cellValue = cell.StringCellValue;
                             if (cellValue != null)
                             {
-                                var column = new DataColumn(cellValue);
+                                DataColumn column = new DataColumn(cellValue);
                                 data.Columns.Add(column);
                             }
                         }

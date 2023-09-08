@@ -6,9 +6,9 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.002</Version>
-		<Description>fix add controller error</Description>
-		<Authors>Liu, Leo Feihong</Authors>
+		<Version>5.0.003</Version>
+		<Description>短期穩定版本，調整了變量類型為確定類型，移動了部門模型到ShareModel下面，VariableOptions 下面新增了部門新的服務常量，對整體代碼進行了格式化處理</Description>
+		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>

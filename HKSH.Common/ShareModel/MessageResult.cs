@@ -133,6 +133,7 @@
                 Module = string.IsNullOrEmpty(module) ? "System" : module
             };
         }
+
         /// <summary>
         /// Failures the result.
         /// </summary>

@@ -39,10 +39,10 @@ namespace HKSH.Common.RabbitMQ
         public Task StartAsync(CancellationToken cancellationToken)
         {
             if (!_options.Enable) return Task.CompletedTask;
-            var consumers = _serviceProvider.GetServices<IMessageQueueConsumer>();
+            IEnumerable<IMessageQueueConsumer> consumers = _serviceProvider.GetServices<IMessageQueueConsumer>();
             if (consumers.Any())
             {
-                foreach (var consumer in consumers)
+                foreach (IMessageQueueConsumer consumer in consumers)
                 {
                     consumer.Subscribe();
                 }

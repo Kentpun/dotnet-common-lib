@@ -33,7 +33,7 @@ namespace HKSH.Common.ShareModel.User
 
         /// <summary>
         /// Gets the name of the combo.
-        /// UserNameEn (StaffId) 
+        /// UserNameEn (StaffId)
         /// </summary>
         /// <value>
         /// The name of the combo.

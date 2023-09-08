@@ -24,7 +24,7 @@ namespace HKSH.Common.Extensions
         /// <exception cref="System.ArgumentException"></exception>
         public static T GetEnumValueFromDescription<T>(string description)
         {
-            var type = typeof(T);
+            Type type = typeof(T);
             if (!type.IsEnum)
                 throw new ArgumentException($"{type.Name} is not enum type");
 

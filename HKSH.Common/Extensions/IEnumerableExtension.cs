@@ -19,9 +19,9 @@ namespace HKSH.Common.Extensions
         /// <returns></returns>
         public static IOrderedEnumerable<T> OrderByCN<T>(this IEnumerable<T> source, Expression<Func<T, string>> field)
         {
-            var encoding = Encoding.GetEncoding(GlobalConstant.CHINESE_ENCODING_NAME);
-            var propertyName = ExpressionHelpers.GetExpressionName(field);
-            var property = typeof(T).GetProperty(propertyName);
+            Encoding encoding = Encoding.GetEncoding(GlobalConstant.CHINESE_ENCODING_NAME);
+            string propertyName = ExpressionHelpers.GetExpressionName(field);
+            System.Reflection.PropertyInfo? property = typeof(T).GetProperty(propertyName);
             return source.OrderBy(o => BitConverter.ToString(encoding.GetBytes(Convert.ToString(property?.GetValue(o))!)));
         }
 

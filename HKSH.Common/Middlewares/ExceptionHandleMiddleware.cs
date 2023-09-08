@@ -69,7 +69,7 @@ namespace HKSH.Common.Middlewares
                 code = HttpStatusCode.OK;
             }
 
-            var result = JsonConvert.SerializeObject(MessageResult.FailureResult(ex.Message));
+            string result = JsonConvert.SerializeObject(MessageResult.FailureResult(ex.Message));
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);

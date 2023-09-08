@@ -1,7 +1,6 @@
 ﻿using HKSH.Common.Constants;
 using HKSH.Common.Context;
 using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 using WebApiClient;
 
 namespace HKSH.Common.ServiceInvoker
@@ -41,7 +40,7 @@ namespace HKSH.Common.ServiceInvoker
         /// <returns></returns>
         public TInterface CreateInvoker<TInterface>(string? hostPrefix = "") where TInterface : class, IHttpApi
         {
-            var factory = new HttpApiFactory(typeof(TInterface));
+            HttpApiFactory factory = new HttpApiFactory(typeof(TInterface));
             factory.ConfigureHttpApiConfig(options =>
             {
                 //重新拼接HttpHost
@@ -49,11 +48,11 @@ namespace HKSH.Common.ServiceInvoker
                 options.GlobalFilters.Add(new InvokeUriFilterAttribute($"v{ApiVersionConstant.VERSION_ONE}.{ApiVersionConstant.VERSION_ZERO}"));
 
                 //Add token
-                var headers = _httpContextAccessor.HttpContext?.Request.Headers;
+                IHeaderDictionary? headers = _httpContextAccessor.HttpContext?.Request.Headers;
 
                 if (headers != null)
                 {
-                    var authentication = headers[GlobalConstant.AUTH_HEADER];
+                    Microsoft.Extensions.Primitives.StringValues authentication = headers[GlobalConstant.AUTH_HEADER];
                     if (!string.IsNullOrEmpty(authentication))
                     {
                         options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.AUTH_HEADER,
@@ -61,7 +60,7 @@ namespace HKSH.Common.ServiceInvoker
                     }
                 }
 
-                var reallyUserId = _currentContext.CurrentUserId;
+                string reallyUserId = _currentContext.CurrentUserId;
                 if (!string.IsNullOrEmpty(reallyUserId))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
@@ -80,7 +79,7 @@ namespace HKSH.Common.ServiceInvoker
         /// <returns></returns>
         public TInterface CreateInvoker<TInterface>(IHeaderDictionary header, string? hostPrefix = "") where TInterface : class, IHttpApi
         {
-            var factory = new HttpApiFactory(typeof(TInterface));
+            HttpApiFactory factory = new HttpApiFactory(typeof(TInterface));
             factory.ConfigureHttpApiConfig(options =>
             {
                 //重新拼接HttpHost
@@ -88,9 +87,9 @@ namespace HKSH.Common.ServiceInvoker
                 options.GlobalFilters.Add(new InvokeUriFilterAttribute($"v{ApiVersionConstant.VERSION_ONE}.{ApiVersionConstant.VERSION_ZERO}"));
 
                 //Add token
-                var headers = _httpContextAccessor.HttpContext?.Request.Headers;
+                IHeaderDictionary? headers = _httpContextAccessor.HttpContext?.Request.Headers;
 
-                var authentication = headers?[GlobalConstant.AUTH_HEADER];
+                Microsoft.Extensions.Primitives.StringValues? authentication = headers?[GlobalConstant.AUTH_HEADER];
                 if (!string.IsNullOrEmpty(authentication))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.AUTH_HEADER,
@@ -99,13 +98,13 @@ namespace HKSH.Common.ServiceInvoker
 
                 if (header?.Count > 0)
                 {
-                    foreach (var h in header)
+                    foreach (KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues> h in header)
                     {
                         options.HttpClient.DefaultRequestHeaders.Add(h.Key, Convert.ToString(h.Value));
                     }
                 }
 
-                var reallyUserId = _currentContext.CurrentUserId;
+                string reallyUserId = _currentContext.CurrentUserId;
                 if (!string.IsNullOrEmpty(reallyUserId))
                 {
                     options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);

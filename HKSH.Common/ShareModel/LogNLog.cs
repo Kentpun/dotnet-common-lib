@@ -1,4 +1,4 @@
-﻿using HKSH.Common.Base;
+﻿using HKSH.Common.ShareModel.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

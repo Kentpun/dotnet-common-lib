@@ -107,7 +107,7 @@ namespace HKSH.Common.Extensions
             {
                 cmd.CommandTimeout = timeout;
             }
-            var obj = cmd.ExecuteScalar();
+            object? obj = cmd.ExecuteScalar();
             cmd.Parameters.Clear();
             conn.Close();
             return obj;

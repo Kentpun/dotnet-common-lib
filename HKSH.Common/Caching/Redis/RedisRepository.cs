@@ -1,4 +1,4 @@
-﻿using HKSH.Common.Enums;
+﻿using HKSH.Common.Enums.Redis;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -48,8 +48,6 @@ namespace HKSH.Common.Caching.Redis
                     });
 
                     _lazyConnection ??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(option));
-
-                    //_lazyConnection ??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(options.Value.ConnectionString));
                 }
             }
             Db = _lazyConnection.Value.GetDatabase();
@@ -347,7 +345,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public bool HashSet(RedisKeys key, string field, object value)
         {
-            var json = JsonConvert.SerializeObject(value);
+            string json = JsonConvert.SerializeObject(value);
             return Db.HashSet(key.ToString(), field, json);
         }
 
@@ -365,7 +363,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public bool HashSet(string key, string field, object value)
         {
-            var json = JsonConvert.SerializeObject(value);
+            string json = JsonConvert.SerializeObject(value);
             return Db.HashSet(key, field, json);
         }
 
@@ -410,7 +408,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public T HashGet<T>(RedisKeys key, string field)
         {
-            var value = Db.HashGet(key.ToString(), field);
+            RedisValue value = Db.HashGet(key.ToString(), field);
             if (string.IsNullOrEmpty(value))
             {
                 return default(T);
@@ -438,7 +436,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public T HashGet<T>(string key, string field)
         {
-            var value = Db.HashGet(key, field);
+            RedisValue value = Db.HashGet(key, field);
             if (string.IsNullOrEmpty(value))
             {
                 return default(T);
@@ -454,9 +452,9 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<T> HashGet<T>(RedisKeys key)
         {
-            var list = new List<T>();
-            var entries = Db.HashGetAll(key.ToString());
-            foreach (var entry in entries)
+            List<T> list = new List<T>();
+            HashEntry[] entries = Db.HashGetAll(key.ToString());
+            foreach (HashEntry entry in entries)
             {
                 list.Add(JsonConvert.DeserializeObject<T>(entry.Value));
             }
@@ -471,9 +469,9 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<T> HashGet<T>(string key)
         {
-            var list = new List<T>();
-            var entries = Db.HashGetAll(key);
-            foreach (var entry in entries)
+            List<T> list = new List<T>();
+            HashEntry[] entries = Db.HashGetAll(key);
+            foreach (HashEntry entry in entries)
             {
                 list.Add(JsonConvert.DeserializeObject<T>(entry.Value));
             }
@@ -488,7 +486,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<string> HashScan(RedisKeys key, string pattern)
         {
-            var entries = Db.HashScan(key.ToString(), pattern);
+            IEnumerable<HashEntry> entries = Db.HashScan(key.ToString(), pattern);
             return entries.Select(a => a.Value.ToString());
         }
 
@@ -500,7 +498,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<string> HashScan(string key, string pattern)
         {
-            var entries = Db.HashScan(key, pattern);
+            IEnumerable<HashEntry> entries = Db.HashScan(key, pattern);
             return entries.Select(a => a.Value.ToString());
         }
 
@@ -513,9 +511,9 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<T> HashScan<T>(RedisKeys key, string pattern)
         {
-            var list = new List<T>();
-            var entries = Db.HashScan(key.ToString(), pattern);
-            foreach (var entry in entries)
+            List<T> list = new List<T>();
+            IEnumerable<HashEntry> entries = Db.HashScan(key.ToString(), pattern);
+            foreach (HashEntry entry in entries)
             {
                 list.Add(JsonConvert.DeserializeObject<T>(entry.Value));
             }
@@ -531,9 +529,9 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<T> HashScan<T>(string key, string pattern)
         {
-            var list = new List<T>();
-            var entries = Db.HashScan(key.ToString(), pattern);
-            foreach (var entry in entries)
+            List<T> list = new List<T>();
+            IEnumerable<HashEntry> entries = Db.HashScan(key.ToString(), pattern);
+            foreach (HashEntry entry in entries)
             {
                 list.Add(JsonConvert.DeserializeObject<T>(entry.Value));
             }
@@ -571,7 +569,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public T ListLeftPop<T>(RedisKeys key)
         {
-            var value = Db.ListLeftPop(key.ToString());
+            RedisValue value = Db.ListLeftPop(key.ToString());
             if (string.IsNullOrEmpty(value))
             {
                 return default(T);
@@ -586,7 +584,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public T ListLeftPop<T>(string key)
         {
-            var value = Db.ListLeftPop(key);
+            RedisValue value = Db.ListLeftPop(key);
             if (string.IsNullOrEmpty(value))
             {
                 return default(T);
@@ -621,7 +619,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public T ListRightPop<T>(RedisKeys key)
         {
-            var value = Db.ListRightPop(key.ToString());
+            RedisValue value = Db.ListRightPop(key.ToString());
             if (string.IsNullOrEmpty(value))
             {
                 return default(T);
@@ -636,7 +634,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public T ListRightPop<T>(string key)
         {
-            var value = Db.ListRightPop(key);
+            RedisValue value = Db.ListRightPop(key);
             if (string.IsNullOrEmpty(value))
             {
                 return default(T);
@@ -696,7 +694,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public long ListRightPush<T>(RedisKeys key, T value)
         {
-            var json = JsonConvert.SerializeObject(value);
+            string json = JsonConvert.SerializeObject(value);
             return Db.ListRightPush(key.ToString(), json);
         }
 
@@ -708,7 +706,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public long ListRightPush<T>(string key, T value)
         {
-            var json = JsonConvert.SerializeObject(value);
+            string json = JsonConvert.SerializeObject(value);
             return Db.ListRightPush(key, json);
         }
 
@@ -742,7 +740,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public long ListLeftPush<T>(RedisKeys key, T value)
         {
-            var json = JsonConvert.SerializeObject(value);
+            string json = JsonConvert.SerializeObject(value);
             return Db.ListLeftPush(key.ToString(), json);
         }
 
@@ -754,7 +752,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public long ListLeftPush<T>(string key, T value)
         {
-            var json = JsonConvert.SerializeObject(value);
+            string json = JsonConvert.SerializeObject(value);
             return Db.ListLeftPush(key, json);
         }
 
@@ -815,7 +813,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public bool SortedSetAdd<T>(RedisKeys key, T member, double score)
         {
-            var json = JsonConvert.SerializeObject(member);
+            string json = JsonConvert.SerializeObject(member);
             return Db.SortedSetAdd(key.ToString(), json, score);
         }
 
@@ -828,7 +826,7 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public bool SortedSetAdd<T>(string key, T member, double score)
         {
-            var json = JsonConvert.SerializeObject(member);
+            string json = JsonConvert.SerializeObject(member);
             return Db.SortedSetAdd(key, json, score);
         }
 
@@ -1199,11 +1197,11 @@ namespace HKSH.Common.Caching.Redis
         /// <returns></returns>
         public IEnumerable<string> HashFields(string key)
         {
-            var list = new List<string>();
+            List<string> list = new List<string>();
 
-            var fields = Db.HashKeys(key);
+            RedisValue[] fields = Db.HashKeys(key);
 
-            foreach (var item in fields)
+            foreach (RedisValue item in fields)
             {
                 list.Add(item.ToString());
             }

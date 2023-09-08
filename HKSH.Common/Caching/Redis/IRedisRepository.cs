@@ -1,10 +1,10 @@
-﻿using HKSH.Common.Enums;
+﻿using HKSH.Common.Enums.Redis;
 using StackExchange.Redis;
 
 namespace HKSH.Common.Caching.Redis
 {
     /// <summary>
-    /// IRedisRepository
+    /// IRedis Repository
     /// </summary>
     public interface IRedisRepository
     {

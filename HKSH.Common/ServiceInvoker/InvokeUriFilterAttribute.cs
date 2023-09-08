@@ -4,7 +4,7 @@ using WebApiClient.Contexts;
 namespace HKSH.Common.ServiceInvoker
 {
     /// <summary>
-    /// InvokeUriFilterAttribute
+    /// Invoke UriFilter Attribute
     /// </summary>
     /// <seealso cref="ApiActionFilterAttribute" />
     public class InvokeUriFilterAttribute : ApiActionFilterAttribute
@@ -12,7 +12,7 @@ namespace HKSH.Common.ServiceInvoker
         /// <summary>
         /// The version
         /// </summary>
-        private readonly string _version = string.Empty;
+        private readonly string _version;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvokeUriFilterAttribute"/> class.
@@ -24,9 +24,9 @@ namespace HKSH.Common.ServiceInvoker
         }
 
         /// <summary>
-        /// 准备请求之前
+        /// Before preparing the request
         /// </summary>
-        /// <param name="context">上下文</param>
+        /// <param name="context">context</param>
         /// <returns></returns>
         public override Task OnBeginRequestAsync(ApiActionContext context)
         {

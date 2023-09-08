@@ -1,5 +1,5 @@
-﻿using HKSH.Common.Repository.Database.Privileges;
-using HKSH.Common.ShareModel.User;
+﻿using HKSH.Common.ShareModel.User;
+using HKSH.Common.ShareModel.User.Privileges;
 
 namespace HKSH.Common.Context
 {

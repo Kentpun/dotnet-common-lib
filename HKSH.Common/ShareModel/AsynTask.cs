@@ -1,5 +1,5 @@
-﻿using HKSH.Common.Base;
-using HKSH.Common.Enums;
+﻿using HKSH.Common.Enums;
+using HKSH.Common.ShareModel.Base;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

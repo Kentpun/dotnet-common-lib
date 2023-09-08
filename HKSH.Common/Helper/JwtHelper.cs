@@ -1,6 +1,4 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 
 namespace HKSH.Common.Helper
 {
@@ -20,14 +18,14 @@ namespace HKSH.Common.Helper
             {
                 token = token.Substring(7);
             }
-            
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(token);
-            var claims = jwtToken.Claims;
-            var subClaim = claims.FirstOrDefault(c => c.Type == "sub");
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityToken jwtToken = tokenHandler.ReadJwtToken(token);
+            IEnumerable<System.Security.Claims.Claim> claims = jwtToken.Claims;
+            System.Security.Claims.Claim? subClaim = claims.FirstOrDefault(c => c.Type == "sub");
             if (subClaim != null)
             {
-                var sub = subClaim.Value;
+                string sub = subClaim.Value;
                 int providerIndex = sub.IndexOf(':', 2);
                 string externalId = sub[(providerIndex + 1)..];
                 return externalId;

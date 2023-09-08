@@ -1,4 +1,4 @@
-﻿using HKSH.Common.Base;
+﻿using HKSH.Common.ShareModel.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace HKSH.Common.Repository.Database
@@ -64,7 +64,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Add(T entity)
         {
-            var tracker = entity as IEntityTracker;
+            IEntityTracker? tracker = entity as IEntityTracker;
             if (tracker != null)
             {
                 tracker.CreatedAt = DateTime.Now;
@@ -96,7 +96,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Modify(T entity)
         {
-            var tracker = entity as IEntityTracker;
+            IEntityTracker? tracker = entity as IEntityTracker;
             if (tracker != null)
             {
                 tracker.ModifiedAt = DateTime.Now;
@@ -105,11 +105,12 @@ namespace HKSH.Common.Repository.Database
                     tracker.ModifiedBy = CurrentUserId;
                 }
             }
+
             //tracked already
-            foreach (var item in _dbSet.Local)
+            foreach (T item in _dbSet.Local)
             {
-                var existedEntity = item as IEntityIdentify<long>;
-                var currentEntity = entity as IEntityIdentify<long>;
+                IEntityIdentify<long>? existedEntity = item as IEntityIdentify<long>;
+                IEntityIdentify<long>? currentEntity = entity as IEntityIdentify<long>;
                 if (existedEntity?.Id == currentEntity!.Id)
                 {
                     _dbSet.Local.Remove(item);
@@ -146,7 +147,7 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Delete(T entity)
         {
-            var tracker = entity as IEntityDelTracker;
+            IEntityDelTracker? tracker = entity as IEntityDelTracker;
             if (tracker != null)
             {
                 tracker.DeletedAt = DateTime.Now;

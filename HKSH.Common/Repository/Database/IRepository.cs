@@ -1,4 +1,4 @@
-﻿using HKSH.Common.AuditLogs.Models;
+﻿using HKSH.Common.ShareModel.AduitLog;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace HKSH.Common.Repository.Database

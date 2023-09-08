@@ -4,12 +4,12 @@ using System.Text;
 namespace HKSH.Common.Adapter
 {
     /// <summary>
-    /// IHKSHClient
+    /// IHkshClient
     /// </summary>
-    public interface IHKSHClient
+    public interface IHkshClient
     {
         /// <summary>
-        /// 没有返回值的Get请求.
+        /// 沒有返回值的Get請求.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
@@ -18,7 +18,7 @@ namespace HKSH.Common.Adapter
         Task<MessageResult> Get(string url, IDictionary<string, string> parameters, IDictionary<string, string> headers);
 
         /// <summary>
-        /// 有返回值的Get请求.
+        /// 有返回值的Get請求.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="url">The URL.</param>
@@ -28,7 +28,7 @@ namespace HKSH.Common.Adapter
         Task<TResult> Get<TResult>(string url, IDictionary<string, string> parameters, IDictionary<string, string> headers);
 
         /// <summary>
-        /// Form表单Post请求.
+        /// Form表單Post請求.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="url">The URL.</param>
@@ -38,7 +38,7 @@ namespace HKSH.Common.Adapter
         Task<TResult> Post<TResult>(string url, IDictionary<string, string> parameters, Dictionary<string, string>? headers = null);
 
         /// <summary>
-        /// 不需要返回值的Post请求.
+        /// 不需要返回值的Post請求.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url">The URL.</param>
@@ -48,7 +48,7 @@ namespace HKSH.Common.Adapter
         Task<MessageResult> Post<T>(string url, T parameters, Dictionary<string, string>? headers = null) where T : class;
 
         /// <summary>
-        /// 有返回值的Post请求.
+        /// 有返回值的Post請求.
         /// </summary>
         /// <typeparam name="TParam">The type of the parameter.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>

@@ -122,7 +122,7 @@ namespace HKSH.Common.Extensions
                 return query;
             }
             // Verify that the field is inside
-            var l = order.ToLower();
+            string l = order.ToLower();
             if (query.Expression.Type.GetProperties().Any(p => l.Contains(p.Name.ToLower())))
             {
                 return query;

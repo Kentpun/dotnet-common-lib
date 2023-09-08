@@ -1,8 +1,8 @@
 ﻿using Elastic.Apm.NetCoreAll;
-using HKSH.Common.Base;
 using HKSH.Common.File;
 using HKSH.Common.Middlewares;
 using HKSH.Common.ShareModel;
+using HKSH.Common.ShareModel.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +27,9 @@ namespace HKSH.Common.Extensions.WebApplications
         /// <returns></returns>
         public static WebApplication UseCustomizeStaticFiles(this WebApplication app, ConfigurationManager configuration)
         {
-            var services = new ServiceCollection().AddOptions().Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.SECTION)).BuildServiceProvider();
+            ServiceProvider services = new ServiceCollection().AddOptions().Configure<FileUploadOptions>(configuration.GetSection(FileUploadOptions.SECTION)).BuildServiceProvider();
 
-            var fileOptions = services.GetService<IOptions<FileUploadOptions>>();
+            IOptions<FileUploadOptions>? fileOptions = services.GetService<IOptions<FileUploadOptions>>();
 
             if (fileOptions == null)
             {
@@ -38,7 +38,7 @@ namespace HKSH.Common.Extensions.WebApplications
 
             if (fileOptions.Value.Directory != null && fileOptions.Value.Directory.Any())
             {
-                foreach (var item in fileOptions.Value.Directory)
+                foreach (FileDirectoryOptions item in fileOptions.Value.Directory)
                 {
                     if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), item.Name)))
                     {
@@ -62,11 +62,11 @@ namespace HKSH.Common.Extensions.WebApplications
         /// <param name="app">The application.</param>
         public static WebApplication AutoMigration<TContext>(this WebApplication app) where TContext : DbContext, IBasicDbContext
         {
-            using var scope = ((IApplicationBuilder)app).ApplicationServices.CreateScope();
-            var context = scope.ServiceProvider.GetService<TContext>();
+            using IServiceScope scope = ((IApplicationBuilder)app).ApplicationServices.CreateScope();
+            TContext? context = scope.ServiceProvider.GetService<TContext>();
             if (context != null)
             {
-                var pendingMigrations = context?.Database?.GetPendingMigrations();
+                IEnumerable<string>? pendingMigrations = context?.Database?.GetPendingMigrations();
                 if (pendingMigrations != null && pendingMigrations.Any())
                 {
                     context?.Database?.Migrate();
@@ -84,8 +84,8 @@ namespace HKSH.Common.Extensions.WebApplications
         /// <returns></returns>
         public static WebApplication AddWebApplication<TContext>(this WebApplicationBuilder builder, ProgramConfigure programConfigure) where TContext : DbContext, IBasicDbContext
         {
-            var configuration = builder.Configuration;
-            var app = builder.Build();
+            ConfigurationManager configuration = builder.Configuration;
+            WebApplication app = builder.Build();
 
             //Enable Cors
             if (programConfigure.EnableCors)
@@ -147,8 +147,8 @@ namespace HKSH.Common.Extensions.WebApplications
         /// <returns></returns>
         public static WebApplication AddWebApplication(this WebApplicationBuilder builder, ProgramConfigure programConfigure)
         {
-            var configuration = builder.Configuration;
-            var app = builder.Build();
+            ConfigurationManager configuration = builder.Configuration;
+            WebApplication app = builder.Build();
 
             app.UseMiddleware(typeof(ExceptionHandleMiddleware));
 
