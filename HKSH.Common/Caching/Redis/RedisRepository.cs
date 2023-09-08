@@ -38,7 +38,7 @@ namespace HKSH.Common.Caching.Redis
             {
                 lock (_locker)
                 {
-                    ConfigurationOptions option = new ConfigurationOptions();
+                    ConfigurationOptions option = new();
 
                     option.Password = options.Value.Password;
 
@@ -47,7 +47,7 @@ namespace HKSH.Common.Caching.Redis
                         option.EndPoints.Add(endPoint, options.Value.Port);
                     });
 
-                    _lazyConnection ??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(option));
+                    _lazyConnection??= new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(option));
                 }
             }
             Db = _lazyConnection.Value.GetDatabase();

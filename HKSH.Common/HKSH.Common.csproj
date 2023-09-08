@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.3</Version>
-		<Description>短期穩定版本，調整了變量類型為確定類型，移動了部門模型到ShareModel下面，VariableOptions 下面新增了部門新的服務常量，對整體代碼進行了格式化處理，優化版本</Description>
+		<Version>5.0.5</Version>
+		<Description>短期穩定版本，調整了變量類型為確定類型，移動了部門模型到ShareModel下面，VariableOptions 下面新增了部門新的服務常量，對整體代碼進行了格式化處理，優化版本，加入了健康檢查</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
