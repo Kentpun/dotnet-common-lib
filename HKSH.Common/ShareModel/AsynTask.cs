@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HKSH.Common.ShareModel
 {
     /// <summary>
-    /// 数据导入异步任务
+    /// 數據導入異步任務
     /// </summary>
     /// <seealso cref="BaseTrackedEntity" />
     public class AsynTask : BaseTrackedEntity
@@ -87,7 +87,7 @@ namespace HKSH.Common.ShareModel
         public Enums.TaskStatus Status { get; set; }
 
         /// <summary>
-        /// 状态变更原因
+        /// 狀態變更原因
         /// </summary>
         /// <value>
         /// The remark.

@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.ShareModel.File
 {
     /// <summary>
-    /// 对象状态
+    /// 對象狀態
     /// </summary>
     public class ObjectStatusResponse
     {

@@ -8,7 +8,7 @@ namespace HKSH.Common.ShareModel.File
     public class BucketObjectRequest
     {
         /// <summary>
-        /// 存储桶名称
+        /// 存儲桶名稱
         /// </summary>
         /// <value>
         /// The name of the bucket.
@@ -16,7 +16,7 @@ namespace HKSH.Common.ShareModel.File
         public string BucketName { get; set; } = string.Empty;
 
         /// <summary>
-        /// 对象名称
+        /// 對象名稱
         /// </summary>
         /// <value>
         /// The name of the object.
@@ -24,7 +24,7 @@ namespace HKSH.Common.ShareModel.File
         public string ObjectName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the expire in.
+        /// 過期時間
         /// </summary>
         /// <value>
         /// The expire in.
@@ -32,7 +32,7 @@ namespace HKSH.Common.ShareModel.File
         public int? ExpireIn { get; set; }
 
         /// <summary>
-        /// Gets or sets the expiry time unit.
+        /// 過期時間單位
         /// </summary>
         /// <value>
         /// The expiry time unit.
