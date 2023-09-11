@@ -106,12 +106,13 @@ public static class ServiceCollectionExtension
             services.AddDbContextPool<TContext>(option => option.UseSqlServer(configuration.GetConnectionString("SqlServer")), poolSize: 64);
             services.AddScoped<TContext, TContext>();
             services.AddDatabase<TContext>();
-            services.AddHealthChecks().AddCheck<DatabaseConnectionHealthCheck<TContext>>("SqlDatabase");
         }
         catch (Exception e)
         {
             Console.WriteLine("DB Connection failed: ", e);
         }
+
+        services.AddHealthChecks().AddCheck<DatabaseConnectionHealthCheck<TContext>>("SqlDatabase");
 
         return services;
     }
