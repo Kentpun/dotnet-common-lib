@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using HKSH.Common.Constants;
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -132,7 +133,7 @@ namespace HKSH.Common.Extensions
         /// </summary>
         public QueryCollection()
         {
-            Add(new Query { Name = "RecordStatus", Operator = Query.Operators.Equal, Value = (byte)0 });
+            Add(new Query { Name = GlobalConstant.BASE_ENTITY_RECORD_STATUS, Operator = Query.Operators.Equal, Value = (byte)0 });
         }
 
         /// <summary>

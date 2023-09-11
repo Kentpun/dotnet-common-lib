@@ -1,4 +1,5 @@
-﻿using HKSH.Common.ShareModel.Base;
+﻿using HKSH.Common.Constants;
+using HKSH.Common.ShareModel.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -25,7 +26,7 @@ namespace HKSH.Common.Configurations
                     if (item.BaseType == typeof(BaseTrackedEntity) || item.BaseType == typeof(BaseTrackedEntity<long>))
                     {
                         ParameterExpression typeExpr = Expression.Parameter(item, "entity");
-                        MemberExpression propertyExpr = Expression.Property(typeExpr, "RecordStatus");
+                        MemberExpression propertyExpr = Expression.Property(typeExpr, GlobalConstant.BASE_ENTITY_RECORD_STATUS);
                         BinaryExpression equalExpr = Expression.Equal(propertyExpr, valueExpr);
                         LambdaExpression expression = Expression.Lambda(equalExpr, typeExpr);
                         modelBuilder.Entity(item).HasQueryFilter(expression);

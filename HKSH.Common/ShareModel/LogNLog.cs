@@ -7,6 +7,7 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// NLog
     /// </summary>
+    /// <seealso cref="BaseEntity" />
     public class LogNLog : BaseEntity
     {
         /// <summary>

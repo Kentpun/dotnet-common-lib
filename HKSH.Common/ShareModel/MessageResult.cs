@@ -3,7 +3,6 @@
     /// <summary>
     /// MessageResult
     /// </summary>
-    /// <seealso cref="MessageResult" />
     public class MessageResult
     {
         /// <summary>

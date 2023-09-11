@@ -87,6 +87,15 @@ namespace HKSH.Common.ShareModel.Base
         [Column("deleted_by")]
         [MaxLength(100)]
         public string? DeletedBy { get; set; }
+
+        /// <summary>
+        /// System Trace ID
+        /// </summary>
+        /// <value>
+        /// The trace identifier.
+        /// </value>
+        [MaxLength(100)]
+        public string? TraceId { get; set; }
     }
 
     /// <summary>

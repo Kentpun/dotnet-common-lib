@@ -368,8 +368,9 @@ public static class ServiceCollectionExtension
         catch (Exception ex)
         {
             Console.WriteLine($"DB Connection failed: {ex?.Message}", ex);
-            services.AddHealthChecks().AddCheck<RedisConnectionHealthCheck>("Redis");
         }
+
+        services.AddHealthChecks().AddCheck<RedisConnectionHealthCheck>("Redis");
 
         return services;
     }

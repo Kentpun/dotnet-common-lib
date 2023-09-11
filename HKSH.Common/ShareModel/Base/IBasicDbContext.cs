@@ -4,6 +4,5 @@
     /// IBasicDbContext
     /// </summary>
     public interface IBasicDbContext
-    {
-    }
+    { }
 }

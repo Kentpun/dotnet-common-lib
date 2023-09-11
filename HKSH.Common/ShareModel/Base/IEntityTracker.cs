@@ -36,5 +36,13 @@
         /// The modified by.
         /// </value>
         public string? ModifiedBy { get; set; }
+
+        /// <summary>
+        /// System Trace ID
+        /// </summary>
+        /// <value>
+        /// The trace identifier.
+        /// </value>
+        public string? TraceId { get; set; }
     }
 }

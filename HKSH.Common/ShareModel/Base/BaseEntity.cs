@@ -24,6 +24,5 @@ namespace HKSH.Common.ShareModel.Base
     /// BaseEntity
     /// </summary>
     public abstract class BaseEntity : BaseEntity<long>
-    {
-    }
+    { }
 }

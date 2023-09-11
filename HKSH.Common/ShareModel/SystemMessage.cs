@@ -5,7 +5,7 @@ namespace HKSH.Common.ShareModel
     /// <summary>
     /// SystemMessage
     /// </summary>
-    /// <seealso cref="HKSH.Common.ShareModel.MessageModel" />
+    /// <seealso cref="MessageModel" />
     public class SystemMessage : MessageModel
     {
         /// <summary>

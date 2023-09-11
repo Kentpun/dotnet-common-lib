@@ -54,5 +54,10 @@
         /// auth header
         /// </summary>
         public const string AUTH_HEADER = "Authorization";
+
+        /// <summary>
+        /// The base entity record status
+        /// </summary>
+        public const string BASE_ENTITY_RECORD_STATUS = "RecordStatus";
     }
 }
