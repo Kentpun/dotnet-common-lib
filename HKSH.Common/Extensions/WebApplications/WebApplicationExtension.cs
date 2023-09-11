@@ -62,15 +62,21 @@ namespace HKSH.Common.Extensions.WebApplications
         /// <param name="app">The application.</param>
         public static WebApplication AutoMigration<TContext>(this WebApplication app) where TContext : DbContext, IBasicDbContext
         {
-            using IServiceScope scope = ((IApplicationBuilder)app).ApplicationServices.CreateScope();
-            TContext? context = scope.ServiceProvider.GetService<TContext>();
-            if (context != null)
+            try
             {
-                IEnumerable<string>? pendingMigrations = context?.Database?.GetPendingMigrations();
-                if (pendingMigrations != null && pendingMigrations.Any())
+                using IServiceScope scope = ((IApplicationBuilder)app).ApplicationServices.CreateScope();
+                TContext? context = scope.ServiceProvider.GetService<TContext>();
+                if (context != null)
                 {
-                    context?.Database?.Migrate();
+                    IEnumerable<string>? pendingMigrations = context?.Database?.GetPendingMigrations();
+                    if (pendingMigrations != null && pendingMigrations.Any())
+                    {
+                        context?.Database?.Migrate();
+                    }
                 }
+            } catch (Exception ex)
+            {
+                Console.WriteLine($"EF Migration failed: {ex.Message}", ex);
             }
             return app;
         }

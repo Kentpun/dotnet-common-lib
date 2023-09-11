@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.8</Version>
+		<Version>5.0.9</Version>
 		<Description>The health check of redis has also been adjusted outside the try catch, and IEntityTracker andBaseTrackedEntity added TraceId</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
