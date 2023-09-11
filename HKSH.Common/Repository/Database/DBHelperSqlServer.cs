@@ -22,46 +22,45 @@ namespace HKSH.Common.Repository.Database
         }
 
         /// <summary>
-        /// 传入SQL语句,返回执行语句后受影响的行数count
+        /// 傳入SQL語句,返回執行語句後受影響的行數count
         /// </summary>
-        /// <param name="sqlString">传入的SQL语句字符串，insert、delete、update</param>
-        /// <returns>受影响的行数count</returns>
+        /// <param name="sqlString">傳入的SQL語句字符串，insert、delete、update</param>
+        /// <returns>受影響的行數count</returns>
         public int ExecuteSql(string sqlString)
         {
-            //传入调用该方法时传入的SQL语句【sqlString】，和数据库打开连接【connection】，得到一个对数据库执行的命令语句
+            //傳入調用該方法時傳入的SQL語句【sqlString】，和數據庫打開連接【connection】，得到一個對數據庫執行的命令語句
             using SqlCommand command = new(sqlString, connection);
             try
             {
-                connection.Open();//打开数据库连接
-                int count = command.ExecuteNonQuery();//对【command】连接执行后返回受影响的行数
-                return count;//返回执行语句后受影响的行数count
+                connection.Open();//打開數據庫連接
+                int count = command.ExecuteNonQuery();//對【command】連接執行後返回受影響的行數
+                return count;//返回執行語句後受影響的行數count
             }
-            catch (SqlException ex)//捕获SQL返回的警告或异常
+            catch (SqlException ex)//捕獲SQL返回的警告或異常
             {
                 throw ex;
             }
-            //即使trycatch中有return，finally中的代码依然会继续执行
+            //即使trycatch中有return，finally中的代碼依然會繼續執行
             finally
             {
-                connection.Close();//不管是try还是catch，最后都要关闭与数据库之间的连接
+                connection.Close();//不管是try還是catch，最後都要關閉與數據庫之間的連接
             }
         }
 
         ///<summary>
-        ///传入带参数的SQL语句,返回执行语句后受影响的行数count
+        ///傳入帶參數的SQL語句,返回執行語句後受影響的行數count
         /// </summary>
-        /// <param name="SQLString">传入的SQL语句字符串，insert、delete、update</param>
-        /// <param name="parm">参数化</param>
-        /// <returns>受影响的行数count</returns>
+        /// <param name="SQLString">傳入的SQL語句字符串，insert、delete、update</param>
+        /// <param name="parm">參數化</param>
+        /// <returns>受影響的行數count</returns>
         public int ExecuteSqlWithParm(string SQLString, SqlParameter[] parm)
         {
             using SqlCommand command = new(SQLString, connection);
             try
             {
                 connection.Open();
-                //command.Parameters.Add(parm[0]);// Parameters.Add：将指定的SqlParameter对象添加到SqlParameterCollection
-                //command.Parameters.Add(parm[1]);
-                command.Parameters.AddRange(parm);//Parameters.AddRange：向SqlParameter的末尾添加一个SqlParameterCollection的数组值
+                // Parameters.Add：將指定的SqlParameter對象添加到SqlParameterCollection
+                command.Parameters.AddRange(parm);//Parameters.AddRange：向SqlParameter的末尾添加一個SqlParameterCollection的數組值
                 int count = command.ExecuteNonQuery();
                 return count;
             }

@@ -36,7 +36,7 @@ namespace HKSH.Common.Adapter
         }
 
         /// <summary>
-        /// 不需要返回值的Get请求.
+        /// 不需要返回值的Get請求.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <param name="parameters">The parameters.</param>
@@ -72,7 +72,7 @@ namespace HKSH.Common.Adapter
         }
 
         /// <summary>
-        /// 有返回值的Get请求.
+        /// 有返回值的Get請求.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="url">The URL.</param>
@@ -112,7 +112,7 @@ namespace HKSH.Common.Adapter
         }
 
         /// <summary>
-        /// Form表单Post请求.
+        /// Form表單Post請求.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="url">The URL.</param>
@@ -123,7 +123,7 @@ namespace HKSH.Common.Adapter
         {
             AddHeaders(headers);
 
-            RestRequest webRequest = new RestRequest(new Uri(url), Method.Post);
+            RestRequest webRequest = new(new Uri(url), Method.Post);
 
             if (parameters.Count > 0)
             {
@@ -145,7 +145,7 @@ namespace HKSH.Common.Adapter
         }
 
         /// <summary>
-        /// 不需要返回值的Post请求.
+        /// 不需要返回值的Post請求.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url">The URL.</param>
@@ -171,7 +171,7 @@ namespace HKSH.Common.Adapter
         }
 
         /// <summary>
-        /// 有返回值的Post请求.
+        /// 有返回值的Post請求.
         /// </summary>
         /// <typeparam name="TParam">The type of the parameter.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
@@ -200,7 +200,7 @@ namespace HKSH.Common.Adapter
         }
 
         /// <summary>
-        /// 添加默认的请求头.
+        /// 添加默認的請求頭.
         /// </summary>
         /// <param name="headers">The headers.</param>
         private void AddHeaders(Dictionary<string, string>? headers)

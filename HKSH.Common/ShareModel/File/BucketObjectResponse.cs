@@ -6,7 +6,7 @@
     public class BucketObjectResponse
     {
         /// <summary>
-        /// 存储桶名称
+        /// 存儲桶名稱
         /// </summary>
         /// <value>
         /// The name of the bucket.
@@ -14,7 +14,7 @@
         public string BucketName { get; set; } = string.Empty;
 
         /// <summary>
-        /// 对象名称
+        /// 對象名稱
         /// </summary>
         /// <value>
         /// The name of the object.

@@ -1,4 +1,6 @@
-﻿namespace HKSH.Common.ShareModel.ExportImport
+﻿using TaskStatus = HKSH.Common.Enums.TaskStatus;
+
+namespace HKSH.Common.ShareModel.ExportImport
 {
     /// <summary>
     /// ImportExportTaskProgress
@@ -27,6 +29,6 @@
         /// <value>
         /// The status.
         /// </value>
-        public Common.Enums.TaskStatus Status { get; set; }
+        public TaskStatus Status { get; set; }
     }
 }

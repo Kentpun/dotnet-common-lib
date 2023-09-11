@@ -43,7 +43,7 @@ public static class ServiceCollectionExtension
     {
         services.AddSwaggerGen(c =>
         {
-            OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme
+            OpenApiSecurityScheme securityScheme = new()
             {
                 Name = "JWT Authentication",
                 Description = "Enter JWT Bearer token **_only_**",
@@ -80,14 +80,21 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection AddNLog(this IServiceCollection services, ConfigurationManager configuration)
     {
-        IConfigurationSection nLogConnetctSection = configuration.GetSection("NLog:targets:db:connectionString");
-        nLogConnetctSection.Value = configuration.GetConnectionString("SqlServer");
-        LogManager.Configuration = new NLogLoggingConfiguration(configuration.GetSection("NLog"));
-
-        services.AddLogging(configure =>
+        try
         {
-            configure.AddNLog(LogManager.Configuration);
-        });
+            IConfigurationSection nLogConnetctSection = configuration.GetSection("NLog:targets:db:connectionString");
+            nLogConnetctSection.Value = configuration.GetConnectionString("SqlServer");
+            LogManager.Configuration = new NLogLoggingConfiguration(configuration.GetSection("NLog"));
+
+            services.AddLogging(configure =>
+            {
+                configure.AddNLog(LogManager.Configuration);
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"NLog Connection failed: {ex.Message}", ex);
+        }
 
         return services;
     }
@@ -100,16 +107,15 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection RegisterDbContextRelated<TContext>(this IServiceCollection services, ConfigurationManager configuration) where TContext : DbContext, IBasicDbContext
     {
-        //add default database
         try
         {
             services.AddDbContextPool<TContext>(option => option.UseSqlServer(configuration.GetConnectionString("SqlServer")), poolSize: 64);
             services.AddScoped<TContext, TContext>();
             services.AddDatabase<TContext>();
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            Console.WriteLine("DB Connection failed: ", e);
+            Console.WriteLine($"DB Connection failed: {ex?.Message}", ex);
         }
 
         services.AddHealthChecks().AddCheck<DatabaseConnectionHealthCheck<TContext>>("SqlDatabase");
@@ -313,18 +319,25 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection RegisterElasticSearch(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddElasticSearch(options =>
+        try
         {
-            IConfigurationSection section = configuration.GetSection("ElasticSearch");
-            if (section != null)
+            services.AddElasticSearch(options =>
             {
-                options.Url = section["Url"];
-                options.DefaultIndex = section["DefaultIndex"];
-                options.CertificateFingerprint = section["CertificateFingerprint"];
-                options.UserName = section["UserName"];
-                options.Password = section["Password"];
-            }
-        });
+                IConfigurationSection section = configuration.GetSection("ElasticSearch");
+                if (section != null)
+                {
+                    options.Url = section["Url"];
+                    options.DefaultIndex = section["DefaultIndex"];
+                    options.CertificateFingerprint = section["CertificateFingerprint"];
+                    options.UserName = section["UserName"];
+                    options.Password = section["Password"];
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Elastic Search Connection failed: {ex.Message}", ex);
+        }
 
         return services;
     }
@@ -337,18 +350,26 @@ public static class ServiceCollectionExtension
     /// <returns></returns>
     public static IServiceCollection RegisterRedis(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddRedis(options =>
+        try
         {
-            IConfigurationSection section = configuration.GetSection("Redis");
-            if (section != null)
+            services.AddRedis(options =>
             {
-                options.UserName = section["UserName"];
-                options.Password = section["Password"];
-                options.ConnectionString = section["ConnectionString"];
-                options.Port = int.Parse(section["Port"] ?? string.Empty);
-                options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
-            }
-        });
+                IConfigurationSection section = configuration.GetSection("Redis");
+                if (section != null)
+                {
+                    options.UserName = section["UserName"];
+                    options.Password = section["Password"];
+                    options.ConnectionString = section["ConnectionString"];
+                    options.Port = int.Parse(section["Port"] ?? string.Empty);
+                    options.EndPoints = section.GetSection("EndPoints").GetChildren().Select(x => x.Value ?? string.Empty).ToList();
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"DB Connection failed: {ex?.Message}", ex);
+            services.AddHealthChecks().AddCheck<RedisConnectionHealthCheck>("Redis");
+        }
 
         return services;
     }

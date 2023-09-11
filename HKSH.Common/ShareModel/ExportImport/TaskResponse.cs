@@ -1,4 +1,7 @@
-﻿namespace HKSH.Common.ShareModel.ExportImport
+﻿using HKSH.Common.Enums;
+using TaskStatus = HKSH.Common.Enums.TaskStatus;
+
+namespace HKSH.Common.ShareModel.ExportImport
 {
     /// <summary>
     /// TaskResponse
@@ -19,7 +22,7 @@
         /// <value>
         /// The type of the acm.
         /// </value>
-        public Common.Enums.TaskType TaskType { get; set; }
+        public TaskType TaskType { get; set; }
 
         /// <summary>
         /// Gets or sets the action.
@@ -27,7 +30,7 @@
         /// <value>
         /// The action.
         /// </value>
-        public Common.Enums.ExportImportType Action { get; set; }
+        public ExportImportType Action { get; set; }
 
         /// <summary>
         /// 文件名
@@ -59,7 +62,7 @@
         /// <value>
         /// The status.
         /// </value>
-        public Common.Enums.TaskStatus Status { get; set; }
+        public TaskStatus Status { get; set; }
 
         /// <summary>
         /// 状态变更原因

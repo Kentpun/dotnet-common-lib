@@ -8,7 +8,7 @@ namespace HKSH.Common.ShareModel.File
     public class UploadFileRequest
     {
         /// <summary>
-        /// 文件上传Key
+        /// 文件上傳Key
         /// </summary>
         /// <value>
         /// The key.

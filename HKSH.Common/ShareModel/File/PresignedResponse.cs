@@ -6,7 +6,7 @@
     public class PresignedResponse
     {
         /// <summary>
-        /// 文件可访问路径
+        /// 文件可訪問路徑
         /// </summary>
         /// <value>
         /// The presigned URL.

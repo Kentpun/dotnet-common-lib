@@ -6,7 +6,7 @@
     public class BucketRequest
     {
         /// <summary>
-        /// 存储桶名称
+        /// 存儲桶名稱
         /// </summary>
         /// <value>
         /// The name of the bucket.
