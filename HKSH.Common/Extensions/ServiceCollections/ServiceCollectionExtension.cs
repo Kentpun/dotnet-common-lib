@@ -444,11 +444,18 @@ public static class ServiceCollectionExtension
         //Kafka
         if (programConfigure.EnableKafka)
         {
-            services.AddCap(x =>
+            try
             {
-                x.UseSqlServer(configuration.GetConnectionString("SqlServer") ?? string.Empty);
-                x.UseKafka(configuration.GetConnectionString("Kafka") ?? string.Empty);
-            });
+                services.AddCap(x =>
+                {
+                    x.UseSqlServer(configuration.GetConnectionString("SqlServer") ?? string.Empty);
+                    x.UseKafka(configuration.GetConnectionString("Kafka") ?? string.Empty);
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Kafka Connection failed: {ex.Message}", ex);
+            }
         }
 
         //File
@@ -456,19 +463,16 @@ public static class ServiceCollectionExtension
         services.AddTransient<FileUploadOptions>();
 
         //Enable Cors
-        if (programConfigure.EnableCors)
+        services.AddCors(options =>
         {
-            services.AddCors(options =>
+            options.AddPolicy("Cors", policy =>
             {
-                options.AddPolicy("Cors", policy =>
-                {
-                    policy.WithOrigins("*")
-                    .SetIsOriginAllowedToAllowWildcardSubdomains()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
+                policy.WithOrigins("*")
+                .SetIsOriginAllowedToAllowWildcardSubdomains()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
             });
-        }
+        });
 
         //DbContext
         if (programConfigure.EnableDbContext)
@@ -559,11 +563,18 @@ public static class ServiceCollectionExtension
         //Kafka
         if (programConfigure.EnableKafka)
         {
-            services.AddCap(x =>
+            try
             {
-                x.UseSqlServer(configuration.GetConnectionString("SqlServer") ?? string.Empty);
-                x.UseKafka(configuration.GetConnectionString("Kafka") ?? string.Empty);
-            });
+                services.AddCap(x =>
+                {
+                    x.UseSqlServer(configuration.GetConnectionString("SqlServer") ?? string.Empty);
+                    x.UseKafka(configuration.GetConnectionString("Kafka") ?? string.Empty);
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Kafka Connection failed: {ex.Message}", ex);
+            }
         }
 
         //File
@@ -571,19 +582,16 @@ public static class ServiceCollectionExtension
         services.AddTransient<FileUploadOptions>();
 
         //Enable Cors
-        if (programConfigure.EnableCors)
+        services.AddCors(options =>
         {
-            services.AddCors(options =>
+            options.AddPolicy("Cors", policy =>
             {
-                options.AddPolicy("Cors", policy =>
-                {
-                    policy.WithOrigins("*")
-                    .SetIsOriginAllowedToAllowWildcardSubdomains()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
+                policy.WithOrigins("*")
+                .SetIsOriginAllowedToAllowWildcardSubdomains()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
             });
-        }
+        });
 
         //Api Version
         services.AddApiVersioning(opt =>

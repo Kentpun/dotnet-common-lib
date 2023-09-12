@@ -95,10 +95,7 @@ namespace HKSH.Common.Extensions.WebApplications
             WebApplication app = builder.Build();
 
             //Enable Cors
-            if (programConfigure.EnableCors)
-            {
-                app.UseCors("Cors");
-            }
+            app.UseCors("Cors");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -159,9 +156,6 @@ namespace HKSH.Common.Extensions.WebApplications
 
             app.UseMiddleware(typeof(ExceptionHandleMiddleware));
 
-            if (programConfigure.EnableCors)
-            {
-            }
             app.UseCors("Cors");
 
             app.UseSwagger();

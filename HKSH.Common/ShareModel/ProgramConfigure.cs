@@ -26,11 +26,6 @@
         public bool EnableStaticFiles { get; set; } = false;
 
         /// <summary>
-        /// 啟用跨域.
-        /// </summary>
-        public bool EnableCors { get; set; } = true;
-
-        /// <summary>
         /// 啟用緩衝.
         /// </summary>
         public bool EnableBuffering { get; set; } = true;
