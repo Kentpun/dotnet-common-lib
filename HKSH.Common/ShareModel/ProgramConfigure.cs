@@ -41,7 +41,7 @@
         public bool EnableKafka { get; set; } = false;
 
         /// <summary>
-        /// 使用Elastic Apm鏈路追踪.
+        /// 使用Elastic Apm鏈路追蹤.
         /// </summary>
         public bool EnableElasticApm { get; set; } = false;
 

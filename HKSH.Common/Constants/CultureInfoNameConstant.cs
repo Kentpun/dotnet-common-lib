@@ -11,7 +11,7 @@
         public const string ES = "es-ES";
 
         /// <summary>
-        /// 中文(台灣）
+        /// 中文(臺灣）
         /// </summary>
         public const string TW = "zh-TW";
 

@@ -74,7 +74,8 @@ namespace HKSH.Common.Extensions.WebApplications
                         context?.Database?.Migrate();
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"EF Migration failed: {ex.Message}", ex);
             }
@@ -161,7 +162,7 @@ namespace HKSH.Common.Extensions.WebApplications
             if (programConfigure.EnableCors)
             {
             }
-                app.UseCors("Cors");
+            app.UseCors("Cors");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

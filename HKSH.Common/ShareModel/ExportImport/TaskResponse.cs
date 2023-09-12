@@ -65,7 +65,7 @@ namespace HKSH.Common.ShareModel.ExportImport
         public TaskStatus Status { get; set; }
 
         /// <summary>
-        /// 状态变更原因
+        /// 狀態變更原因
         /// </summary>
         /// <value>
         /// The remark.

@@ -109,7 +109,7 @@ namespace HKSH.Common.RabbitMQ
         }
 
         /// <summary>
-        /// 处理消息的方法
+        /// 處理消息的方法
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns></returns>

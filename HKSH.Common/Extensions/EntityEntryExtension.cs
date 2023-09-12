@@ -17,7 +17,7 @@ namespace HKSH.Common.Extensions
         {
             Microsoft.EntityFrameworkCore.Metadata.IKey? key = entry.Metadata.FindPrimaryKey();
 
-            List<object> values = new List<object>();
+            List<object> values = new();
             foreach (Microsoft.EntityFrameworkCore.Metadata.IProperty property in key?.Properties ?? new List<Property>())
             {
                 object? value = entry.Property(property.Name).CurrentValue;

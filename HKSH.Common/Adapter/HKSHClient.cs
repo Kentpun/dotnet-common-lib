@@ -90,7 +90,7 @@ namespace HKSH.Common.Adapter
             }
             RestRequest webRequest = new RestRequest(new Uri(url), Method.Get)
             {
-                Timeout = 300 * 1000//默认设置超时5分钟
+                Timeout = 300 * 1000//默認設置超時5分鐘
             };
             if (parameters.Count > 0)
             {
