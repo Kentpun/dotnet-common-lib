@@ -122,7 +122,14 @@ namespace HKSH.Common.Extensions.WebApplications
             //Apm
             if (programConfigure.EnableElasticApm)
             {
-                app.UseAllElasticApm(configuration);
+                try
+                {
+                    _ = app.UseAllElasticApm(configuration);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Elastic Apm Connection failed: {ex.Message}", ex);
+                }
             }
 
             if (programConfigure.EnableBuffering)
@@ -177,7 +184,14 @@ namespace HKSH.Common.Extensions.WebApplications
             //Apm
             if (programConfigure.EnableElasticApm)
             {
-                app.UseAllElasticApm(configuration);
+                try
+                {
+                    _ = app.UseAllElasticApm(configuration);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Elastic Apm Connection failed: {ex.Message}", ex);
+                }
             }
 
             if (programConfigure.EnableBuffering)

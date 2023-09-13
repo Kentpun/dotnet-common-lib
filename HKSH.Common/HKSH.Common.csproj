@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.12</Version>
-		<Description>BaseTrackEntity 和 BaseEntity 去掉Column註解， Redis加入AbortOnConnectFail</Description>
+		<Version>5.0.13</Version>
+		<Description>Elastic Apm Connection try catch</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
