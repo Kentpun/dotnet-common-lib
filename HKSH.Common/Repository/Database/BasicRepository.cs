@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HKSH.Common.Repository.Database
 {
     /// <summary>
-    /// BasicRepository
+    /// Basic Repository
     /// </summary>
     internal class BasicRepository<T> : IBasicRepository<T> where T : class
     {
@@ -64,11 +64,10 @@ namespace HKSH.Common.Repository.Database
         /// <param name="entity">The entity.</param>
         public void Add(T entity)
         {
-            IEntityTracker? tracker = entity as IEntityTracker;
-            if (tracker != null)
+            if (entity is IEntityTracker tracker)
             {
-                tracker.CreatedAt = DateTime.Now;
-                tracker.ModifiedAt = DateTime.Now;
+                tracker.CreatedTime = DateTime.Now;
+                tracker.ModifiedTime = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId ?? string.Empty;
@@ -99,7 +98,7 @@ namespace HKSH.Common.Repository.Database
             IEntityTracker? tracker = entity as IEntityTracker;
             if (tracker != null)
             {
-                tracker.ModifiedAt = DateTime.Now;
+                tracker.ModifiedTime = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.ModifiedBy))
                 {
                     tracker.ModifiedBy = CurrentUserId;
@@ -150,7 +149,7 @@ namespace HKSH.Common.Repository.Database
             IEntityDelTracker? tracker = entity as IEntityDelTracker;
             if (tracker != null)
             {
-                tracker.DeletedAt = DateTime.Now;
+                tracker.DeletedTime = DateTime.Now;
                 tracker.RecordStatus = 1;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {

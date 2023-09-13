@@ -6,12 +6,12 @@
     public interface IEntityTracker
     {
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the created time.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The created time.
         /// </value>
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the created by.
@@ -22,12 +22,12 @@
         public string CreatedBy { get; set; }
 
         /// <summary>
-        /// Gets or sets the modified at.
+        /// Gets or sets the modified time.
         /// </summary>
         /// <value>
-        /// The modified at.
+        /// The modified time.
         /// </value>
-        public DateTime? ModifiedAt { get; set; }
+        public DateTime? ModifiedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the modified by.

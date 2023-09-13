@@ -19,17 +19,15 @@ namespace HKSH.Common.ShareModel.Base
         /// The identifier.
         /// </value>
         [Key]
-        [Column("id")]
         public T Id { get; set; } = default!;
 
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the created time.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The created time.
         /// </value>
-        [Column("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the created by.
@@ -37,18 +35,16 @@ namespace HKSH.Common.ShareModel.Base
         /// <value>
         /// The created by.
         /// </value>
-        [Column("created_by")]
         [MaxLength(100)]
         public string CreatedBy { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets the modified at.
+        /// Gets or sets the modified time.
         /// </summary>
         /// <value>
-        /// The modified at.
+        /// The modified time.
         /// </value>
-        [Column("modified_at")]
-        public DateTime? ModifiedAt { get; set; }
+        public DateTime? ModifiedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the modified by.
@@ -56,7 +52,6 @@ namespace HKSH.Common.ShareModel.Base
         /// <value>
         /// The modified by.
         /// </value>
-        [Column("modified_by")]
         [MaxLength(100)]
         public string? ModifiedBy { get; set; }
 
@@ -66,17 +61,15 @@ namespace HKSH.Common.ShareModel.Base
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        [Column("record_status")]
         public byte RecordStatus { get; set; }
 
         /// <summary>
-        /// Gets or sets the deleted at.
+        /// Gets or sets the deleted time.
         /// </summary>
         /// <value>
-        /// The deleted at.
+        /// The deleted time.
         /// </value>
-        [Column("deleted_at")]
-        public DateTime? DeletedAt { get; set; }
+        public DateTime? DeletedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the deleted by.
@@ -84,7 +77,6 @@ namespace HKSH.Common.ShareModel.Base
         /// <value>
         /// The deleted by.
         /// </value>
-        [Column("deleted_by")]
         [MaxLength(100)]
         public string? DeletedBy { get; set; }
 

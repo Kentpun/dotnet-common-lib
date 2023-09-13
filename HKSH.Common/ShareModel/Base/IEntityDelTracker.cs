@@ -14,12 +14,12 @@
         public byte RecordStatus { get; set; }
 
         /// <summary>
-        /// Gets or sets the deleted at.
+        /// Gets or sets the deleted time.
         /// </summary>
         /// <value>
-        /// The deleted at.
+        /// The deleted time.
         /// </value>
-        public DateTime? DeletedAt { get; set; }
+        public DateTime? DeletedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the deleted by.

@@ -16,7 +16,6 @@ namespace HKSH.Common.ShareModel.Base
         /// The identifier.
         /// </value>
         [Key]
-        [Column("id")]
         public T Id { get; set; } = default!;
     }
 

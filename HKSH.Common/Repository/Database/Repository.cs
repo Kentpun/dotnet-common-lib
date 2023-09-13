@@ -86,8 +86,8 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityTracker tracker)
             {
-                tracker.CreatedAt = DateTime.Now;
-                tracker.ModifiedAt = DateTime.Now;
+                tracker.CreatedTime = DateTime.Now;
+                tracker.ModifiedTime = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId;
@@ -106,7 +106,7 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityTracker tracker)
             {
-                tracker.CreatedAt = DateTime.Now;
+                tracker.CreatedTime = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = CurrentUserId;
@@ -163,7 +163,7 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityTracker tracker)
             {
-                tracker.ModifiedAt = DateTime.Now;
+                tracker.ModifiedTime = DateTime.Now;
                 tracker.ModifiedBy = CurrentUserId;
             }
             //tracked already
@@ -209,7 +209,7 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityDelTracker tracker)
             {
-                tracker.DeletedAt = DateTime.Now;
+                tracker.DeletedTime = DateTime.Now;
                 tracker.RecordStatus = 1;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
@@ -322,8 +322,8 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityTracker tracker)
             {
-                tracker.CreatedAt = DateTime.Now;
-                tracker.ModifiedAt = DateTime.Now;
+                tracker.CreatedTime = DateTime.Now;
+                tracker.ModifiedTime = DateTime.Now;
                 if (string.IsNullOrEmpty(tracker.CreatedBy))
                 {
                     tracker.CreatedBy = userId;
@@ -355,7 +355,7 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityTracker tracker)
             {
-                tracker.ModifiedAt = DateTime.Now;
+                tracker.ModifiedTime = DateTime.Now;
                 tracker.ModifiedBy = userId;
             }
             //tracked already
@@ -389,7 +389,7 @@ namespace HKSH.Common.Repository.Database
         {
             if (entity is IEntityDelTracker tracker)
             {
-                tracker.DeletedAt = DateTime.Now;
+                tracker.DeletedTime = DateTime.Now;
                 tracker.RecordStatus = 1;
                 if (string.IsNullOrEmpty(tracker.DeletedBy))
                 {
