@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="R"></typeparam>
     /// <typeparam name="I"></typeparam>
-    public interface IProcessor<R, I> where R : class where I : class
+    public interface IProcessor<out R, in I> where R : class where I : class
     {
         /// <summary>
         /// Processes the specified input.

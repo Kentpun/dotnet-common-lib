@@ -1,85 +1,148 @@
-﻿using System.ComponentModel;
-
-namespace HKSH.Common.Enums
+﻿namespace HKSH.Common.Enums
 {
     /// <summary>
     /// Task Type
     /// </summary>
-    public enum TaskType
+    public class TaskType
     {
+        /// <summary>
+        /// The dic
+        /// </summary>
+        private static readonly Dictionary<string, TaskType> dic = new Dictionary<string, TaskType>();
+
         /// <summary>
         /// The device
         /// </summary>
-        [Description("Device")] Device = 1001,
+        public static readonly TaskType Device = new TaskType("Device", "Device");
 
         /// <summary>
         /// The location
         /// </summary>
-        [Description("Location")] Location = 1002,
+        public static readonly TaskType Location = new TaskType("Location", "Location");
 
         /// <summary>
         /// The role
         /// </summary>
-        [Description("Role")] Role = 1003,
+        public static readonly TaskType Role = new TaskType("Role", "Role");
 
         /// <summary>
         /// The module
         /// </summary>
-        [Description("Module")] Module = 1004,
+        public static readonly TaskType Module = new TaskType("Module", "Module");
 
         /// <summary>
         /// The menu
         /// </summary>
-        [Description("Menu")] Menu = 1005,
+        public static readonly TaskType Menu = new TaskType("Menu", "Menu");
 
         /// <summary>
         /// The dictionary setting
         /// </summary>
-        [Description("DictionarySetting")] DictionarySetting = 1006,
+        public static readonly TaskType DictionarySetting = new TaskType("DictionarySetting", "DictionarySetting");
 
         /// <summary>
         /// The dictionary data set
         /// </summary>
-        [Description("DictionaryDataSet")] DictionaryDataSet = 1007,
+        public static readonly TaskType DictionaryDataSet = new TaskType("DictionaryDataSet", "DictionaryDataSet");
 
         /// <summary>
         /// The dictionary
         /// </summary>
-        [Description("Dictionary")] Dictionary = 1008,
+        public static readonly TaskType Dictionary = new TaskType("Dictionary", "Dictionary");
 
         /// <summary>
-        /// The dictionary
+        /// The dictionary excel templte
         /// </summary>
-        [Description("DictionaryExcelTemplte")] DictionaryExcelTemplte = 1009,
+        public static readonly TaskType DictionaryExcelTemplte = new TaskType("DictionaryExcelTemplte", "DictionaryExcelTemplte");
 
         /// <summary>
-        /// The dictionary
+        /// The publish log
         /// </summary>
-        [Description("PublishLog")] PublishLog = 1010,
+        public static readonly TaskType PublishLog = new TaskType("PublishLog", "PublishLog");
 
         /// <summary>
         /// The alert
         /// </summary>
-        [Description("Alert")] Alert = 1011,
+        public static readonly TaskType Alert = new TaskType("Alert", "Alert");
 
         /// <summary>
         /// The button
         /// </summary>
-        [Description("Button")] Button = 1012,
+        public static readonly TaskType Button = new TaskType("Button", "Button");
 
         /// <summary>
-        /// The Notification Templte
+        /// The notification templte
         /// </summary>
-        [Description("NotificationTemplte")] NotificationTemplte = 1013,
+        public static readonly TaskType NotificationTemplte = new TaskType("NotificationTemplte", "NotificationTemplte");
 
         /// <summary>
         /// The action log
         /// </summary>
-        [Description("ActionLog")] ActionLog = 1014,
+        public static readonly TaskType ActionLog = new TaskType("ActionLog", "ActionLog");
 
         /// <summary>
         /// The activity log
         /// </summary>
-        [Description("ActivityLog")] ActivityLog = 1015,
+        public static readonly TaskType ActivityLog = new TaskType("DevActivityLogice", "DevActivityLogice");
+
+        /// <summary>
+        /// The code
+        /// </summary>
+        private readonly string _code;
+
+        /// <summary>
+        /// The value
+        /// </summary>
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskType"/> class.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <param name="value">The value.</param>
+        private TaskType(string code, string value)
+        {
+            _code = code;
+            _value = value;
+            dic.Add(_code, this);
+        }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="string"/> to <see cref="TaskType"/>.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        /// <exception cref="ArgumentException">Invalid task status code.</exception>
+        public static implicit operator TaskType(string code)
+        {
+            if (dic.ContainsKey(code))
+            {
+                return dic[code];
+            }
+            else
+            {
+                throw new ArgumentException("Invalid task type code.", code);
+            }
+        }
+
+        /// <summary>
+        /// Gets the code.
+        /// </summary>
+        /// <returns></returns>
+        public string GetCode()
+        {
+            return _code;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <returns></returns>
+        public string GetValue()
+        {
+            return _value;
+        }
     }
 }

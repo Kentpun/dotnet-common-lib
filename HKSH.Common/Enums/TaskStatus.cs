@@ -1,35 +1,98 @@
-﻿using System.ComponentModel;
-
-namespace HKSH.Common.Enums
+﻿namespace HKSH.Common.Enums
 {
     /// <summary>
     /// 狀態
     /// </summary>
-    public enum TaskStatus
+    public class TaskStatus
     {
         /// <summary>
-        /// 新任務
+        /// The dic
         /// </summary>
-        [Description("New")] New = 1001,
+        private static readonly Dictionary<string, TaskStatus> dic = new Dictionary<string, TaskStatus>();
 
         /// <summary>
-        /// 處理中
+        /// The new
         /// </summary>
-        [Description("InProgress")] InProgress = 1002,
+        public static readonly TaskStatus New = new TaskStatus("New", "New");
 
         /// <summary>
-        /// 已完成
+        /// The in progress
         /// </summary>
-        [Description("Completed")] Completed = 1003,
+        public static readonly TaskStatus InProgress = new TaskStatus("InProgress", "InProgress");
 
         /// <summary>
-        /// 失敗任務
+        /// The in progress
         /// </summary>
-        [Description("Failed")] Failed = 1004,
+        public static readonly TaskStatus Completed = new TaskStatus("Completed", "Completed");
 
         /// <summary>
-        /// 已取消
+        /// The failed
         /// </summary>
-        [Description("Canceled")] Canceled = 1005,
+        public static readonly TaskStatus Failed = new TaskStatus("Failed", "Failed");
+
+        /// <summary>
+        /// The canceled
+        /// </summary>
+        public static readonly TaskStatus Canceled = new TaskStatus("Canceled", "Canceled");
+
+        /// <summary>
+        /// The code
+        /// </summary>
+        private readonly string _code;
+
+        /// <summary>
+        /// The value
+        /// </summary>
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskStatus"/> class.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <param name="value">The value.</param>
+        private TaskStatus(string code, string value)
+        {
+            _code = code;
+            _value = value;
+            dic.Add(_code, this);
+        }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="string"/> to <see cref="TaskStatus"/>.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        /// <exception cref="ArgumentException">Invalid task status code.</exception>
+        public static implicit operator TaskStatus(string code)
+        {
+            if (dic.ContainsKey(code))
+            {
+                return dic[code];
+            }
+            else
+            {
+                throw new ArgumentException("Invalid task status code.", code);
+            }
+        }
+
+        /// <summary>
+        /// Gets the code.
+        /// </summary>
+        /// <returns></returns>
+        public string GetCode()
+        {
+            return _code;
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <returns></returns>
+        public string GetValue()
+        {
+            return _value;
+        }
     }
 }

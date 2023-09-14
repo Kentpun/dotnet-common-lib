@@ -12,7 +12,7 @@ namespace HKSH.Common.ShareModel
         /// </summary>
         /// <param name="code">The code.</param>
         /// <param name="ModuleCode">The module code.</param>
-        public MessageModel(string code, string ModuleCode = GlobalConstant.SYSTEM_MESSAGE_PREFIX)
+        protected MessageModel(string code, string ModuleCode = GlobalConstant.SYSTEM_MESSAGE_PREFIX)
         {
             Code = $"B{ModuleCode}{code}";
         }

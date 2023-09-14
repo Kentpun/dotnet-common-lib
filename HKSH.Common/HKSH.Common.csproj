@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.13</Version>
-		<Description>Elastic Apm Connection try catch</Description>
+		<Version>5.0.14</Version>
+		<Description>Update Enum to Custom Class</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
