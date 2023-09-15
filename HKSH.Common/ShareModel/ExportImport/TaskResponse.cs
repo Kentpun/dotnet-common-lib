@@ -1,7 +1,4 @@
-﻿using HKSH.Common.Enums;
-using TaskStatus = HKSH.Common.Enums.TaskStatus;
-
-namespace HKSH.Common.ShareModel.ExportImport
+﻿namespace HKSH.Common.ShareModel.ExportImport
 {
     /// <summary>
     /// TaskResponse
@@ -18,19 +15,21 @@ namespace HKSH.Common.ShareModel.ExportImport
 
         /// <summary>
         /// Gets or sets the type of the acm.
+        /// Source HKSH.Common/Enums/TaskType
         /// </summary>
         /// <value>
         /// The type of the acm.
         /// </value>
-        public TaskType TaskType { get; set; }
+        public string TaskType { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the action.
+        /// Source HKSH.Common/Enums/ExportImportType
         /// </summary>
         /// <value>
         /// The action.
         /// </value>
-        public ExportImportType Action { get; set; }
+        public string Action { get; set; } = string.Empty;
 
         /// <summary>
         /// 文件名
@@ -38,7 +37,7 @@ namespace HKSH.Common.ShareModel.ExportImport
         /// <value>
         /// The name of the file.
         /// </value>
-        public string FileName { get; set; } = String.Empty;
+        public string FileName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the bucket.
@@ -46,7 +45,7 @@ namespace HKSH.Common.ShareModel.ExportImport
         /// <value>
         /// The name of the bucket.
         /// </value>
-        public string BucketName { get; set; } = String.Empty;
+        public string BucketName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the object.
@@ -54,15 +53,16 @@ namespace HKSH.Common.ShareModel.ExportImport
         /// <value>
         /// The name of the object.
         /// </value>
-        public string ObjectName { get; set; } = String.Empty;
+        public string ObjectName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the status.
+        /// Source HKSH.Common/Enums/TaskStatus
         /// </summary>
         /// <value>
         /// The status.
         /// </value>
-        public TaskStatus Status { get; set; }
+        public string Status { get; set; } = string.Empty;
 
         /// <summary>
         /// 狀態變更原因
@@ -70,7 +70,7 @@ namespace HKSH.Common.ShareModel.ExportImport
         /// <value>
         /// The remark.
         /// </value>
-        public string Remark { get; set; } = String.Empty;
+        public string Remark { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the created at.

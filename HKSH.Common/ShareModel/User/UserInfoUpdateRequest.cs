@@ -1,6 +1,4 @@
-﻿using HKSH.Common.Enums;
-
-namespace HKSH.Common.ShareModel.User
+﻿namespace HKSH.Common.ShareModel.User
 {
     /// <summary>
     /// UserInfo Update Request
@@ -17,11 +15,12 @@ namespace HKSH.Common.ShareModel.User
 
         /// <summary>
         /// Gets or sets the language.
+        /// Source HKSH.Common/Enums/Language
         /// </summary>
         /// <value>
         /// The language.
         /// </value>
-        public Language? Language { get; set; }
+        public string? Language { get; set; }
 
         /// <summary>
         /// Gets or sets the location code.
@@ -41,18 +40,20 @@ namespace HKSH.Common.ShareModel.User
 
         /// <summary>
         /// Gets or sets the status.
+        /// Source HKSH.Common/Enums/ActiveStatus
         /// </summary>
         /// <value>
         /// The status.
         /// </value>
-        public ActiveStatus? Status { get; set; }
+        public string? Status { get; set; }
 
         /// <summary>
         /// Gets or sets the lock.
+        /// Source HKSH.Common/Enums/LockStatus
         /// </summary>
         /// <value>
         /// The lock.
         /// </value>
-        public LockStatus? Lock { get; set; }
+        public string? Lock { get; set; }
     }
 }
