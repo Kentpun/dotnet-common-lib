@@ -56,7 +56,7 @@
             {
                 return dic[code];
             }
-            throw new ArgumentException("Invalid active status value.", code);
+            throw new ArgumentException("Invalid active status code.", code);
         }
 
         /// <summary>
