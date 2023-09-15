@@ -83,7 +83,7 @@
         /// <summary>
         /// The activity log
         /// </summary>
-        public static readonly TaskType ActivityLog = new TaskType("DevActivityLogice", "DevActivityLogice");
+        public static readonly TaskType ActivityLog = new TaskType("ActivityLog", "ActivityLog");
 
         /// <summary>
         /// The code
