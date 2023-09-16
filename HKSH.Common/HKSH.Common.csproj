@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.16</Version>
-		<Description>Update ShareModel Class Enum Properity to string (TaskType)</Description>
+		<Version>5.0.17</Version>
+		<Description>Add ObjectListPair</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
