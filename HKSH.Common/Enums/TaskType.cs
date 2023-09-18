@@ -51,9 +51,9 @@
         public static readonly TaskType Dictionary = new TaskType("Dictionary", "Dictionary");
 
         /// <summary>
-        /// The dictionary excel templte
+        /// The dictionary excel template
         /// </summary>
-        public static readonly TaskType DictionaryExcelTemplte = new TaskType("DictionaryExcelTemplte", "DictionaryExcelTemplte");
+        public static readonly TaskType DictionaryExcelTemplate = new TaskType("DictionaryExcelTemplate", "DictionaryExcelTemplate");
 
         /// <summary>
         /// The publish log
@@ -70,10 +70,11 @@
         /// </summary>
         public static readonly TaskType Button = new TaskType("Button", "Button");
 
+
         /// <summary>
-        /// The notification templte
+        /// The notification template
         /// </summary>
-        public static readonly TaskType NotificationTemplte = new TaskType("NotificationTemplte", "NotificationTemplte");
+        public static readonly TaskType NotificationTemplate = new TaskType("NotificationTemplate", "NotificationTemplate");
 
         /// <summary>
         /// The action log

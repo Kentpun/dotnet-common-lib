@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.17</Version>
-		<Description>Add ObjectListPair</Description>
+		<Version>5.0.18</Version>
+		<Description>Update TaskType</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
