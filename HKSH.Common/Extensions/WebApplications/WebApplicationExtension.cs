@@ -66,12 +66,12 @@ namespace HKSH.Common.Extensions.WebApplications
             {
                 using IServiceScope scope = ((IApplicationBuilder)app).ApplicationServices.CreateScope();
                 TContext? context = scope.ServiceProvider.GetService<TContext>();
-                if (context != null)
+                if (context != null && context.Database != null && context.Database.CanConnect())
                 {
-                    IEnumerable<string>? pendingMigrations = context?.Database?.GetPendingMigrations();
-                    if (pendingMigrations != null && pendingMigrations.Any())
+                    IEnumerable<string> pendingMigrations = context.Database.GetPendingMigrations();
+                    if (pendingMigrations.Any())
                     {
-                        context?.Database?.Migrate();
+                        context.Database?.Migrate();
                     }
                 }
             }

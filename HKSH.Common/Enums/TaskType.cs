@@ -70,7 +70,6 @@
         /// </summary>
         public static readonly TaskType Button = new TaskType("Button", "Button");
 
-
         /// <summary>
         /// The notification template
         /// </summary>

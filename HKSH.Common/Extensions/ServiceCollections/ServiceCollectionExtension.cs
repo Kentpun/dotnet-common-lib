@@ -115,7 +115,7 @@ public static class ServiceCollectionExtension
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"DB Connection failed: {ex?.Message}", ex);
+            Console.WriteLine($"DB Connection failed: {ex.Message}", ex);
         }
 
         services.AddHealthChecks().AddCheck<DatabaseConnectionHealthCheck<TContext>>("SqlDatabase");
@@ -367,7 +367,7 @@ public static class ServiceCollectionExtension
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Redis Connection failed: {ex?.Message}", ex);
+            Console.WriteLine($"Redis Connection failed: {ex.Message}", ex);
         }
 
         services.AddHealthChecks().AddCheck<RedisConnectionHealthCheck>("Redis");
