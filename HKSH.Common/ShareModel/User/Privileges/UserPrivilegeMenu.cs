@@ -18,7 +18,7 @@
         /// <summary>
         /// menu type
         /// </summary>
-        public int MenuType { get; set; }
+        public string MenuType { get; set; } = string.Empty;
 
         /// <summary>
         /// menu name
