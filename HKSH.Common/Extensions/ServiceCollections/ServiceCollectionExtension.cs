@@ -448,8 +448,13 @@ public static class ServiceCollectionExtension
             {
                 services.AddCap(x =>
                 {
-                    x.UseSqlServer(configuration.GetConnectionString("SqlServer") ?? string.Empty);
-                    x.UseKafka(configuration.GetConnectionString("Kafka") ?? string.Empty);
+                    string? sqlConnectionString = configuration.GetConnectionString("SqlServer");
+                    string? kafkaConnectionString = configuration.GetConnectionString("Kafka");
+                    if (!string.IsNullOrEmpty(sqlConnectionString) && !string.IsNullOrEmpty(kafkaConnectionString))
+                    {
+                        x.UseSqlServer(sqlConnectionString);
+                        x.UseKafka(kafkaConnectionString);
+                    }
                 });
             }
             catch (Exception ex)
@@ -567,8 +572,13 @@ public static class ServiceCollectionExtension
             {
                 services.AddCap(x =>
                 {
-                    x.UseSqlServer(configuration.GetConnectionString("SqlServer") ?? string.Empty);
-                    x.UseKafka(configuration.GetConnectionString("Kafka") ?? string.Empty);
+                    string? sqlConnectionString = configuration.GetConnectionString("SqlServer");
+                    string? kafkaConnectionString = configuration.GetConnectionString("Kafka");
+                    if (!string.IsNullOrEmpty(sqlConnectionString) && !string.IsNullOrEmpty(kafkaConnectionString))
+                    {
+                        x.UseSqlServer(sqlConnectionString);
+                        x.UseKafka(kafkaConnectionString);
+                    }
                 });
             }
             catch (Exception ex)

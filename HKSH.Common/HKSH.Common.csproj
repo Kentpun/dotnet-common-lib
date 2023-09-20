@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.19</Version>
-		<Description>Update WebApplicationExtension</Description>
+		<Version>5.0.20</Version>
+		<Description>Update Kafka Connect Method</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
