@@ -11,6 +11,6 @@ namespace HKSH.Common.Elastic
         /// Gets the client.
         /// </summary>
         /// <returns></returns>
-        ElasticClient GetClient();
+        IElasticClient GetClient();
     }
 }

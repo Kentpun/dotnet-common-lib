@@ -17,7 +17,7 @@ namespace HKSH.Common.Elastic
         /// <summary>
         /// The client
         /// </summary>
-        private ElasticClient? _client;
+        private IElasticClient? _client;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticSearchClientProvider"/> class.
@@ -32,7 +32,7 @@ namespace HKSH.Common.Elastic
         /// Gets the client.
         /// </summary>
         /// <returns></returns>
-        public ElasticClient GetClient()
+        public IElasticClient GetClient()
         {
             if (_client != null)
             {
