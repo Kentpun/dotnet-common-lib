@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.22</Version>
-		<Description>Update CommonAudit</Description>
+		<Version>5.0.23</Version>
+		<Description>Update MenuType</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
