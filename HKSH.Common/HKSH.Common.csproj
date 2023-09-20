@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.23</Version>
-		<Description>Update MenuType</Description>
+		<Version>5.0.24</Version>
+		<Description>Update ElasticSearchClientProvider</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
@@ -71,6 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="CustomHealthChecks\" />
+		<Folder Include="CustomHealthChecks\" />
 	</ItemGroup>
 </Project>
