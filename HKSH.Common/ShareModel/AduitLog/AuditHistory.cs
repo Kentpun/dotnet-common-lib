@@ -130,9 +130,9 @@ namespace HKSH.Common.ShareModel.AduitLog
                 tableSqlBuilder.AppendLine(@$"  FROM");
                 tableSqlBuilder.AppendLine(@$"    sysObjects");
                 tableSqlBuilder.AppendLine(@$"  WHERE");
-                tableSqlBuilder.AppendLine(@$"    Id = OBJECT_ID('com_audit_{DateTime.Now:yyyyMM}')");
+                tableSqlBuilder.AppendLine(@$"    Id = OBJECT_ID('CommonAudit{DateTime.Now:yyyyMM}')");
                 tableSqlBuilder.AppendLine(@$"    and xtype = 'U'");
-                tableSqlBuilder.AppendLine(@$") BEGIN CREATE TABLE com_audit_{DateTime.Now:yyyyMM} (");
+                tableSqlBuilder.AppendLine(@$") BEGIN CREATE TABLE CommonAudit{DateTime.Now:yyyyMM} (");
                 tableSqlBuilder.AppendLine(@$"  [id] [bigint] IDENTITY(1, 1) NOT NULL,");
                 tableSqlBuilder.AppendLine(@$"  [table_name] [nvarchar] (200) NULL,");
                 tableSqlBuilder.AppendLine(@$"  [row_id] [bigint] NULL,");
@@ -140,7 +140,7 @@ namespace HKSH.Common.ShareModel.AduitLog
                 tableSqlBuilder.AppendLine(@$"  [row] [nvarchar] (max)NULL,");
                 tableSqlBuilder.AppendLine(@$"  [version] [nvarchar] (max)NULL,");
                 tableSqlBuilder.AppendLine(@$"  [created_by] [nvarchar] (100) NULL,");
-                tableSqlBuilder.AppendLine(@$"  [created_at] [datetime2](7) NULL CONSTRAINT [PK_com_audit_{DateTime.Now:yyyyMM}] PRIMARY KEY CLUSTERED ([id] ASC) WITH (");
+                tableSqlBuilder.AppendLine(@$"  [created_at] [datetime2](7) NULL CONSTRAINT [PK_CommonAudit{DateTime.Now:yyyyMM}] PRIMARY KEY CLUSTERED ([id] ASC) WITH (");
                 tableSqlBuilder.AppendLine(@$"    STATISTICS_NORECOMPUTE = OFF,");
                 tableSqlBuilder.AppendLine(@$"    IGNORE_DUP_KEY = OFF,");
                 tableSqlBuilder.AppendLine(@$"    OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF");
@@ -167,7 +167,7 @@ namespace HKSH.Common.ShareModel.AduitLog
                 if (_rows != null && _rows.Any())
                 {
                     StringBuilder sqlDataBuilder = new();
-                    sqlDataBuilder.AppendLine(@$"INSERT INTO com_audit_{DateTime.Now:yyyyMM} ([table_name],[row_id],[action],[row],[version],[created_by],[created_at])");
+                    sqlDataBuilder.AppendLine(@$"INSERT INTO CommonAudit{DateTime.Now:yyyyMM} ([table_name],[row_id],[action],[row],[version],[created_by],[created_at])");
                     sqlDataBuilder.AppendLine(@$"VALUES");
                     for (int i = 0; i < _rows.Count; i++)
                     {
