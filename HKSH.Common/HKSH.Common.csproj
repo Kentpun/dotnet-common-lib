@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.24</Version>
-		<Description>Update ElasticSearchClientProvider</Description>
+		<Version>5.0.25</Version>
+		<Description>Update CommonAsynTask</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 

@@ -68,6 +68,6 @@
         /// <summary>
         /// The asyntask table name
         /// </summary>
-        public const string ASYNTASK_TABLE_NAME = "common_asyn_task";
+        public const string ASYNTASK_TABLE_NAME = "CommonAsynTask";
     }
 }
