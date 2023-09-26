@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.27</Version>
-		<Description>Add TraceId and SpanId</Description>
+		<Version>5.0.28</Version>
+		<Description>add location id for permission</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 

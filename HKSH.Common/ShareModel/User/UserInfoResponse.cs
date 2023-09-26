@@ -145,6 +145,14 @@ namespace HKSH.Common.ShareModel.User
         public string LocationCode { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets or sets the location identifier.
+        /// </summary>
+        /// <value>
+        /// The location identifier.
+        /// </value>
+        public string LocationId { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the status.
         /// Source HKSH.Common/Enums/ActiveStatus
         /// </summary>
