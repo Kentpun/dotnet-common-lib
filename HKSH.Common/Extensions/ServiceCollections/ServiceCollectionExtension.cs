@@ -6,6 +6,7 @@ using HKSH.Common.Constants;
 using HKSH.Common.CustomHealthChecks;
 using HKSH.Common.Elastic;
 using HKSH.Common.File;
+using HKSH.Common.Filters;
 using HKSH.Common.RabbitMQ;
 using HKSH.Common.ServiceInvoker;
 using HKSH.Common.ShareModel;
@@ -401,7 +402,10 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
-        services.AddControllers();
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<ApiActionFilterAttribute>();
+        });
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();
@@ -525,7 +529,10 @@ public static class ServiceCollectionExtension
             services.AddKeyCloak(configuration);
         }
 
-        services.AddControllers();
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<ApiActionFilterAttribute>();
+        });
         services.AddHttpClient();
         services.AddCurrentContext();
         services.AddHttpContextAccessor();

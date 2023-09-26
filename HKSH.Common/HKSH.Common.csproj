@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.25</Version>
-		<Description>Update CommonAsynTask</Description>
+		<Version>5.0.26</Version>
+		<Description>Add ApiActionFilterAttribute</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 

@@ -42,6 +42,12 @@ namespace HKSH.Common.Middlewares
         {
             try
             {
+                HttpRequest request = httpContext.Request;
+                request.EnableBuffering();
+                var reader = new StreamReader(request.Body);
+                await reader.ReadToEndAsync();
+                request.Body.Position = 0;
+
                 await _next(httpContext);
             }
             catch (Exception ex)

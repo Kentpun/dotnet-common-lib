@@ -94,6 +94,8 @@ namespace HKSH.Common.Extensions.WebApplications
             ConfigurationManager configuration = builder.Configuration;
             WebApplication app = builder.Build();
 
+            app.UseMiddleware<ExceptionHandleMiddleware>();
+
             //Enable Cors
             app.UseCors("Cors");
 
@@ -161,7 +163,7 @@ namespace HKSH.Common.Extensions.WebApplications
             ConfigurationManager configuration = builder.Configuration;
             WebApplication app = builder.Build();
 
-            app.UseMiddleware(typeof(ExceptionHandleMiddleware));
+            app.UseMiddleware<ExceptionHandleMiddleware>();
 
             app.UseCors("Cors");
 
