@@ -59,5 +59,20 @@
         /// The base entity record status
         /// </summary>
         public const string BASE_ENTITY_RECORD_STATUS = "RecordStatus";
+
+        /// <summary>
+        /// The trace identifier
+        /// </summary>
+        public const string TRACE_ID = "TraceId";
+
+        /// <summary>
+        /// The span identifier
+        /// </summary>
+        public const string SPAN_ID = "SpanId";
+
+        /// <summary>
+        /// The get
+        /// </summary>
+        public const string GET = "GET";
     }
 }

@@ -6,12 +6,20 @@
     public class ApiRequest
     {
         /// <summary>
-        /// Gets or sets the request ip.
+        /// Gets or sets the trace identifier.
         /// </summary>
         /// <value>
-        /// The request ip.
+        /// The trace identifier.
         /// </value>
-        public string? RequestIP { get; set; }
+        public string? TraceId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the span identifier.
+        /// </summary>
+        /// <value>
+        /// The span identifier.
+        /// </value>
+        public string? SpanId { get; set; }
 
         /// <summary>
         /// Gets or sets the URL.

@@ -1,4 +1,5 @@
-﻿using HKSH.Common.Extensions;
+﻿using HKSH.Common.Constants;
+using HKSH.Common.Extensions;
 using HKSH.Common.ShareModel;
 using HKSH.Common.ShareModel.Request;
 using HKSH.Common.ShareModel.Response;
@@ -44,13 +45,14 @@ namespace HKSH.Common.Filters
             {
                 apiRequest = new ApiRequest
                 {
+                    TraceId = context.HttpContext.Request.Headers[GlobalConstant.TRACE_ID],
+                    SpanId = context.HttpContext.Request.Headers[GlobalConstant.SPAN_ID],
                     RequestTime = DateTime.Now,
                     Method = context.HttpContext.Request.Method,
-                    RequestIP = context.HttpContext.Connection?.RemoteIpAddress?.ToString(),
                     Url = $"{context.HttpContext.Request.Host}{context.HttpContext.Request.Path}"
                 };
 
-                if (apiRequest.Method == "GET")
+                if (apiRequest.Method == GlobalConstant.GET)
                 {
                     apiRequest.Parameters = context.HttpContext.Request.QueryString.Value;
                 }
