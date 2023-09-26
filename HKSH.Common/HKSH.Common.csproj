@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.28</Version>
-		<Description>add location id for permission</Description>
+		<Version>5.0.29</Version>
+		<Description>fix location id type</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 

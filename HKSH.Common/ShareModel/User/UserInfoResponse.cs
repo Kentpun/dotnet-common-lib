@@ -150,7 +150,7 @@ namespace HKSH.Common.ShareModel.User
         /// <value>
         /// The location identifier.
         /// </value>
-        public string LocationId { get; set; } = string.Empty;
+        public int? LocationId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the status.
