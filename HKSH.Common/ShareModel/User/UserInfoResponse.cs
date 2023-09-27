@@ -219,6 +219,14 @@ namespace HKSH.Common.ShareModel.User
         public string? LocationAlias { get; set; }
 
         /// <summary>
+        /// Gets or sets the department identifier.
+        /// </summary>
+        /// <value>
+        /// The department identifier.
+        /// </value>
+        public int DepartmentId { get; set; }
+
+        /// <summary>
         /// Gets or sets the department code.
         /// </summary>
         /// <value>
