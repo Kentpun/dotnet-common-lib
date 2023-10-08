@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.ShareModel.User
 {
     /// <summary>
-    /// UserDefaultLocationResponse
+    /// User Default Location Response
     /// </summary>
     public class UserDefaultLocationResponse
     {

@@ -1,7 +1,7 @@
 ﻿namespace HKSH.Common.ShareModel.User
 {
     /// <summary>
-    /// UserDefaultLocationUpdateRequest
+    /// User Default Location Update Request
     /// </summary>
     public class UserDefaultLocationUpdateRequest
     {
