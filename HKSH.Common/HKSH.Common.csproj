@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.30</Version>
-		<Description>add department id into user info</Description>
+		<Version>5.0.31</Version>
+		<Description>add user default location response</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 

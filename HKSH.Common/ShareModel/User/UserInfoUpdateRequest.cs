@@ -23,12 +23,12 @@
         public string? Language { get; set; }
 
         /// <summary>
-        /// Gets or sets the location code.
+        /// Gets or sets the user default locations.
         /// </summary>
         /// <value>
-        /// The location code.
+        /// The user default locations.
         /// </value>
-        public string? LocationCode { get; set; }
+        public List<UserDefaultLocationUpdateRequest>? UserDefaultLocations { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the role.
