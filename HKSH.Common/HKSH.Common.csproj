@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.31</Version>
+		<Version>5.0.32</Version>
 		<Description>add user default location response</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>

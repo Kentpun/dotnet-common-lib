@@ -19,6 +19,6 @@
         /// <value>
         /// The location code.
         /// </value>
-        public string LocationCode { get; set; } = string.Empty;
+        public string? LocationCode { get; set; }
     }
 }
