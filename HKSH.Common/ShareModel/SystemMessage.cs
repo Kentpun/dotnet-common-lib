@@ -175,5 +175,17 @@ namespace HKSH.Common.ShareModel
         public static MessageModel TheRequestParameterIsIncorrect => new SystemMessage("000306");
 
         #endregion Param
+
+        #region Common Business
+
+        /// <summary>
+        /// Gets the export is failed.
+        /// </summary>
+        /// <value>
+        /// The export is failed.
+        /// </value>
+        public static MessageModel TheExportIsFailed => new SystemMessage("000400");
+
+        #endregion Common Business
     }
 }
