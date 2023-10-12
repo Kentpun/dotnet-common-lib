@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.33</Version>
+		<Version>5.0.34</Version>
 		<Description>add base tracked entity none primary key</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
