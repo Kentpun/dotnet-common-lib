@@ -73,11 +73,11 @@
         public string Remark { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the created at.
+        /// Gets or sets the created time.
         /// </summary>
         /// <value>
-        /// The created at.
+        /// The created time.
         /// </value>
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }
