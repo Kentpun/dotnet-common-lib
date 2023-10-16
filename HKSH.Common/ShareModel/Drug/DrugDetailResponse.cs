@@ -84,7 +84,7 @@
         /// <value>
         /// The default prescribing unit.
         /// </value>
-        public string DefaultPrescribingUnit { get; set; } = string.Empty;
+        public DrugIdNameResponse DefaultPrescribingUnit { get; set; } = new DrugIdNameResponse();
 
         /// <summary>
         /// Gets the category.

@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.37</Version>
-		<Description>add drug id for drug query response</Description>
+		<Version>5.0.38</Version>
+		<Description>change DefaultPrescribingUnit type</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
