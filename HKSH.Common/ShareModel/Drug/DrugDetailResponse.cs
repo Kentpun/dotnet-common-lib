@@ -203,6 +203,14 @@
         public string DosageUnit { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets or sets the route.
+        /// </summary>
+        /// <value>
+        /// The route.
+        /// </value>
+        public string Route { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the frequency.
         /// </summary>
         /// <value>
