@@ -217,5 +217,13 @@
         /// The is PRN.
         /// </value>
         public bool IsPRN { get; set; }
+
+        /// <summary>
+        /// Gets or sets the duration.
+        /// </summary>
+        /// <value>
+        /// The duration.
+        /// </value>
+        public string Duration { get; set; } = string.Empty;
     }
 }

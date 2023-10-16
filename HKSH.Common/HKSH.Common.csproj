@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.34</Version>
-		<Description>add base tracked entity none primary key</Description>
+		<Version>5.0.35</Version>
+		<Description>add drug detail response</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
