@@ -94,6 +94,13 @@
         /// </value>
         public string Category { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the route category.
+        /// </summary>
+        /// <value>
+        /// The route category.
+        /// </value>
+        public string RouteCategory { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets a value indicating whether [diluent mandatory].
