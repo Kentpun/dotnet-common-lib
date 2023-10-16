@@ -87,6 +87,15 @@
         public DrugIdNameResponse DefaultPrescribingUnit { get; set; } = new DrugIdNameResponse();
 
         /// <summary>
+        /// Gets or sets the prescribing units.
+        /// </summary>
+        /// <value>
+        /// The prescribing units.
+        /// </value>
+        public List<DrugIdNameResponse> PrescribingUnits { get; set; } = new List<DrugIdNameResponse>();
+
+
+        /// <summary>
         /// Gets the category.
         /// </summary>
         /// <value>

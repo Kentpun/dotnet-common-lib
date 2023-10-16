@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.39</Version>
-		<Description>add route category for response</Description>
+		<Version>5.0.40</Version>
+		<Description>add PrescribingUnits</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
