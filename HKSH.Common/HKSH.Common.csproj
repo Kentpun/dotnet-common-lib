@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.41</Version>
-		<Description>add product level for response</Description>
+		<Version>5.0.42</Version>
+		<Description>add admin route for response</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 

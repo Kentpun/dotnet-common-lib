@@ -95,12 +95,12 @@
         public List<DrugIdNameResponse> PrescribingUnits { get; set; } = new List<DrugIdNameResponse>();
 
         /// <summary>
-        /// Gets or sets the product level.
+        /// Gets or sets the admin route.
         /// </summary>
         /// <value>
-        /// The product level.
+        /// The admin route.
         /// </value>
-        public List<DrugIdNameResponse> ProductLevel { get; set; } = new List<DrugIdNameResponse>();
+        public DrugIdNameResponse AdminRoute { get; set; } = new DrugIdNameResponse();
 
         /// <summary>
         /// Gets the category.
