@@ -6,6 +6,11 @@
     public class DrugDetailResponse
     {
         /// <summary>
+        /// DrugId
+        /// </summary>
+        public long DrugId { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the drug.
         /// </summary>
         /// <value>
