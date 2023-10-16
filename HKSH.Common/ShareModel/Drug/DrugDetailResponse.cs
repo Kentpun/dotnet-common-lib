@@ -94,6 +94,13 @@
         /// </value>
         public List<DrugIdNameResponse> PrescribingUnits { get; set; } = new List<DrugIdNameResponse>();
 
+        /// <summary>
+        /// Gets or sets the product level.
+        /// </summary>
+        /// <value>
+        /// The product level.
+        /// </value>
+        public List<DrugIdNameResponse> ProductLevel { get; set; } = new List<DrugIdNameResponse>();
 
         /// <summary>
         /// Gets the category.
