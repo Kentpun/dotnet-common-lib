@@ -184,7 +184,7 @@
         /// <value>
         /// The common order display.
         /// </value>
-        public string CommonOrderDisplay { get; set; } = string.Empty;
+        public string DisplayCommonOrder { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the dosage value.

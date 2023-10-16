@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.35</Version>
-		<Description>add drug detail response</Description>
+		<Version>5.0.36</Version>
+		<Description>fix display common order name</Description>
 		<Authors>HKSH System Administrator</Authors>
 	</PropertyGroup>
 
