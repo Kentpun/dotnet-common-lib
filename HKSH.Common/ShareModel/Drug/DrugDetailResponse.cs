@@ -60,7 +60,7 @@
         /// <value>
         ///   <c>true</c> if this instance is in house formulary; otherwise, <c>false</c>.
         /// </value>
-        public bool isInHouseFormulary { get; set; }
+        public bool IsInHouseFormulary { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is pca.
