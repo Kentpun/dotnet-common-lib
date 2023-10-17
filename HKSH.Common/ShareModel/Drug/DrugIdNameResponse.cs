@@ -27,5 +27,13 @@ namespace HKSH.Common.ShareModel.Drug
         /// The name.
         /// </value>
         public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is parenteral.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is parenteral; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsParenteral { get; set; }
     }
 }
