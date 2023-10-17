@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.45</Version>
+		<Version>5.0.46</Version>
 		<Description>add admin route for response</Description>
 		<Authors>add IsParenteral for drug id name response</Authors>
 	</PropertyGroup>

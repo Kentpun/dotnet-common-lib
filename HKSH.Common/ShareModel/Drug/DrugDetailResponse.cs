@@ -172,7 +172,7 @@
         /// <value>
         /// The active whitelist routes.
         /// </value>
-        public List<DrugIdNameResponse> ActiveWhitelistRoutes { get; set; } = new List<DrugIdNameResponse>();
+        public List<DrugDetailRouteResponse> ActiveWhitelistRoutes { get; set; } = new List<DrugDetailRouteResponse>();
 
         /// <summary>
         /// Gets or sets the active others routes.
@@ -180,7 +180,7 @@
         /// <value>
         /// The active others routes.
         /// </value>
-        public List<DrugIdNameResponse> ActiveOthersRoutes { get; set; } = new List<DrugIdNameResponse>();
+        public List<DrugDetailRouteResponse> ActiveOthersRoutes { get; set; } = new List<DrugDetailRouteResponse>();
 
         /// <summary>
         /// Gets or sets the dispensing units.
