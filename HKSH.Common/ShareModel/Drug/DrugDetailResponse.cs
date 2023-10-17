@@ -103,6 +103,14 @@
         public DrugIdNameResponse AdminRoute { get; set; } = new DrugIdNameResponse();
 
         /// <summary>
+        /// Gets or sets the product route.
+        /// </summary>
+        /// <value>
+        /// The product route.
+        /// </value>
+        public DrugIdNameResponse ProductRoute { get; set; } = new DrugIdNameResponse();
+
+        /// <summary>
         /// Gets the category.
         /// </summary>
         /// <value>
