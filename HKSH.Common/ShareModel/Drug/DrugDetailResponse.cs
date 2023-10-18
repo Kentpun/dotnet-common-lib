@@ -124,7 +124,7 @@
         /// <value>
         /// The route category.
         /// </value>
-        public string RouteCategory { get; set; } = string.Empty;
+        public DrugDetailRouteCategoryResponse RouteCategory { get; set; } = new DrugDetailRouteCategoryResponse();
 
         /// <summary>
         /// Gets or sets a value indicating whether [diluent mandatory].
