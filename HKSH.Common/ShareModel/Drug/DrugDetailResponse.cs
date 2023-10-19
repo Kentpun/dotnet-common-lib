@@ -29,12 +29,17 @@
         public string TradeName { get; set; } = string.Empty;
 
         /// <summary>
+        /// GenericRouteFormName
+        /// </summary>
+        public string GenericRouteFormName { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the generic route form.
         /// </summary>
         /// <value>
         /// The generic route form.
         /// </value>
-        public string GenericRouteForm { get; set; } = string.Empty;
+        public string GenericName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the VMP.
@@ -69,6 +74,11 @@
         ///   <c>true</c> if this instance is pca; otherwise, <c>false</c>.
         /// </value>
         public bool IsPCA { get; set; }
+
+        /// <summary>
+        /// IsAllowMixture
+        /// </summary>
+        public bool IsAllowMixture { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is applicable calendar pack.
