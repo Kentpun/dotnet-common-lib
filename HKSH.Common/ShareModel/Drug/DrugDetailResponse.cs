@@ -118,7 +118,7 @@
         /// <value>
         /// The admin route.
         /// </value>
-        public DrugDetailRouteResponse AdminRoute { get; set; } = new DrugDetailRouteResponse();
+        public DrugDetailRouteResponse? AdminRoute { get; set; } = new DrugDetailRouteResponse();
 
         /// <summary>
         /// Gets or sets the product route.
