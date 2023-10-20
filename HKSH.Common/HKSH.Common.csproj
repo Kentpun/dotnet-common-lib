@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.50</Version>
+		<Version>5.0.51</Version>
 		<Description>update UserInfoListRequest</Description>
 		<Authors>add IsParenteral for drug id name response</Authors>
 	</PropertyGroup>

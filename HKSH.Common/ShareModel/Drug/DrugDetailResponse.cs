@@ -76,6 +76,14 @@
         public bool IsPCA { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is VMP.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is VMP; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsVMP { get; set; }
+
+        /// <summary>
         /// IsAllowMixture
         /// </summary>
         public bool IsAllowMixture { get; set; }
