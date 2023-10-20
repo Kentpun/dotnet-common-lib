@@ -110,7 +110,7 @@
         /// <value>
         /// The admin route.
         /// </value>
-        public DrugIdNameResponse AdminRoute { get; set; } = new DrugIdNameResponse();
+        public DrugDetailRouteResponse AdminRoute { get; set; } = new DrugDetailRouteResponse();
 
         /// <summary>
         /// Gets or sets the product route.
@@ -118,7 +118,7 @@
         /// <value>
         /// The product route.
         /// </value>
-        public DrugIdNameResponse ProductRoute { get; set; } = new DrugIdNameResponse();
+        public DrugDetailRouteResponse ProductRoute { get; set; } = new DrugDetailRouteResponse();
 
         /// <summary>
         /// Gets the category.

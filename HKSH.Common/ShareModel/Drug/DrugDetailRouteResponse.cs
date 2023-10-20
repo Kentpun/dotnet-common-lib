@@ -42,5 +42,10 @@ namespace HKSH.Common.ShareModel.Drug
         ///   <c>true</c> if this instance is parenteral; otherwise, <c>false</c>.
         /// </value>
         public bool IsParenteral { get; set; }
+
+        /// <summary>
+        /// isFunctionalRoute
+        /// </summary>
+        public bool IsFunctionalRoute { get; set; }
     }
 }
