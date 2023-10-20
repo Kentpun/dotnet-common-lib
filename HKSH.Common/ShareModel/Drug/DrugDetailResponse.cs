@@ -185,6 +185,14 @@
         public List<DrugIdNameResponse> ActiveOthersFluidTypes { get; set; } = new List<DrugIdNameResponse>();
 
         /// <summary>
+        /// Gets or sets the default type of the fluid.
+        /// </summary>
+        /// <value>
+        /// The default type of the fluid.
+        /// </value>
+        public DrugIdNameResponse DefaultFluidType { get; set; } = new DrugIdNameResponse();
+
+        /// <summary>
         /// Gets or sets the active whitelist routes.
         /// </summary>
         /// <value>
