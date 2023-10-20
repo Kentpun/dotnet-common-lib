@@ -38,6 +38,22 @@
         public List<string>? StaffIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the doctor ids.
+        /// </summary>
+        /// <value>
+        /// The doctor ids.
+        /// </value>
+        public List<string>? DoctorIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the patient ids.
+        /// </summary>
+        /// <value>
+        /// The patient ids.
+        /// </value>
+        public List<string>? PatientIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the group.
         /// </summary>
         /// <value>
