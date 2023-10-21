@@ -246,7 +246,7 @@
         /// <value>
         /// The common order display.
         /// </value>
-        public string DisplayCommonOrder { get; set; } = string.Empty;
+        public List<DrugIdNameResponse> DisplayCommonOrder { get; set; } = new List<DrugIdNameResponse>();
 
         /// <summary>
         /// Gets or sets the dosage value.
