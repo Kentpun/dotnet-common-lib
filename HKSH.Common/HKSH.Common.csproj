@@ -6,9 +6,9 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.54</Version>
-		<Description>add default fluid type</Description>
-		<Authors>add IsParenteral for drug id name response</Authors>
+		<Version>5.0.55</Version>
+		<Description>update invoker auth</Description>
+		<Authors>Developer</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>
