@@ -1,5 +1,6 @@
 ﻿using HKSH.Common.Constants;
 using HKSH.Common.Context;
+using HKSH.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using WebApiClient;
 
@@ -60,10 +61,18 @@ namespace HKSH.Common.ServiceInvoker
                     }
                 }
 
-                string reallyUserId = _currentContext.CurrentUserId;
-                if (!string.IsNullOrEmpty(reallyUserId))
+                //Cross-service access authentication is not mandatory
+                try
                 {
-                    options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
+                    string reallyUserId = _currentContext.CurrentUserId;
+                    if (!string.IsNullOrEmpty(reallyUserId))
+                    {
+                        options.HttpClient.DefaultRequestHeaders.Add(GlobalConstant.CURRENT_USER_CODE, reallyUserId);
+                    }
+                }
+                catch (UnAuthorizedException e)
+                {
+
                 }
             });
 
