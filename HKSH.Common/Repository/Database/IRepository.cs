@@ -17,6 +17,12 @@ namespace HKSH.Common.Repository.Database
         void Add(T entity);
 
         /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        void AddWithCustomizedTime(T entity, DateTime? CustomizedTime);
+
+        /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
         /// <param name="entity">The entity.</param>

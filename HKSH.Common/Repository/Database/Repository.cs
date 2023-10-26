@@ -97,6 +97,30 @@ namespace HKSH.Common.Repository.Database
             _dbSet.Add(entity);
         }
 
+        public void AddWithCustomizedTime(T entity, DateTime? CustomizedTime)
+        {
+            if (entity is IEntityTracker tracker)
+            {
+                if (string.IsNullOrEmpty(tracker.CreatedBy))
+                {
+                    tracker.CreatedBy = CurrentUserId;
+                    tracker.ModifiedBy = CurrentUserId;
+                }
+
+                if (CustomizedTime != null)
+                {
+                    tracker.CreatedTime = CustomizedTime.Value;
+                    tracker.ModifiedTime = CustomizedTime;
+                }
+                else
+                {
+                    tracker.CreatedTime = DateTime.Now;
+                    tracker.ModifiedTime = DateTime.Now;
+                }
+            }
+            _dbSet.Add(entity);
+        }
+
         /// <summary>
         /// Adds the specified entity and save and return entity.
         /// </summary>
