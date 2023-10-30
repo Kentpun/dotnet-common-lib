@@ -86,6 +86,30 @@
         public string? Address { get; set; }
 
         /// <summary>
+        /// Gets or sets the location type code.
+        /// </summary>
+        /// <value>
+        /// The location type code.
+        /// </value>
+        public string LocationTypeCode { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the location type description en.
+        /// </summary>
+        /// <value>
+        /// The location type description en.
+        /// </value>
+        public string LocationTypeDescriptionEn { get; set; } = null!;
+
+        /// <summary>
+        /// Gets or sets the location type description tc.
+        /// </summary>
+        /// <value>
+        /// The location type description tc.
+        /// </value>
+        public string LocationTypeDescriptionTc { get; set; } = null!;
+
+        /// <summary>
         /// Gets or sets the organization.
         /// </summary>
         /// <value>

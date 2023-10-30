@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.57</Version>
-		<Description>DictMasterResponse Add LockStatus</Description>
+		<Version>5.0.58</Version>
+		<Description>LocationResponse Add LocationType</Description>
 		<Authors>Developer</Authors>
 	</PropertyGroup>
 
