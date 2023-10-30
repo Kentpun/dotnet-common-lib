@@ -30,6 +30,14 @@
         public bool IsActive { get; set; } = true;
 
         /// <summary>
+        /// Gets or sets the lock status.
+        /// </summary>
+        /// <value>
+        /// The lock status.
+        /// </value>
+        public string LockStatus { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the data json.
         /// </summary>
         /// <value>
