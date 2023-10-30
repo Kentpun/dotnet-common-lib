@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.59</Version>
-		<Description>LocationResponse Add LocationType</Description>
+		<Version>5.0.60</Version>
+		<Description>Add DATA_ACCESS_HOST</Description>
 		<Authors>Developer</Authors>
 	</PropertyGroup>
 
