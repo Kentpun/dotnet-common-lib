@@ -152,6 +152,34 @@
         /// </value>
         public bool DiluentMandatory { get; set; }
 
+        #region DrugDoseRangeChecking
+
+        /// <summary>
+        /// Gets or sets the maximum dose range per dose.
+        /// </summary>
+        /// <value>
+        /// The maximum dose range per dose.
+        /// </value>
+        public int? MaxDoseRangePerDose { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum dose range per day.
+        /// </summary>
+        /// <value>
+        /// The maximum dose range per day.
+        /// </value>
+        public int? MaxDoseRangePerDay { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [rate mandatory].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [rate mandatory]; otherwise, <c>false</c>.
+        /// </value>
+        public bool RateMandatory { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is dangerous drug.
         /// </summary>
