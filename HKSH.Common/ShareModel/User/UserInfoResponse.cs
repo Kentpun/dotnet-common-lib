@@ -222,5 +222,13 @@ namespace HKSH.Common.ShareModel.User
         /// The user default locations.
         /// </value>
         public List<UserDefaultLocationResponse> UserDefaultLocations { get; set; } = new();
+
+        /// <summary>
+        /// Gets or sets the person.
+        /// </summary>
+        /// <value>
+        /// The person.
+        /// </value>
+        public PersonResponse? Person { get; set; }
     }
 }
