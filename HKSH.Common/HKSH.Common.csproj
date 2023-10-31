@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.61</Version>
-		<Description>Update UserDefaultLocationResponse And Add Enum PersonnelType</Description>
+		<Version>5.0.62</Version>
+		<Description>Update PersonResponse</Description>
 		<Authors>Developer</Authors>
 	</PropertyGroup>
 
