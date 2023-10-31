@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.62</Version>
-		<Description>Update PersonResponse</Description>
+		<Version>5.0.63</Version>
+		<Description>Update PatientIdsRequest</Description>
 		<Authors>Developer</Authors>
 	</PropertyGroup>
 
