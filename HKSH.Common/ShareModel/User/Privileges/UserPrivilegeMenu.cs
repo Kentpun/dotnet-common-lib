@@ -44,6 +44,38 @@
         /// component
         /// </summary>
         public string? Component { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether /[use default idle time].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use default idle time]; otherwise, <c>false</c>.
+        /// </value>
+        public bool UseDefaultIdleTime { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the customized idle time.
+        /// </summary>
+        /// <value>
+        /// The customized idle time.
+        /// </value>
+        public int? CustomizedIdleTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the use default refresh time.
+        /// </summary>
+        /// <value>
+        /// The use default refresh time.
+        /// </value>
+        public bool? UseDefaultRefreshTime { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets the customized refresh time.
+        /// </summary>
+        /// <value>
+        /// The customized refresh time.
+        /// </value>
+        public int? CustomizedRefreshTime { get; set; }
 
         /// <summary>
         /// sub menus
