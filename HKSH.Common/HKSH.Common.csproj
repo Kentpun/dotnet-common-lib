@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.67</Version>
-		<Description>Add CentreLocationRequest</Description>
+		<Version>5.0.68</Version>
+		<Description>Update CreateAuditLogTableSql</Description>
 		<Authors>Developer</Authors>
 	</PropertyGroup>
 
