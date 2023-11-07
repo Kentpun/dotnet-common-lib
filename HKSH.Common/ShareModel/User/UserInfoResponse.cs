@@ -187,6 +187,11 @@ namespace HKSH.Common.ShareModel.User
         public string? DoctorNameTc { get; set; }
 
         /// <summary>
+        /// CustomizedIdleTime
+        /// </summary>
+        public int? CustomizedIdleTime { get; set; }
+
+        /// <summary>
         /// permissions
         /// </summary>
         public List<UserPrivilegeModule> Permissions { get; set; } = new();
