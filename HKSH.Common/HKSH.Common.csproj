@@ -6,8 +6,8 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>HKSH.Common</Title>
-		<Version>5.0.65</Version>
-		<Description>Update PatientIdsRequest</Description>
+		<Version>5.0.66</Version>
+		<Description>LocationResponse Add SiteCode And SiteShortNameEn</Description>
 		<Authors>Developer</Authors>
 	</PropertyGroup>
 

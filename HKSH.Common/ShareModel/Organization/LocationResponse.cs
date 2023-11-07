@@ -110,6 +110,22 @@
         public string LocationTypeDescriptionTc { get; set; } = null!;
 
         /// <summary>
+        /// Gets or sets the site code.
+        /// </summary>
+        /// <value>
+        /// The site code.
+        /// </value>
+        public string SiteCode { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the site short name en.
+        /// </summary>
+        /// <value>
+        /// The site short name en.
+        /// </value>
+        public string SiteShortNameEn { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the organization.
         /// </summary>
         /// <value>
